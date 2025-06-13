@@ -3,14 +3,14 @@ import Foundation
 public struct HealthPattern: Codable, Equatable {
     public let healthIssue: HealthIssue
     public let parameter: WeatherParameter
-    public let condition: WeatherCondition
+    public let condition: HealthPatternCondition
     public let value: WeatherMeasurementValue
     public let risk: HealthRisk
     
     public init(
         healthIssue: HealthIssue,
         parameter: WeatherParameter,
-        condition: WeatherCondition,
+        condition: HealthPatternCondition,
         value: WeatherMeasurementValue,
         risk: HealthRisk
     ) {

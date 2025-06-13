@@ -16,5 +16,5 @@ public enum WeatherMeasurementValue: Codable, Equatable {
     case humidity(Double)
     case windSpeed(Measurement<UnitSpeed>)
     case windDirection(Measurement<UnitAngle>)
-    case weatherType(WeatherType)
+    case weatherCondition(WeatherCondition)
 }

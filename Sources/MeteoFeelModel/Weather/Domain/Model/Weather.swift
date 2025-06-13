@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Weather: Equatable, Codable {
-    public let type: WeatherType
+    public let condition: WeatherCondition
     public let temperature: Measurement<UnitTemperature>
     public let pressure: Measurement<UnitPressure>
     public let humidity: Double // Percentage
@@ -15,7 +15,7 @@ public struct Weather: Equatable, Codable {
     // - sunlightHours: Double?
     
     public init(
-        type: WeatherType,
+        condition: WeatherCondition,
         temperature: Measurement<UnitTemperature>,
         pressure: Measurement<UnitPressure>,
         humidity: Double,
@@ -23,7 +23,7 @@ public struct Weather: Equatable, Codable {
         windDirection: Measurement<UnitAngle>,
         timePeriod: TimePeriod
     ) {
-        self.type = type
+        self.condition = condition
         self.temperature = temperature
         self.pressure = pressure
         self.humidity = humidity

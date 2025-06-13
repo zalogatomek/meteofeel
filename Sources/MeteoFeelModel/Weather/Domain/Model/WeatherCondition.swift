@@ -1,6 +1,6 @@
 import Foundation
 
-public enum WeatherType: String, Codable, Equatable {
+public enum WeatherCondition: String, Codable, Equatable {
     case sunny
     case partlyCloudy
     case cloudy
@@ -11,4 +11,4 @@ public enum WeatherType: String, Codable, Equatable {
     case windy
     case thunderstorm
     case unknown
-}
+} 

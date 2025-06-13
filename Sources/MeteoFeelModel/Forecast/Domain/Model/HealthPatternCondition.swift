@@ -1,6 +1,6 @@
 import Foundation
 
-public enum WeatherCondition: String, Codable, Equatable {
+public enum HealthPatternCondition: String, Codable, Equatable {
     case above
     case below
     case rapidIncrease

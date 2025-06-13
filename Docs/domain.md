@@ -7,49 +7,50 @@ MeteoFeel is a health tracking application designed to help meteopaths (people s
 
 ### User
 - A person using the app to track their weather-related health conditions
-- Can set up personal preferences and health conditions
-- Can record daily health status and symptoms
+- Has a profile with basic information and location
+- Selects health issues they want to monitor
+- Can record daily health status
 
 ### Weather Data
 - Atmospheric conditions that may affect user's health
 - Includes temperature, pressure, humidity, wind speed, and other relevant metrics
 - Sourced from public weather services
-- Historical and forecast data
+- Three forecasts per day (morning/afternoon/evening)
 
 ### Health Status
 - User's daily self-reported condition
 - Includes:
   - Overall well-being rating
-  - Specific symptoms
-  - Severity of symptoms
-  - Duration of symptoms
-  - Any medications taken
+  - Health issues experienced
+  - Time periods when issues occurred (morning/afternoon/evening)
+- Recorded once per day
+- Combined with weather forecasts in health records
 
 ### Health Alert
 - Warning system based on:
   - Current weather conditions
-  - Historical user data
+  - User's selected health issues
   - Known weather-health correlations
-  - User's personal health patterns
+  - Risk level assessment
 
 ## Core Features
 
 ### Weather Monitoring
-- Weather forecast display
+- Weather forecast display (3 times per day)
 - Historical weather data
 - Weather change notifications
 
 ### Health Tracking
 - Daily health status logging
-- Symptom tracking
-- Medication tracking
+- Health issue tracking
 - Health history visualization
+- Weather-health correlation analysis
 
 ### Analysis & Insights
 - Correlation between weather and health
 - Pattern recognition
-- Personalized health predictions
 - Historical trend analysis
+- Health record analysis
 
 ### Alerts & Notifications
 - Weather-based health warnings

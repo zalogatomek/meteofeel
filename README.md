@@ -13,22 +13,32 @@ The app combines weather data with personal health tracking to provide insights 
 
 ## Features
 
-- Weather monitoring and forecasting
+- Weather monitoring and forecasting (3 times per day)
 - Daily health status tracking
-- Personalized health alerts
+- Personalized health alerts based on patterns
 - Historical data analysis
 - Pattern recognition and insights
-
-## Documentation
-
-- [Domain Documentation](Docs/domain.md) - Detailed description of the application's domain and features
-- [Technical Documentation](Docs/technical.md) - Technical architecture and implementation details
 
 ## Technology
 
 - Built with Swift and SwiftUI
 - Cross-platform support (iOS and Android)
 - Modern architecture following Domain-Driven Design principles
+- Clean Architecture with SOLID principles
+
+## Next Steps
+
+- Core infrastructure and service layer implementation
+- Essential features development (weather, health tracking, alerts)
+- Pattern recognition and historical analysis features
+- UI/UX improvements and performance optimization
+
+## Documentation
+
+- [Domain Documentation](Docs/domain.md) - Detailed description of the application's domain and features
+- [Application Flow](Docs/application_flow.md) - Step-by-step description of how the application works
+- [Technical Documentation](Docs/technical.md) - Technical architecture and implementation details
+- [Next Steps](Docs/next_steps.md) - Implementation plan and technical considerations
 
 ## License
 

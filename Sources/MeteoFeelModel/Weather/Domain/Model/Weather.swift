@@ -8,6 +8,7 @@ public struct Weather: Equatable, Codable {
     public let windSpeed: Measurement<UnitSpeed>
     public let windDirection: Measurement<UnitAngle>
     public let timePeriod: TimePeriod
+    public let fetchedAt: Date
 
     // NOTE: The current Weather model covers most health-related triggers. If data becomes available from the weather service, consider adding:
     // - pollenCount: Int?
@@ -21,7 +22,8 @@ public struct Weather: Equatable, Codable {
         humidity: Double,
         windSpeed: Measurement<UnitSpeed>,
         windDirection: Measurement<UnitAngle>,
-        timePeriod: TimePeriod
+        timePeriod: TimePeriod,
+        fetchedAt: Date = Date()
     ) {
         self.condition = condition
         self.temperature = temperature
@@ -30,5 +32,6 @@ public struct Weather: Equatable, Codable {
         self.windSpeed = windSpeed
         self.windDirection = windDirection
         self.timePeriod = timePeriod
+        self.fetchedAt = fetchedAt
     }
 }

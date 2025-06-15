@@ -2,13 +2,6 @@
 
 ## 1. Service Layer Design
 
-### External Services
-- Weather API integration
-  - Define interface for weather data fetching
-  - Handle API rate limits
-  - Implement error handling
-  - Plan offline capabilities
-
 ### Domain Services
 - Weather processing service
   - Forecast aggregation

@@ -1,0 +1,444 @@
+{
+    "patterns": [
+        {
+            "healthIssue": "headache",
+            "parameter": "pressure",
+            "condition": "rapidDecrease",
+            "value": 8.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "headache",
+            "parameter": "pressure",
+            "condition": "rapidIncrease",
+            "value": 8.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "headache",
+            "parameter": "pressure",
+            "condition": "below",
+            "value": 1000.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "headache",
+            "parameter": "temperature",
+            "condition": "above",
+            "value": 28.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "headache",
+            "parameter": "temperature",
+            "condition": "rapidDecrease",
+            "value": 5.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "headache",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 85.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "headache",
+            "parameter": "windSpeed",
+            "condition": "above",
+            "value": 40.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "headache",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "sunny",
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "headache",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "thunderstorm",
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "jointPain",
+            "parameter": "pressure",
+            "condition": "rapidDecrease",
+            "value": 5.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "jointPain",
+            "parameter": "pressure",
+            "condition": "rapidIncrease",
+            "value": 5.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "jointPain",
+            "parameter": "temperature",
+            "condition": "rapidDecrease",
+            "value": 3.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "jointPain",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 80.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "jointPain",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "rainy",
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "jointPain",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "heavyRain",
+            "risk": "high"
+        },
+        {
+            "healthIssue": "respiratory",
+            "parameter": "temperature",
+            "condition": "rapidDecrease",
+            "value": 4.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "respiratory",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 90.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "respiratory",
+            "parameter": "windSpeed",
+            "condition": "above",
+            "value": 35.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "respiratory",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "foggy",
+            "risk": "high"
+        },
+        {
+            "healthIssue": "respiratory",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "windy",
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "respiratory",
+            "parameter": "temperature",
+            "condition": "below",
+            "value": 5.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "respiratory",
+            "parameter": "humidity",
+            "condition": "below",
+            "value": 30.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "respiratory",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "cloudy",
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "fatigue",
+            "parameter": "temperature",
+            "condition": "above",
+            "value": 30.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "fatigue",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 85.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "fatigue",
+            "parameter": "pressure",
+            "condition": "below",
+            "value": 1005.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "fatigue",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "cloudy",
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "fatigue",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "rainy",
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "fatigue",
+            "parameter": "temperature",
+            "condition": "rapidIncrease",
+            "value": 6.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "fatigue",
+            "parameter": "windSpeed",
+            "condition": "above",
+            "value": 45.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "fatigue",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "partlyCloudy",
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "allergy",
+            "parameter": "windSpeed",
+            "condition": "above",
+            "value": 25.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "allergy",
+            "parameter": "humidity",
+            "condition": "below",
+            "value": 40.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "allergy",
+            "parameter": "temperature",
+            "condition": "above",
+            "value": 25.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "allergy",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "sunny",
+            "risk": "high"
+        },
+        {
+            "healthIssue": "allergy",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "windy",
+            "risk": "high"
+        },
+        {
+            "healthIssue": "allergy",
+            "parameter": "weatherCondition",
+            "condition": "equals",
+            "value": null,
+            "weatherCondition": "rainy",
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "asthma",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 80.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "asthma",
+            "parameter": "temperature",
+            "condition": "below",
+            "value": 10.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "asthma",
+            "parameter": "windSpeed",
+            "condition": "above",
+            "value": 20.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "asthma",
+            "parameter": "pressure",
+            "condition": "rapidDecrease",
+            "value": 5.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "asthma",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 60.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "asthma",
+            "parameter": "temperature",
+            "condition": "rapidDecrease",
+            "value": 5.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "mood",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 85.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "mood",
+            "parameter": "pressure",
+            "condition": "rapidDecrease",
+            "value": 8.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "mood",
+            "parameter": "temperature",
+            "condition": "below",
+            "value": 5.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "mood",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 70.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "mood",
+            "parameter": "pressure",
+            "condition": "rapidDecrease",
+            "value": 5.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "mood",
+            "parameter": "temperature",
+            "condition": "rapidDecrease",
+            "value": 8.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "cardiovascular",
+            "parameter": "temperature",
+            "condition": "above",
+            "value": 30.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "cardiovascular",
+            "parameter": "temperature",
+            "condition": "below",
+            "value": 0.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "cardiovascular",
+            "parameter": "pressure",
+            "condition": "rapidDecrease",
+            "value": 10.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "cardiovascular",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 80.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "cardiovascular",
+            "parameter": "temperature",
+            "condition": "rapidIncrease",
+            "value": 10.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "cardiovascular",
+            "parameter": "pressure",
+            "condition": "rapidDecrease",
+            "value": 5.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "skin",
+            "parameter": "humidity",
+            "condition": "below",
+            "value": 30.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "skin",
+            "parameter": "temperature",
+            "condition": "above",
+            "value": 28.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "skin",
+            "parameter": "windSpeed",
+            "condition": "above",
+            "value": 25.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "skin",
+            "parameter": "humidity",
+            "condition": "above",
+            "value": 80.0,
+            "risk": "high"
+        },
+        {
+            "healthIssue": "skin",
+            "parameter": "humidity",
+            "condition": "below",
+            "value": 40.0,
+            "risk": "medium"
+        },
+        {
+            "healthIssue": "skin",
+            "parameter": "temperature",
+            "condition": "rapidDecrease",
+            "value": 8.0,
+            "risk": "medium"
+        }
+    ]
+}

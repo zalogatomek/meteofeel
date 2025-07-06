@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WeatherMeasurement: Codable, Equatable {
+public struct WeatherMeasurement: Codable, Equatable, Sendable {
     public let parameter: WeatherParameter
     public let value: WeatherMeasurementValue
     
@@ -10,7 +10,7 @@ public struct WeatherMeasurement: Codable, Equatable {
     }
 }
 
-public enum WeatherMeasurementValue: Codable, Equatable {
+public enum WeatherMeasurementValue: Codable, Equatable, Sendable {
     case temperature(Measurement<UnitTemperature>)
     case pressure(Measurement<UnitPressure>)
     case humidity(Double)

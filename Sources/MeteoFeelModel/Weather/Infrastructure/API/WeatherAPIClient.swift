@@ -9,7 +9,7 @@ enum WeatherAPIError: Error {
     case serverError(Int)
 }
 
-protocol WeatherAPIClientProtocol {
+protocol WeatherAPIClientProtocol: Sendable {
     func fetchForecast(coordinates: Coordinates, days: Int) async throws -> WeatherResponse
 }
 

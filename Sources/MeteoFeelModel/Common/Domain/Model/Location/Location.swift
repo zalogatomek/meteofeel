@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Location: Codable, Equatable {
+public struct Location: Codable, Equatable, Sendable {
     public let id: UUID
     public let name: String
     public let coordinates: Coordinates

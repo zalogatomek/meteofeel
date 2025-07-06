@@ -6,7 +6,7 @@ enum HealthPatternAPIError: Error {
     case decodingError(Error)
 }
 
-protocol HealthPatternAPIClientProtocol {
+protocol HealthPatternAPIClientProtocol: Sendable {
     func fetchPatterns() async throws -> HealthPatternResponse
 }
 

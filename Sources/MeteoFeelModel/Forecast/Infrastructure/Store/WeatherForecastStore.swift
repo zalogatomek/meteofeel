@@ -1,13 +1,23 @@
 import Foundation
 
-enum WeatherRepositoryError: Error {
+protocol WeatherForecastStoreProtocol: Sendable {
+    func saveForecasts(_ forecasts: [WeatherForecast]) async throws
+    func getForecast(for date: Date) async throws -> WeatherForecast?
+    func getForecast(for timePeriod: TimePeriod) async throws -> WeatherForecast?
+    func getForecasts(for periods: [TimePeriod]) async throws -> [WeatherForecast]
+    func getForecasts(for date: Date, nextPeriods count: Int) async throws -> [WeatherForecast]
+    func getHistoricalForecasts(from startDate: Date, to endDate: Date) async throws -> [WeatherForecast]
+    func cleanupOldData(olderThan date: Date) async throws
+}
+
+enum WeatherForecastStoreError: Error {
     case saveError
     case loadError
     case dataNotFound
     case invalidData
 }
 
-final class WeatherRepository: WeatherRepositoryProtocol {
+actor WeatherForecastStore: WeatherForecastStoreProtocol {
 
     // MARK: - Keys
 
@@ -29,7 +39,7 @@ final class WeatherRepository: WeatherRepositoryProtocol {
 
     // MARK: - Save
     
-    func saveForecasts(_ forecasts: [Weather]) async throws {
+    func saveForecasts(_ forecasts: [WeatherForecast]) async throws {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         
@@ -37,9 +47,9 @@ final class WeatherRepository: WeatherRepositoryProtocol {
             var existingForecasts = try await getAllForecasts()
             
             for newForecast in forecasts {
-                if let index = existingForecasts.firstIndex(where: { $0.timePeriod == newForecast.timePeriod }) {
+                if let index = existingForecasts.firstIndex(where: { $0.weather.timePeriod == newForecast.weather.timePeriod }) {
                     let existingForecast = existingForecasts[index]
-                    if newForecast.fetchedAt > existingForecast.fetchedAt {
+                    if newForecast.weather.fetchedAt > existingForecast.weather.fetchedAt {
                         existingForecasts[index] = newForecast
                     }
                 } else {
@@ -48,50 +58,50 @@ final class WeatherRepository: WeatherRepositoryProtocol {
             }
             
             let data = try encoder.encode(existingForecasts.sorted(by: { 
-                $0.timePeriod < $1.timePeriod 
+                $0.weather.timePeriod < $1.weather.timePeriod 
             }))
             defaults.set(data, forKey: Keys.forecasts)
         } catch {
-            throw WeatherRepositoryError.saveError
+            throw WeatherForecastStoreError.saveError
         }
     }
 
     // MARK: - Get
 
-    func getForecast(for date: Date) async throws -> Weather? {
+    func getForecast(for date: Date) async throws -> WeatherForecast? {
         guard let timePeriod = TimePeriod(date: date, calendar: calendar) 
         else { return nil }
         return try await getForecast(for: timePeriod)
     }
     
-    func getForecast(for timePeriod: TimePeriod) async throws -> Weather? {
+    func getForecast(for timePeriod: TimePeriod) async throws -> WeatherForecast? {
         let forecasts = try await getAllForecasts()
-        return forecasts.first { $0.timePeriod == timePeriod }
+        return forecasts.first { $0.weather.timePeriod == timePeriod }
     }
     
-    func getForecasts(for periods: [TimePeriod]) async throws -> [Weather] {
+    func getForecasts(for periods: [TimePeriod]) async throws -> [WeatherForecast] {
         let forecasts = try await getAllForecasts()
         return periods.compactMap { period in
-            forecasts.first { $0.timePeriod == period }
+            forecasts.first { $0.weather.timePeriod == period }
         }
     }
 
-    func getForecasts(for date: Date, nextPeriods count: Int) async throws -> [Weather] {
+    func getForecasts(for date: Date, nextPeriods count: Int) async throws -> [WeatherForecast] {
         let periods = getTimePeriods(for: date, count: count)
         return try await getForecasts(for: periods)
     }
     
-    func getHistoricalForecasts(from startDate: Date, to endDate: Date) async throws -> [Weather] {
+    func getHistoricalForecasts(from startDate: Date, to endDate: Date) async throws -> [WeatherForecast] {
         let forecasts = try await getAllForecasts()
         return forecasts.filter { forecast in
-            let date = forecast.timePeriod.date
+            let date = forecast.weather.timePeriod.date
             return date >= startDate && date <= endDate
         }
     }
     
     func cleanupOldData(olderThan date: Date) async throws {
         let forecasts = try await getAllForecasts()
-        let filteredForecasts = forecasts.filter { $0.timePeriod.date >= date }
+        let filteredForecasts = forecasts.filter { $0.weather.timePeriod.date >= date }
         
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
@@ -100,13 +110,13 @@ final class WeatherRepository: WeatherRepositoryProtocol {
             let data = try encoder.encode(filteredForecasts)
             defaults.set(data, forKey: Keys.forecasts)
         } catch {
-            throw WeatherRepositoryError.saveError
+            throw WeatherForecastStoreError.saveError
         }
     }
     
     // MARK: - Helpers
     
-    private func getAllForecasts() async throws -> [Weather] {
+    private func getAllForecasts() async throws -> [WeatherForecast] {
         guard let data = defaults.data(forKey: Keys.forecasts)
         else { return [] }
         
@@ -114,9 +124,9 @@ final class WeatherRepository: WeatherRepositoryProtocol {
         decoder.dateDecodingStrategy = .iso8601
         
         do {
-            return try decoder.decode([Weather].self, from: data)
+            return try decoder.decode([WeatherForecast].self, from: data)
         } catch {
-            throw WeatherRepositoryError.invalidData
+            throw WeatherForecastStoreError.invalidData
         }
     }
     

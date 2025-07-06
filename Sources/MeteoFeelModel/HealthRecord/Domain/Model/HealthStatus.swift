@@ -1,6 +1,6 @@
 import Foundation
 
-public struct HealthStatus: Equatable, Codable {
+public struct HealthStatus: Equatable, Codable, Sendable {
     public let date: Date
     public let timeOfDay: [TimeOfDay]
     public let wellBeing: WellBeing

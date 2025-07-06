@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Weather: Equatable, Codable {
+public struct Weather: Equatable, Codable, Sendable {
     public let condition: WeatherCondition
     public let temperature: Measurement<UnitTemperature>
     public let pressure: Measurement<UnitPressure>

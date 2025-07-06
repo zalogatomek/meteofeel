@@ -1,6 +1,6 @@
 import Foundation
 
-public enum TimeOfDay: String, Codable, Hashable, Comparable {
+public enum TimeOfDay: String, Codable, Hashable, Comparable, CaseIterable, Sendable {
     case morning
     case afternoon
     case evening

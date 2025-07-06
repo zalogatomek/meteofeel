@@ -5,7 +5,7 @@ enum WeatherServiceError: Error {
     case mappingError
 }
 
-protocol WeatherServiceProtocol {
+protocol WeatherServiceProtocol: Sendable {
     func getForecast(coordinates: Coordinates, days: Int) async throws -> [Weather]
 }
 

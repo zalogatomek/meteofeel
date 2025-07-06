@@ -1,6 +1,6 @@
 import Foundation
 
-public struct HealthPattern: Codable, Equatable {
+public struct HealthPattern: Codable, Equatable, Sendable {
     public let healthIssue: HealthIssue
     public let parameter: WeatherParameter
     public let condition: HealthPatternCondition

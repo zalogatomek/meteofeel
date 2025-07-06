@@ -1,6 +1,6 @@
 import Foundation
 
-public struct TimePeriod: Codable, Hashable, Comparable {
+public struct TimePeriod: Codable, Hashable, Comparable, Sendable {
     public let date: Date
     public let timeOfDay: TimeOfDay
     

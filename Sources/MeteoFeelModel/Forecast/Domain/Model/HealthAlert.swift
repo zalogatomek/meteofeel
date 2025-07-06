@@ -1,7 +1,6 @@
 import Foundation
 
-/// Represents a health alert triggered by weather conditions
-public struct HealthAlert: Codable, Equatable {
+public struct HealthAlert: Codable, Equatable, Sendable {
     public let id: UUID
     public let timePeriod: TimePeriod
     public let pattern: HealthPattern

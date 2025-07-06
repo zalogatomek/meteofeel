@@ -1,6 +1,6 @@
 import Foundation
 
-public enum HealthIssue: String, Codable, Equatable, CaseIterable {
+public enum HealthIssue: String, Codable, Equatable, CaseIterable, Sendable {
     case headache
     case jointPain
     case respiratory

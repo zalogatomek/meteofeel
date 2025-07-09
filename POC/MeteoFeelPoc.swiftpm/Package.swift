@@ -16,7 +16,7 @@ let package = Package(
         .iOSApplication(
             name: "MeteoFeelPoc",
             targets: ["AppModule"],
-            bundleIdentifier: "com.zalogatomek.meteo-feel",
+            bundleIdentifier: "com.zalogatomek.meteofeelpoc",
             teamIdentifier: "5692ZYJZGS",
             displayVersion: "1.0",
             bundleVersion: "1",

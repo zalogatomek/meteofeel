@@ -1,6 +1,6 @@
 import Foundation
 
-enum WeatherAPIError: Error {
+public enum WeatherAPIError: Error {
     case invalidURL
     case networkError(Error)
     case invalidResponse

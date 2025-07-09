@@ -1,6 +1,6 @@
 import Foundation
 
-enum WeatherServiceError: Error {
+public enum WeatherServiceError: Error {
     case apiError(WeatherAPIError)
     case mappingError
 }

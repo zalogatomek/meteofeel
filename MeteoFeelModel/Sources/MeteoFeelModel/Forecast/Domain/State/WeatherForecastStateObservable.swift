@@ -1,24 +1,24 @@
 import Foundation
 
-actor WeatherForecastStateObservable {
+public actor WeatherForecastStateObservable {
 
     // MARK: - State
 
-    enum State {
+    public enum State: Sendable {
         case idle
         case fetching
         case loaded([WeatherForecast])
         case refreshing([WeatherForecast])
         case error(WeatherForecastServiceError)
         
-        var isFetching: Bool {
+        public var isFetching: Bool {
             switch self {
             case .fetching, .refreshing: true
             case .idle, .loaded, .error: false
             }
         }
         
-        var forecasts: [WeatherForecast]? {
+        public var forecasts: [WeatherForecast]? {
             switch self {
             case .loaded(let forecasts), .refreshing(let forecasts): forecasts
             case .fetching, .idle, .error: nil
@@ -26,13 +26,13 @@ actor WeatherForecastStateObservable {
         }
     }
 
-    var state: State {
+    public private(set) var state: State {
         didSet {
             stateContinuation.yield(state)
         }
     }
 
-    let stateStream: AsyncStream<State>
+    public let stateStream: AsyncStream<State>
     private let stateContinuation: AsyncStream<State>.Continuation
 
     // MARK: - Properties
@@ -76,13 +76,13 @@ actor WeatherForecastStateObservable {
 
     // MARK: - Actions
     
-    func onAppear() {
+    public func onAppear() {
         Task {
             await checkAndRefreshIfNeeded()
         }
     }
     
-    func refresh() async {
+    public func refresh() async {
         guard !state.isFetching else { return }
         await fetch()
     }

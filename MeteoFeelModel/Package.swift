@@ -18,7 +18,10 @@ let package = Package(
     targets: [
         .target(
             name: "MeteoFeelModel",
-            path: "Sources/MeteoFeelModel"
+            path: "Sources/MeteoFeelModel",
+            resources: [
+                .process("Forecast/Infrastructure/Model/health_patterns.json")
+            ]
         ),
         .testTarget(
             name: "MeteoFeelModelTests",

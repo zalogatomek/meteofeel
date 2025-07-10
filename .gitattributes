@@ -1,0 +1,2 @@
+# API Configuration - Track the file but ignore changes to real API keys
+MeteoFeel/Core/Configuration/WeatherApiConfiguration.swift -diff 

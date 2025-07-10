@@ -10,7 +10,7 @@ struct HomeView: View {
     // MARK: - Lifecycle
     
     init() {
-        let stateObservable = WeatherForecastStateObservableFactory.create(apiKey: "YOUR_API_KEY") // TODO: Replace with actual API key
+        let stateObservable = WeatherForecastStateObservableFactory.create(apiKey: WeatherApiConfiguration.apiKey)
         self.viewModel = HomeViewModel(stateObservable: stateObservable)
     }
     

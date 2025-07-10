@@ -83,7 +83,7 @@ struct WeatherResponse: Codable {
         let moonrise: String?
         let moonset: String?
         let moonPhase: String?
-        let moonIllumination: String?
+        let moonIllumination: Int?
         let isMoonUp: Int?
         let isSunUp: Int?
     }

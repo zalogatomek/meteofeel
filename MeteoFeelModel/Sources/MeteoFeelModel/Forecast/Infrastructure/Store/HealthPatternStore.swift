@@ -19,7 +19,7 @@ actor HealthPatternStore: HealthPatternStoreProtocol {
     
     // MARK: - Lifecycle
     
-    init(bundle: Bundle = .main, fileName: String = "health_patterns") {
+    init(bundle: Bundle = .module, fileName: String = "health_patterns") {
         self.bundle = bundle
         self.fileName = fileName
     }

@@ -19,7 +19,7 @@ final class WeatherService: WeatherServiceProtocol {
     func getForecast(coordinates: Coordinates, days: Int) async throws -> [Weather] {
         do {
             let response = try await apiClient.fetchForecast(coordinates: coordinates, days: days)
-            guard let forecast = WeatherMapper.mapForecast(response) else {
+            guard let forecast = WeatherMapper.map(response) else {
                 throw WeatherServiceError.mappingError
             }
             return forecast

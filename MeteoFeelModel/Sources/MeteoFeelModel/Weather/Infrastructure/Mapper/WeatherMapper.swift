@@ -2,31 +2,17 @@ import Foundation
 
 enum WeatherMapper {
 
-    // MARK: - Map
-
-    static func mapCurrent(_ response: WeatherResponse) -> Weather? {
-        guard let current = response.current,
-              let tempC = current.tempC,
-              let pressureMb = current.pressureMb,
-              let humidity = current.humidity,
-              let windKph = current.windKph,
-              let windDegree = current.windDegree,
-              let condition = current.condition,
-              let code = condition.code
-        else { return nil }
-        
-        return Weather(
-            condition: mapWeatherCondition(code),
-            temperature: Measurement(value: tempC, unit: UnitTemperature.celsius),
-            pressure: Measurement(value: pressureMb, unit: UnitPressure.millibars),
-            humidity: Double(humidity),
-            windSpeed: Measurement(value: windKph, unit: UnitSpeed.kilometersPerHour),
-            windDirection: Measurement(value: Double(windDegree), unit: UnitAngle.degrees),
-            timePeriod: TimePeriod(date: Date(), timeOfDay: mapTimeOfDay(hour: Calendar.current.component(.hour, from: Date())) ?? .evening)
-        )
-    }
+    // MARK: - Static Properties
     
-    static func mapForecast(_ response: WeatherResponse) -> [Weather]? {
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+
+    // MARK: - Map
+    
+    static func map(_ response: WeatherResponse) -> [Weather]? {
         guard let forecast = response.forecast,
               let forecastDays = forecast.forecastday,
               !forecastDays.isEmpty
@@ -36,8 +22,8 @@ enum WeatherMapper {
         
         for day in forecastDays {
             guard let hours = day.hour,
-                  let date = day.date,
-                  let dateObj = ISO8601DateFormatter().date(from: date)
+                  let dateString = day.date,
+                  let date = dateFormatter.date(from: dateString)
             else { continue }
             
             // Group hours by time of day
@@ -63,15 +49,15 @@ enum WeatherMapper {
             }
             
             // Map each time period
-            if let morningWeather = aggregateWeather(for: morningHours, date: dateObj, timeOfDay: .morning) {
+            if let morningWeather = aggregateWeather(for: morningHours, date: date, timeOfDay: .morning) {
                 weathers.append(morningWeather)
             }
             
-            if let afternoonWeather = aggregateWeather(for: afternoonHours, date: dateObj, timeOfDay: .afternoon) {
+            if let afternoonWeather = aggregateWeather(for: afternoonHours, date: date, timeOfDay: .afternoon) {
                 weathers.append(afternoonWeather)
             }
             
-            if let eveningWeather = aggregateWeather(for: eveningHours, date: dateObj, timeOfDay: .evening) {
+            if let eveningWeather = aggregateWeather(for: eveningHours, date: date, timeOfDay: .evening) {
                 weathers.append(eveningWeather)
             }
         }

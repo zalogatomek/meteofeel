@@ -5,12 +5,12 @@ public struct TimePeriod: Codable, Hashable, Comparable, Sendable {
     public let timeOfDay: TimeOfDay
     
     public init(date: Date, timeOfDay: TimeOfDay) {
-        self.date = date
+        self.date = date.startOfDay()
         self.timeOfDay = timeOfDay
     }
     
     public init?(date: Date, calendar: Calendar = .current) {
-        self.date = date
+        self.date = date.startOfDay(calendar: calendar)
         switch calendar.component(.hour, from: date) {
         case 6..<12: self.timeOfDay = .morning
         case 12..<18: self.timeOfDay = .afternoon

@@ -111,7 +111,6 @@ public actor WeatherForecastStateObservable {
             )
             
             try await handleNewForecasts(forecasts, store: store)
-            
         } catch {
             handleError(error)
         }

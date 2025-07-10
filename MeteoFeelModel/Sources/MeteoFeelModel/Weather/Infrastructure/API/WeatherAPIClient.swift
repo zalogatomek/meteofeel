@@ -17,6 +17,11 @@ final class WeatherAPIClient: WeatherAPIClientProtocol {
     private let baseURL = "https://api.weatherapi.com/v1"
     private let apiKey: String
     private let session: URLSession
+    private let jsonDecoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
     
     init(apiKey: String, session: URLSession = .shared) {
         self.apiKey = apiKey
@@ -56,7 +61,7 @@ final class WeatherAPIClient: WeatherAPIClientProtocol {
             switch httpResponse.statusCode {
             case 200:
                 do {
-                    return try JSONDecoder().decode(WeatherResponse.self, from: data)
+                    return try jsonDecoder.decode(WeatherResponse.self, from: data)
                 } catch {
                     throw WeatherAPIError.decodingError(error)
                 }

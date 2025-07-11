@@ -19,19 +19,16 @@ struct WeatherCardView: View {
         VStack(spacing: 16) {
             // Weather condition header
             HStack(spacing: 12) {
-                Image(systemName: weatherIconName)
-                    .font(.system(size: 32))
-                    .foregroundColor(weatherIconColor)
-                    .redacted(forecast == nil)
+                WeatherConditionIcon(condition: forecast?.weather.condition, size: 24)
                 
                 Text(weatherConditionText)
                     .font(.title2)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
-                    .redacted(forecast == nil)
                 
                 Spacer()
             }
+            .redacted(forecast == nil)
             
             // Weather metrics
             HStack(spacing: 8) {
@@ -74,15 +71,7 @@ struct WeatherCardView: View {
                 }
             }
         }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.cardBackground)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(.quaternary, lineWidth: 1)
-                )
-        )
+        .cardStyle()
     }
     
     // MARK: - Private Properties
@@ -126,38 +115,7 @@ struct WeatherCardView: View {
         return "\(Int(round(hPa.value))) hPa"
     }
     
-    private var weatherIconName: String {
-        guard let forecast else { return "questionmark" }
-        
-        switch forecast.weather.condition {
-        case .sunny: return "sun.max.fill"
-        case .partlyCloudy: return "cloud.sun.fill"
-        case .cloudy: return "cloud.fill"
-        case .rainy: return "cloud.rain.fill"
-        case .heavyRain: return "cloud.heavyrain.fill"
-        case .snowy: return "cloud.snow.fill"
-        case .foggy: return "cloud.fog.fill"
-        case .windy: return "wind"
-        case .thunderstorm: return "cloud.bolt.rain.fill"
-        case .unknown: return "questionmark"
-        }
-    }
-    
-    private var weatherIconColor: Color {
-        guard let forecast else { return .gray }
-        
-        switch forecast.weather.condition {
-        case .sunny: return .yellow
-        case .partlyCloudy: return .orange
-        case .cloudy: return .gray
-        case .rainy, .heavyRain: return .blue
-        case .snowy: return .cyan
-        case .foggy: return .gray
-        case .windy: return .gray
-        case .thunderstorm: return .purple
-        case .unknown: return .gray
-        }
-    }
+
 }
 
 #Preview("With Data") {

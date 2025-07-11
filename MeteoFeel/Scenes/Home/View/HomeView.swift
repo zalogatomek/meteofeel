@@ -50,7 +50,8 @@ struct HomeView: View {
                                                 temp: "\(Int(round(forecast.weather.temperature.value)))°C",
                                                 healthStatus: forecast.alerts.isEmpty ? "No health concerns" : "Health alerts active",
                                                 severity: forecast.alerts.isEmpty ? .low : .high,
-                                                iconName: viewModel.weatherIconName(for: forecast.weather)
+                                                weatherCondition: forecast.weather.condition,
+                                                healthIconName: forecast.alerts.isEmpty ? "checkmark.circle.fill" : "exclamationmark.triangle.fill"
                                             )
                                             .containerRelativeFrame(.horizontal) { width, _ in
                                                 width * 0.7
@@ -120,20 +121,7 @@ extension HomeViewModel {
         }
     }
     
-    func weatherIconName(for weather: Weather) -> String {
-        switch weather.condition {
-        case .sunny: return "sun.max.fill"
-        case .partlyCloudy: return "cloud.sun.fill"
-        case .cloudy: return "cloud.fill"
-        case .rainy: return "cloud.rain.fill"
-        case .heavyRain: return "cloud.heavyrain.fill"
-        case .snowy: return "cloud.snow.fill"
-        case .foggy: return "cloud.fog.fill"
-        case .windy: return "wind"
-        case .thunderstorm: return "cloud.bolt.rain.fill"
-        case .unknown: return "questionmark"
-        }
-    }
+
 }
 
 extension HealthIssue {

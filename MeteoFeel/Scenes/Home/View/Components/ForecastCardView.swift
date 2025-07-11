@@ -1,4 +1,5 @@
 import SwiftUI
+import MeteoFeelModel
 
 struct ForecastCardView: View {
     
@@ -9,7 +10,8 @@ struct ForecastCardView: View {
     let temp: String
     let healthStatus: String
     let severity: AlertSeverity
-    let iconName: String
+    let weatherCondition: WeatherCondition
+    let healthIconName: String
     
     // MARK: - Initialization
     
@@ -19,14 +21,16 @@ struct ForecastCardView: View {
         temp: String,
         healthStatus: String,
         severity: AlertSeverity,
-        iconName: String
+        weatherCondition: WeatherCondition,
+        healthIconName: String
     ) {
         self.time = time
         self.weather = weather
         self.temp = temp
         self.healthStatus = healthStatus
         self.severity = severity
-        self.iconName = iconName
+        self.weatherCondition = weatherCondition
+        self.healthIconName = healthIconName
     }
     
     // MARK: - View
@@ -40,9 +44,7 @@ struct ForecastCardView: View {
                 
                 Spacer()
                 
-                Image(systemName: iconName)
-                    .font(.title2)
-                    .foregroundColor(severityColor)
+                WeatherConditionIcon(condition: weatherCondition, size: 24)
             }
             
             VStack(alignment: .leading, spacing: 8) {
@@ -56,10 +58,16 @@ struct ForecastCardView: View {
                     .foregroundColor(.primary)
             }
             
-            Text(healthStatus)
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .lineLimit(2)
+            HStack(alignment: .center, spacing: 8) {
+                Image(systemName: healthIconName)
+                    .font(.system(size: 16))
+                    .foregroundColor(severityColor)
+                
+                Text(healthStatus)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
+            }
         }
         .padding()
         .background(
@@ -100,7 +108,8 @@ enum AlertSeverity {
                 temp: "26°C",
                 healthStatus: "High temperature may affect your condition",
                 severity: .high,
-                iconName: "thermometer.high"
+                weatherCondition: .partlyCloudy,
+                healthIconName: "thermometer.high"
             )
             
             ForecastCardView(
@@ -109,7 +118,8 @@ enum AlertSeverity {
                 temp: "22°C",
                 healthStatus: "High risk of headaches due to pressure changes",
                 severity: .high,
-                iconName: "exclamationmark.triangle.fill"
+                weatherCondition: .thunderstorm,
+                healthIconName: "exclamationmark.triangle.fill"
             )
         }
         .padding()

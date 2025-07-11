@@ -24,7 +24,7 @@ struct HomeView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 24) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("\(viewModel.greeting), User")
+                        Text(viewModel.greeting)
                             .font(.title.bold())
                             .foregroundColor(.primary)
                     }
@@ -32,9 +32,21 @@ struct HomeView: View {
                     .padding(.horizontal)
                     
                     VStack(spacing: 24) {
-                        WeatherCardView(
-                            forecast: viewModel.currentForecast
-                        )
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Current Weather")
+                                .font(.headline)
+                            
+                            WeatherCardView(
+                                forecast: viewModel.currentForecast
+                            )
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Health Alerts")
+                                .font(.headline)
+                            
+                            HealthAlertsCardView(alerts: viewModel.currentForecast?.alerts)
+                        }
                         
                         if !viewModel.forecasts.isEmpty {
                             VStack(alignment: .leading, spacing: 12) {
@@ -46,8 +58,8 @@ struct HomeView: View {
                                         ForEach(viewModel.forecasts, id: \.weather.timePeriod) { forecast in
                                             ForecastCardView(
                                                 time: viewModel.timePeriodText(forecast.weather.timePeriod),
-                                                weather: viewModel.weatherConditionText(for: forecast.weather),
-                                                temp: "\(Int(round(forecast.weather.temperature.value)))°C",
+                                                weather: forecast.weather.condition.displayName,
+                                                temp: forecast.weather.temperature.formattedTemperature,
                                                 healthStatus: forecast.alerts.isEmpty ? "No health concerns" : "Health alerts active",
                                                 severity: forecast.alerts.isEmpty ? .low : .high,
                                                 weatherCondition: forecast.weather.condition,
@@ -73,78 +85,6 @@ struct HomeView: View {
         }
         .refreshable {
             await viewModel.refresh()
-        }
-    }
-}
-
-// MARK: - Supporting Views
-
-struct HealthAlertView: View {
-    let alert: HealthAlert
-    
-    var body: some View {
-        HStack(spacing: 8) {
-            Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(.orange)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(alert.pattern.healthIssue.displayName)
-                    .font(.caption)
-                    .fontWeight(.medium)
-                
-                Text("Risk level: \(alert.pattern.risk.displayName)")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-            }
-            
-            Spacer()
-        }
-        .padding(.vertical, 4)
-    }
-}
-
-// MARK: - Extensions
-
-extension HomeViewModel {
-    func weatherConditionText(for weather: Weather) -> String {
-        switch weather.condition {
-        case .sunny: return "Sunny"
-        case .partlyCloudy: return "Partly Cloudy"
-        case .cloudy: return "Cloudy"
-        case .rainy: return "Light Rain"
-        case .heavyRain: return "Heavy Rain"
-        case .snowy: return "Snow"
-        case .foggy: return "Foggy"
-        case .windy: return "Windy"
-        case .thunderstorm: return "Thunderstorm"
-        case .unknown: return "Unknown"
-        }
-    }
-    
-
-}
-
-extension HealthIssue {
-    var displayName: String {
-        switch self {
-        case .headache: return "Headache"
-        case .jointPain: return "Joint Pain"
-        case .respiratory: return "Respiratory Issues"
-        case .fatigue: return "Fatigue"
-        case .allergy: return "Allergy"
-        case .asthma: return "Asthma"
-        case .mood: return "Mood Changes"
-        case .cardiovascular: return "Cardiovascular"
-        case .skin: return "Skin Issues"
-        }
-    }
-}
-
-extension HealthRisk {
-    var displayName: String {
-        switch self {
-        case .medium: return "Medium"
-        case .high: return "High"
         }
     }
 }

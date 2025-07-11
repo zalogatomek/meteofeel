@@ -4,441 +4,418 @@
             "healthIssue": "headache",
             "parameter": "pressure",
             "condition": "rapidDecrease",
-            "value": 8.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 8.0
+            }
         },
         {
             "healthIssue": "headache",
             "parameter": "pressure",
             "condition": "rapidIncrease",
-            "value": 8.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 8.0
+            }
         },
         {
             "healthIssue": "headache",
             "parameter": "pressure",
             "condition": "below",
-            "value": 1000.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 1000.0
+            }
         },
         {
             "healthIssue": "headache",
             "parameter": "temperature",
             "condition": "above",
-            "value": 28.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 28.0
+            }
         },
         {
             "healthIssue": "headache",
             "parameter": "temperature",
             "condition": "rapidDecrease",
-            "value": 5.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 5.0
+            }
         },
         {
             "healthIssue": "headache",
             "parameter": "humidity",
             "condition": "above",
-            "value": 85.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 85.0
+            }
         },
         {
             "healthIssue": "headache",
             "parameter": "windSpeed",
             "condition": "above",
-            "value": 40.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 40.0
+            }
         },
         {
             "healthIssue": "headache",
             "parameter": "weatherCondition",
             "condition": "equals",
-            "value": null,
-            "weatherCondition": "sunny",
-            "risk": "medium"
+            "thresholds": {
+                "medium": 0.0
+            }
         },
         {
             "healthIssue": "headache",
             "parameter": "weatherCondition",
             "condition": "equals",
-            "value": null,
-            "weatherCondition": "thunderstorm",
-            "risk": "medium"
+            "thresholds": {
+                "medium": 8.0
+            }
         },
         {
             "healthIssue": "jointPain",
             "parameter": "pressure",
             "condition": "rapidDecrease",
-            "value": 5.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 5.0
+            }
         },
         {
             "healthIssue": "jointPain",
             "parameter": "pressure",
             "condition": "rapidIncrease",
-            "value": 5.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 5.0
+            }
         },
         {
             "healthIssue": "jointPain",
             "parameter": "temperature",
             "condition": "rapidDecrease",
-            "value": 3.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 3.0
+            }
         },
         {
             "healthIssue": "jointPain",
             "parameter": "humidity",
             "condition": "above",
-            "value": 80.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 80.0
+            }
         },
         {
             "healthIssue": "jointPain",
             "parameter": "weatherCondition",
             "condition": "equals",
-            "value": null,
-            "weatherCondition": "rainy",
-            "risk": "medium"
-        },
-        {
-            "healthIssue": "jointPain",
-            "parameter": "weatherCondition",
-            "condition": "equals",
-            "value": null,
-            "weatherCondition": "heavyRain",
-            "risk": "high"
+            "thresholds": {
+                "high": 4.0,
+                "medium": 3.0
+            }
         },
         {
             "healthIssue": "respiratory",
             "parameter": "temperature",
             "condition": "rapidDecrease",
-            "value": 4.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 4.0
+            }
         },
         {
             "healthIssue": "respiratory",
             "parameter": "humidity",
             "condition": "above",
-            "value": 90.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 90.0
+            }
         },
         {
             "healthIssue": "respiratory",
             "parameter": "windSpeed",
             "condition": "above",
-            "value": 35.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 35.0
+            }
         },
         {
             "healthIssue": "respiratory",
             "parameter": "weatherCondition",
             "condition": "equals",
-            "value": null,
-            "weatherCondition": "foggy",
-            "risk": "high"
-        },
-        {
-            "healthIssue": "respiratory",
-            "parameter": "weatherCondition",
-            "condition": "equals",
-            "value": null,
-            "weatherCondition": "windy",
-            "risk": "medium"
+            "thresholds": {
+                "high": 6.0,
+                "medium": 7.0
+            }
         },
         {
             "healthIssue": "respiratory",
             "parameter": "temperature",
             "condition": "below",
-            "value": 5.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 5.0
+            }
         },
         {
             "healthIssue": "respiratory",
             "parameter": "humidity",
             "condition": "below",
-            "value": 30.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 30.0
+            }
         },
         {
             "healthIssue": "respiratory",
             "parameter": "weatherCondition",
             "condition": "equals",
-            "value": null,
-            "weatherCondition": "cloudy",
-            "risk": "medium"
+            "thresholds": {
+                "medium": 2.0
+            }
         },
         {
             "healthIssue": "fatigue",
             "parameter": "temperature",
             "condition": "above",
-            "value": 30.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 30.0
+            }
         },
         {
             "healthIssue": "fatigue",
             "parameter": "humidity",
             "condition": "above",
-            "value": 85.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 85.0
+            }
         },
         {
             "healthIssue": "fatigue",
             "parameter": "pressure",
             "condition": "below",
-            "value": 1005.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 1005.0
+            }
         },
         {
             "healthIssue": "fatigue",
             "parameter": "weatherCondition",
             "condition": "equals",
-            "value": null,
-            "weatherCondition": "cloudy",
-            "risk": "medium"
-        },
-        {
-            "healthIssue": "fatigue",
-            "parameter": "weatherCondition",
-            "condition": "equals",
-            "value": null,
-            "weatherCondition": "rainy",
-            "risk": "medium"
+            "thresholds": {
+                "medium": 3.0,
+                "high": 2.0
+            }
         },
         {
             "healthIssue": "fatigue",
             "parameter": "temperature",
             "condition": "rapidIncrease",
-            "value": 6.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 6.0
+            }
         },
         {
             "healthIssue": "fatigue",
             "parameter": "windSpeed",
             "condition": "above",
-            "value": 45.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 45.0
+            }
         },
         {
             "healthIssue": "fatigue",
             "parameter": "weatherCondition",
             "condition": "equals",
-            "value": null,
-            "weatherCondition": "partlyCloudy",
-            "risk": "medium"
+            "thresholds": {
+                "medium": 1.0
+            }
         },
         {
             "healthIssue": "allergy",
             "parameter": "windSpeed",
             "condition": "above",
-            "value": 25.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 25.0
+            }
         },
         {
             "healthIssue": "allergy",
             "parameter": "humidity",
             "condition": "below",
-            "value": 40.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 40.0
+            }
         },
         {
             "healthIssue": "allergy",
             "parameter": "temperature",
             "condition": "above",
-            "value": 25.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 25.0
+            }
         },
         {
             "healthIssue": "allergy",
             "parameter": "weatherCondition",
             "condition": "equals",
-            "value": null,
-            "weatherCondition": "sunny",
-            "risk": "high"
-        },
-        {
-            "healthIssue": "allergy",
-            "parameter": "weatherCondition",
-            "condition": "equals",
-            "value": null,
-            "weatherCondition": "windy",
-            "risk": "high"
-        },
-        {
-            "healthIssue": "allergy",
-            "parameter": "weatherCondition",
-            "condition": "equals",
-            "value": null,
-            "weatherCondition": "rainy",
-            "risk": "medium"
+            "thresholds": {
+                "high": 7.0,
+                "medium": 3.0
+            }
         },
         {
             "healthIssue": "asthma",
             "parameter": "humidity",
             "condition": "above",
-            "value": 80.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 80.0,
+                "medium": 60.0
+            }
         },
         {
             "healthIssue": "asthma",
             "parameter": "temperature",
             "condition": "below",
-            "value": 10.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 10.0
+            }
         },
         {
             "healthIssue": "asthma",
             "parameter": "windSpeed",
             "condition": "above",
-            "value": 20.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 20.0
+            }
         },
         {
             "healthIssue": "asthma",
             "parameter": "pressure",
             "condition": "rapidDecrease",
-            "value": 5.0,
-            "risk": "high"
-        },
-        {
-            "healthIssue": "asthma",
-            "parameter": "humidity",
-            "condition": "above",
-            "value": 60.0,
-            "risk": "medium"
+            "thresholds": {
+                "high": 5.0
+            }
         },
         {
             "healthIssue": "asthma",
             "parameter": "temperature",
             "condition": "rapidDecrease",
-            "value": 5.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 5.0
+            }
         },
         {
             "healthIssue": "mood",
             "parameter": "humidity",
             "condition": "above",
-            "value": 85.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 85.0,
+                "medium": 70.0
+            }
         },
         {
             "healthIssue": "mood",
             "parameter": "pressure",
             "condition": "rapidDecrease",
-            "value": 8.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 8.0,
+                "medium": 5.0
+            }
         },
         {
             "healthIssue": "mood",
             "parameter": "temperature",
             "condition": "below",
-            "value": 5.0,
-            "risk": "high"
-        },
-        {
-            "healthIssue": "mood",
-            "parameter": "humidity",
-            "condition": "above",
-            "value": 70.0,
-            "risk": "medium"
-        },
-        {
-            "healthIssue": "mood",
-            "parameter": "pressure",
-            "condition": "rapidDecrease",
-            "value": 5.0,
-            "risk": "medium"
+            "thresholds": {
+                "high": 5.0
+            }
         },
         {
             "healthIssue": "mood",
             "parameter": "temperature",
             "condition": "rapidDecrease",
-            "value": 8.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 8.0
+            }
         },
         {
             "healthIssue": "cardiovascular",
             "parameter": "temperature",
             "condition": "above",
-            "value": 30.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 30.0
+            }
         },
         {
             "healthIssue": "cardiovascular",
             "parameter": "temperature",
             "condition": "below",
-            "value": 0.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 0.0
+            }
         },
         {
             "healthIssue": "cardiovascular",
             "parameter": "pressure",
             "condition": "rapidDecrease",
-            "value": 10.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 10.0,
+                "medium": 5.0
+            }
         },
         {
             "healthIssue": "cardiovascular",
             "parameter": "humidity",
             "condition": "above",
-            "value": 80.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 80.0
+            }
         },
         {
             "healthIssue": "cardiovascular",
             "parameter": "temperature",
             "condition": "rapidIncrease",
-            "value": 10.0,
-            "risk": "medium"
-        },
-        {
-            "healthIssue": "cardiovascular",
-            "parameter": "pressure",
-            "condition": "rapidDecrease",
-            "value": 5.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 10.0
+            }
         },
         {
             "healthIssue": "skin",
             "parameter": "humidity",
             "condition": "below",
-            "value": 30.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 30.0,
+                "medium": 40.0
+            }
         },
         {
             "healthIssue": "skin",
             "parameter": "temperature",
             "condition": "above",
-            "value": 28.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 28.0
+            }
         },
         {
             "healthIssue": "skin",
             "parameter": "windSpeed",
             "condition": "above",
-            "value": 25.0,
-            "risk": "high"
+            "thresholds": {
+                "high": 25.0
+            }
         },
         {
             "healthIssue": "skin",
             "parameter": "humidity",
             "condition": "above",
-            "value": 80.0,
-            "risk": "high"
-        },
-        {
-            "healthIssue": "skin",
-            "parameter": "humidity",
-            "condition": "below",
-            "value": 40.0,
-            "risk": "medium"
+            "thresholds": {
+                "high": 80.0
+            }
         },
         {
             "healthIssue": "skin",
             "parameter": "temperature",
             "condition": "rapidDecrease",
-            "value": 8.0,
-            "risk": "medium"
+            "thresholds": {
+                "medium": 8.0
+            }
         }
     ]
 }

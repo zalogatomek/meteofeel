@@ -1,7 +1,7 @@
 import Foundation
 
-public enum WeatherCondition: String, Codable, Equatable, Sendable {
-    case sunny
+public enum WeatherCondition: Int, Codable, Equatable, Sendable {
+    case sunny = 0
     case partlyCloudy
     case cloudy
     case rainy
@@ -10,5 +10,9 @@ public enum WeatherCondition: String, Codable, Equatable, Sendable {
     case foggy
     case windy
     case thunderstorm
-    case unknown
+    case unknown = -1
+
+    init(value: Double) {
+        self = WeatherCondition(rawValue: Int(value)) ?? .unknown
+    }
 } 

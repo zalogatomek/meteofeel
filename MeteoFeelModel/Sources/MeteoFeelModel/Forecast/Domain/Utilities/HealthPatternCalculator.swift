@@ -14,77 +14,77 @@ struct HealthPatternCalculator {
     
     static func calculate(
         pattern: HealthPattern,
-        currentValue: WeatherMeasurementValue,
-        previousValue: WeatherMeasurementValue? = nil
+        currentValue: WeatherMeasurement,
+        previousValue: WeatherMeasurement? = nil
     ) -> Bool {
-        switch (pattern.condition, pattern.value, currentValue, previousValue) {
-        case (.above, .temperature(let threshold), .temperature(let current), _):
-            return current.value > threshold.value
-        case (.below, .temperature(let threshold), .temperature(let current), _):
-            return current.value < threshold.value
-        case (.equals, .temperature(let threshold), .temperature(let current), _):
-            return abs(current.value - threshold.value) < temperatureTolerance
-        case (.rapidIncrease, .temperature(let threshold), .temperature(let current), let previous):
-            guard let previous = previous, case .temperature(let prev) = previous else { return false }
-            return (current.value - prev.value) >= threshold.value
-        case (.rapidDecrease, .temperature(let threshold), .temperature(let current), let previous):
-            guard let previous = previous, case .temperature(let prev) = previous else { return false }
-            return (prev.value - current.value) >= threshold.value
+        switch (pattern.condition, pattern.value.parameter, currentValue, previousValue) {
+        case (.above, .temperature, let current, _):
+            return current.value > pattern.value.value
+        case (.below, .temperature, let current, _):
+            return current.value < pattern.value.value
+        case (.equals, .temperature, let current, _):
+            return abs(current.value - pattern.value.value) < temperatureTolerance
+        case (.rapidIncrease, .temperature, let current, let previous):
+            guard let previous = previous, case .temperature = previous.parameter else { return false }
+            return (current.value - previous.value) >= pattern.value.value
+        case (.rapidDecrease, .temperature, let current, let previous):
+            guard let previous = previous, case .temperature = previous.parameter else { return false }
+            return (previous.value - current.value) >= pattern.value.value
             
-        case (.above, .pressure(let threshold), .pressure(let current), _):
-            return current.value > threshold.value
-        case (.below, .pressure(let threshold), .pressure(let current), _):
-            return current.value < threshold.value
-        case (.equals, .pressure(let threshold), .pressure(let current), _):
-            return abs(current.value - threshold.value) < pressureTolerance
-        case (.rapidIncrease, .pressure(let threshold), .pressure(let current), let previous):
-            guard let previous = previous, case .pressure(let prev) = previous else { return false }
-            return (current.value - prev.value) >= threshold.value
-        case (.rapidDecrease, .pressure(let threshold), .pressure(let current), let previous):
-            guard let previous = previous, case .pressure(let prev) = previous else { return false }
-            return (prev.value - current.value) >= threshold.value
+        case (.above, .pressure, let current, _):
+            return current.value > pattern.value.value
+        case (.below, .pressure, let current, _):
+            return current.value < pattern.value.value
+        case (.equals, .pressure, let current, _):
+            return abs(current.value - pattern.value.value) < pressureTolerance
+        case (.rapidIncrease, .pressure, let current, let previous):
+            guard let previous = previous, case .pressure = previous.parameter else { return false }
+            return (current.value - previous.value) >= pattern.value.value
+        case (.rapidDecrease, .pressure, let current, let previous):
+            guard let previous = previous, case .pressure = previous.parameter else { return false }
+            return (previous.value - current.value) >= pattern.value.value
             
-        case (.above, .humidity(let threshold), .humidity(let current), _):
-            return current > threshold
-        case (.below, .humidity(let threshold), .humidity(let current), _):
-            return current < threshold
-        case (.equals, .humidity(let threshold), .humidity(let current), _):
-            return abs(current - threshold) < humidityTolerance
-        case (.rapidIncrease, .humidity(let threshold), .humidity(let current), let previous):
-            guard let previous = previous, case .humidity(let prev) = previous else { return false }
-            return (current - prev) >= threshold
-        case (.rapidDecrease, .humidity(let threshold), .humidity(let current), let previous):
-            guard let previous = previous, case .humidity(let prev) = previous else { return false }
-            return (prev - current) >= threshold
+        case (.above, .humidity, let current, _):
+            return current.value > pattern.value.value
+        case (.below, .humidity, let current, _):
+            return current.value < pattern.value.value
+        case (.equals, .humidity, let current, _):
+            return abs(current.value - pattern.value.value) < humidityTolerance
+        case (.rapidIncrease, .humidity, let current, let previous):
+            guard let previous = previous, case .humidity = previous.parameter else { return false }
+            return (current.value - previous.value) >= pattern.value.value
+        case (.rapidDecrease, .humidity, let current, let previous):
+            guard let previous = previous, case .humidity = previous.parameter else { return false }
+            return (previous.value - current.value) >= pattern.value.value
             
-        case (.above, .windSpeed(let threshold), .windSpeed(let current), _):
-            return current.value > threshold.value
-        case (.below, .windSpeed(let threshold), .windSpeed(let current), _):
-            return current.value < threshold.value
-        case (.equals, .windSpeed(let threshold), .windSpeed(let current), _):
-            return abs(current.value - threshold.value) < windSpeedTolerance
-        case (.rapidIncrease, .windSpeed(let threshold), .windSpeed(let current), let previous):
-            guard let previous = previous, case .windSpeed(let prev) = previous else { return false }
-            return (current.value - prev.value) >= threshold.value
-        case (.rapidDecrease, .windSpeed(let threshold), .windSpeed(let current), let previous):
-            guard let previous = previous, case .windSpeed(let prev) = previous else { return false }
-            return (prev.value - current.value) >= threshold.value
+        case (.above, .windSpeed, let current, _):
+            return current.value > pattern.value.value
+        case (.below, .windSpeed, let current, _):
+            return current.value < pattern.value.value
+        case (.equals, .windSpeed, let current, _):
+            return abs(current.value - pattern.value.value) < windSpeedTolerance
+        case (.rapidIncrease, .windSpeed, let current, let previous):
+            guard let previous = previous, case .windSpeed = previous.parameter else { return false }
+            return (current.value - previous.value) >= pattern.value.value
+        case (.rapidDecrease, .windSpeed, let current, let previous):
+            guard let previous = previous, case .windSpeed = previous.parameter else { return false }
+            return (previous.value - current.value) >= pattern.value.value
             
-        case (.above, .windDirection(let threshold), .windDirection(let current), _):
-            return current.value > threshold.value
-        case (.below, .windDirection(let threshold), .windDirection(let current), _):
-            return current.value < threshold.value
-        case (.equals, .windDirection(let threshold), .windDirection(let current), _):
-            return abs(current.value - threshold.value) < windDirectionTolerance
-        case (.rapidIncrease, .windDirection(let threshold), .windDirection(let current), let previous):
-            guard let previous = previous, case .windDirection(let prev) = previous else { return false }
-            return (current.value - prev.value) >= threshold.value
-        case (.rapidDecrease, .windDirection(let threshold), .windDirection(let current), let previous):
-            guard let previous = previous, case .windDirection(let prev) = previous else { return false }
-            return (prev.value - current.value) >= threshold.value
+        case (.above, .windDirection, let current, _):
+            return current.value > pattern.value.value
+        case (.below, .windDirection, let current, _):
+            return current.value < pattern.value.value
+        case (.equals, .windDirection, let current, _):
+            return abs(current.value - pattern.value.value) < windDirectionTolerance
+        case (.rapidIncrease, .windDirection, let current, let previous):
+            guard let previous = previous, case .windDirection = previous.parameter else { return false }
+            return (current.value - previous.value) >= pattern.value.value
+        case (.rapidDecrease, .windDirection, let current, let previous):
+            guard let previous = previous, case .windDirection = previous.parameter else { return false }
+            return (previous.value - current.value) >= pattern.value.value
             
-        case (.equals, .weatherCondition(let threshold), .weatherCondition(let current), _):
-            return current == threshold
+        case (.equals, .weatherCondition, let current, _):
+            return current.value == pattern.value.value
             
         default:
             return false

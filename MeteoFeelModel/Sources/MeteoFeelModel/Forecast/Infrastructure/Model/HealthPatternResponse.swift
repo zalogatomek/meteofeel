@@ -7,8 +7,11 @@ struct HealthPatternResponse: Codable {
         let healthIssue: HealthIssueResponse?
         let parameter: WeatherParameterResponse?
         let condition: HealthPatternConditionResponse?
-        let value: Double?
-        let weatherCondition: WeatherConditionResponse?
-        let risk: HealthRiskResponse?
+        let thresholds: RiskThresholds?
+    }
+    
+    struct RiskThresholds: Codable {
+        let high: Double?
+        let medium: Double?
     }
 }

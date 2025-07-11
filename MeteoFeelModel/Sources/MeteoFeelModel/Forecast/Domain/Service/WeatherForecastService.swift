@@ -71,36 +71,55 @@ final class WeatherForecastService: WeatherForecastServiceProtocol {
         using patterns: [HealthPattern],
         previousWeather: Weather?
     ) -> [HealthAlert] {
-        patterns.compactMap { pattern in
-            guard let currentValue = getCurrentValue(for: pattern.parameter, from: weather) else {
-                return nil
-            }
-            
-            let previousValue = previousWeather.flatMap { getCurrentValue(for: pattern.parameter, from: $0) }
+        var allAlerts: [HealthAlert] = []
+        
+        for pattern in patterns {
+            let currentValue = getCurrentValue(for: pattern.value.parameter, from: weather)
+            let previousValue = previousWeather.map { getCurrentValue(for: pattern.value.parameter, from: $0) }
             
             guard HealthPatternCalculator.calculate(
                 pattern: pattern,
                 currentValue: currentValue,
                 previousValue: previousValue
-            ) else { return nil }
+            ) else { continue }
             
-            return HealthAlert(
+            let alert = HealthAlert(
                 timePeriod: weather.timePeriod,
                 pattern: pattern,
                 currentValue: currentValue
             )
+            allAlerts.append(alert)
         }
+        
+        return filterRedundantAlerts(allAlerts).sorted()
     }
     
-    private func getCurrentValue(for parameter: WeatherParameter, from weather: Weather) -> WeatherMeasurementValue? {
+    private func filterRedundantAlerts(_ alerts: [HealthAlert]) -> [HealthAlert] {
+        var groupedAlerts: [String: [HealthAlert]] = [:]
+        
+        for alert in alerts {
+            let key = "\(alert.pattern.healthIssue.rawValue)_\(alert.pattern.value.parameter.rawValue)"
+            groupedAlerts[key, default: []].append(alert)
+        }
+
+        var result: [HealthAlert] = []
+        for alertGroup in groupedAlerts.values {
+            if let highestRiskAlert = alertGroup.max(by: { $0.pattern.risk < $1.pattern.risk }) {
+                result.append(highestRiskAlert)
+            }
+        }
+        
+        return result
+    }
+    
+    private func getCurrentValue(for parameter: WeatherParameter, from weather: Weather) -> WeatherMeasurement {
         switch parameter {
-        case .temperature: .temperature(weather.temperature)
-        case .pressure: .pressure(weather.pressure)
-        case .humidity: .humidity(weather.humidity)
-        case .windSpeed: .windSpeed(weather.windSpeed)
-        case .windDirection: .windDirection(weather.windDirection)
-        // TODO: weatherCondition for now is not directly available from Weather
-        case .weatherCondition: nil 
+        case .temperature: WeatherMeasurement(parameter: .temperature, value: weather.temperature)
+        case .pressure: WeatherMeasurement(parameter: .pressure, value: weather.pressure)
+        case .humidity: WeatherMeasurement(parameter: .humidity, value: weather.humidity)
+        case .windSpeed: WeatherMeasurement(parameter: .windSpeed, value: weather.windSpeed)
+        case .windDirection: WeatherMeasurement(parameter: .windDirection, value: weather.windDirection)
+        case .weatherCondition: WeatherMeasurement(parameter: .weatherCondition, value: Double(weather.condition.rawValue))
         }
     }
 } 

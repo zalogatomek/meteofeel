@@ -94,14 +94,6 @@ enum WeatherMapper {
     private static func aggregateWeather(for hours: [WeatherResponse.Hour], date: Date, timeOfDay: TimeOfDay) -> Weather? {
         guard !hours.isEmpty else { return nil }
         
-        // For health-related analysis, we should consider:
-        // 1. Most severe weather condition (for alerts)
-        // 2. Average temperature (for comfort)
-        // 3. Average pressure (for health impact)
-        // 4. Average humidity (for comfort)
-        // 5. Average wind speed (for comfort)
-        // 6. Most common wind direction
-        
         let temperatures = hours.compactMap { $0.tempC }
         let pressures = hours.compactMap { $0.pressureMb }
         let humidities = hours.compactMap { $0.humidity }
@@ -117,25 +109,23 @@ enum WeatherMapper {
               !conditions.isEmpty
         else { return nil }
         
-        // Calculate averages
         let avgTemp = temperatures.reduce(0, +) / Double(temperatures.count)
         let avgPressure = pressures.reduce(0, +) / Double(pressures.count)
         let avgHumidity = Double(humidities.reduce(0, +)) / Double(humidities.count)
         let avgWindSpeed = windSpeeds.reduce(0, +) / Double(windSpeeds.count)
-        let avgWindDegree = windDegrees.reduce(0, +) / windDegrees.count
+        let avgWindDegree = Double(windDegrees.reduce(0, +)) / Double(windDegrees.count)
         
-        // Find most severe weather condition
         let mostSevereCondition = conditions.max { a, b in
             severity(of: a) < severity(of: b)
         } ?? .unknown
         
         return Weather(
             condition: mostSevereCondition,
-            temperature: Measurement(value: avgTemp, unit: UnitTemperature.celsius),
-            pressure: Measurement(value: avgPressure, unit: UnitPressure.millibars),
+            temperature: avgTemp,
+            pressure: avgPressure,
             humidity: avgHumidity,
-            windSpeed: Measurement(value: avgWindSpeed, unit: UnitSpeed.kilometersPerHour),
-            windDirection: Measurement(value: Double(avgWindDegree), unit: UnitAngle.degrees),
+            windSpeed: avgWindSpeed,
+            windDirection: avgWindDegree,
             timePeriod: TimePeriod(date: date, timeOfDay: timeOfDay)
         )
     }

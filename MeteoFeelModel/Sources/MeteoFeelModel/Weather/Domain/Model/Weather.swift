@@ -2,11 +2,11 @@ import Foundation
 
 public struct Weather: Equatable, Codable, Sendable {
     public let condition: WeatherCondition
-    public let temperature: Measurement<UnitTemperature>
-    public let pressure: Measurement<UnitPressure>
-    public let humidity: Double // Percentage
-    public let windSpeed: Measurement<UnitSpeed>
-    public let windDirection: Measurement<UnitAngle>
+    public let temperature: Double
+    public let pressure: Double
+    public let humidity: Double
+    public let windSpeed: Double
+    public let windDirection: Double
     public let timePeriod: TimePeriod
     public let fetchedAt: Date
 
@@ -17,11 +17,11 @@ public struct Weather: Equatable, Codable, Sendable {
     
     public init(
         condition: WeatherCondition,
-        temperature: Measurement<UnitTemperature>,
-        pressure: Measurement<UnitPressure>,
+        temperature: Double,
+        pressure: Double,
         humidity: Double,
-        windSpeed: Measurement<UnitSpeed>,
-        windDirection: Measurement<UnitAngle>,
+        windSpeed: Double,
+        windDirection: Double,
         timePeriod: TimePeriod,
         fetchedAt: Date = Date()
     ) {

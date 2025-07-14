@@ -48,46 +48,6 @@ struct HealthAlertsCardView: View {
     }
 }
 
-// MARK: - Supporting Views
-
-struct HealthAlertView: View {
-    let alert: HealthAlert
-    
-    var body: some View {
-        HStack(spacing: 8) {
-            Image(systemName: alert.pattern.value.systemIconName)
-                .frame(width: 24, height: 24)
-                .foregroundColor(alert.pattern.risk.color)
-                .font(.title3)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text("\(alert.pattern.healthIssue.displayName): \(alert.pattern.risk.displayName) risk")
-                    .font(.caption)
-                    .fontWeight(.medium)
-                
-                Text(descriptiveMessage)
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
-            }
-            
-            Spacer()
-        }
-        .padding(.vertical, 4)
-    }
-    
-    // MARK: - Helpers
-    
-    private var descriptiveMessage: String {
-        let riskText = alert.pattern.risk.displayName
-        let healthIssueText = alert.pattern.healthIssue.displayName.lowercased()
-        let conditionText = alert.pattern.condition.displayText
-        let parameterText = alert.pattern.value.parameter.displayName.lowercased()
-        
-        return "\(riskText) risk of \(healthIssueText) due to \(conditionText) \(parameterText)"
-    }
-}
-
 // MARK: - Preview
 
 #Preview("With Alerts") {

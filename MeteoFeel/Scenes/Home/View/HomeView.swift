@@ -56,18 +56,10 @@ struct HomeView: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 16) {
                                         ForEach(viewModel.forecasts, id: \.weather.timePeriod) { forecast in
-                                            ForecastCardView(
-                                                time: viewModel.timePeriodText(forecast.weather.timePeriod),
-                                                weather: forecast.weather.condition.displayName,
-                                                temp: forecast.weather.temperature.formattedTemperature,
-                                                healthStatus: forecast.alerts.isEmpty ? "No health concerns" : "Health alerts active",
-                                                severity: forecast.alerts.isEmpty ? .low : .high,
-                                                weatherCondition: forecast.weather.condition,
-                                                healthIconName: forecast.alerts.isEmpty ? "checkmark.circle.fill" : "exclamationmark.triangle.fill"
-                                            )
-                                            .containerRelativeFrame(.horizontal) { width, _ in
-                                                width * 0.7
-                                            }
+                                            ForecastCardView(forecast: forecast)
+                                                .containerRelativeFrame(.horizontal) { width, _ in
+                                                    width * 0.75
+                                                }
                                         }
                                     }
                                 }

@@ -1,127 +1,180 @@
-import SwiftUI
 import MeteoFeelModel
+import SwiftUI
 
 struct ForecastCardView: View {
     
     // MARK: - Properties
     
-    let time: String
-    let weather: String
-    let temp: String
-    let healthStatus: String
-    let severity: AlertSeverity
-    let weatherCondition: WeatherCondition
-    let healthIconName: String
+    let forecast: WeatherForecast
     
     // MARK: - Initialization
     
-    init(
-        time: String,
-        weather: String,
-        temp: String,
-        healthStatus: String,
-        severity: AlertSeverity,
-        weatherCondition: WeatherCondition,
-        healthIconName: String
-    ) {
-        self.time = time
-        self.weather = weather
-        self.temp = temp
-        self.healthStatus = healthStatus
-        self.severity = severity
-        self.weatherCondition = weatherCondition
-        self.healthIconName = healthIconName
+    init(forecast: WeatherForecast) {
+        self.forecast = forecast
     }
     
     // MARK: - View
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text(time)
+        VStack(alignment: .leading, spacing: 16) {
+            Text(TimePeriodStringFactory.create(forecast.weather.timePeriod))
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            HStack(spacing: 12) {
+                WeatherConditionIcon(condition: forecast.weather.condition, size: 24)
+                
+                Text(forecast.weather.condition.displayName)
                     .font(.headline)
+                    .fontWeight(.semibold)
                     .foregroundColor(.primary)
                 
                 Spacer()
+            }
+            
+            HStack(spacing: 8) {
+                WeatherMeasurementView(
+                    measurement: WeatherMeasurement(
+                        parameter: .temperature, value: forecast.weather.temperature),
+                    style: .small
+                )
                 
-                WeatherConditionIcon(condition: weatherCondition, size: 24)
+                WeatherMeasurementView(
+                    measurement: WeatherMeasurement(parameter: .humidity, value: forecast.weather.humidity),
+                    style: .small
+                )
+                
+                WeatherMeasurementView(
+                    measurement: WeatherMeasurement(parameter: .pressure, value: forecast.weather.pressure),
+                    style: .small
+                )
+                
+                WeatherMeasurementView(
+                    measurement: WeatherMeasurement(parameter: .windSpeed, value: forecast.weather.windSpeed),
+                    style: .small
+                )
             }
             
             VStack(alignment: .leading, spacing: 8) {
-                Text(weather)
-                    .font(.subheadline)
-                    .foregroundColor(.primary)
-                
-                Text(temp)
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-            }
-            
-            HStack(alignment: .center, spacing: 8) {
-                Image(systemName: healthIconName)
-                    .font(.system(size: 16))
-                    .foregroundColor(severityColor)
-                
-                Text(healthStatus)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
+                if !forecast.alerts.isEmpty {
+                    ForEach(Array(forecast.alerts.prefix(2).enumerated()), id: \.element.id) { index, alert in
+                        HealthAlertView(
+                            alert: alert,
+                            style: .small
+                        )
+                        
+                        if index < min(forecast.alerts.count, 2) - 1 {
+                            Divider()
+                                .padding(.vertical, 2)
+                        }
+                    }
+                    
+                    if forecast.alerts.count > 2 {
+                        HStack {
+                            Text("+\(forecast.alerts.count - 2) more alerts")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                            
+                            Spacer()
+                        }
+                        .padding(.top, 4)
+                    }
+                } else {
+                    HStack(spacing: 8) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.caption)
+                            .foregroundColor(.green)
+                        
+                        Text("No health concerns")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
         }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(severityColor.opacity(0.3), lineWidth: 1)
-                )
-        )
+        .cardStyle()
     }
     
-    // MARK: - Private Properties
-    
-    private var severityColor: Color {
-        switch severity {
-        case .low: return .green
-        case .medium: return .orange
-        case .high: return .red
-        }
-    }
-}
 
-// MARK: - Alert Severity
-
-enum AlertSeverity {
-    case low
-    case medium
-    case high
 }
 
 #Preview {
     ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 16) {
-            ForecastCardView(
-                time: "Morning",
-                weather: "Partly Cloudy",
-                temp: "26°C",
-                healthStatus: "High temperature may affect your condition",
-                severity: .high,
-                weatherCondition: .partlyCloudy,
-                healthIconName: "thermometer.high"
+            let sampleWeather = Weather(
+                condition: .partlyCloudy,
+                temperature: 26.0,
+                pressure: 1013.0,
+                humidity: 65.0,
+                windSpeed: 12.0,
+                windDirection: 180.0,
+                timePeriod: TimePeriod(date: Date(), timeOfDay: .morning)
             )
             
-            ForecastCardView(
-                time: "Afternoon",
-                weather: "Thunderstorm",
-                temp: "22°C",
-                healthStatus: "High risk of headaches due to pressure changes",
-                severity: .high,
-                weatherCondition: .thunderstorm,
-                healthIconName: "exclamationmark.triangle.fill"
+            let sampleAlerts = [
+                HealthAlert(
+                    timePeriod: TimePeriod(date: Date(), timeOfDay: .morning),
+                    pattern: HealthPattern(
+                        healthIssue: .headache,
+                        condition: .rapidDecrease,
+                        value: WeatherMeasurement(parameter: .pressure, value: 1005.0),
+                        risk: .high
+                    ),
+                    currentValue: WeatherMeasurement(parameter: .pressure, value: 1005.0)
+                ),
+                HealthAlert(
+                    timePeriod: TimePeriod(date: Date(), timeOfDay: .morning),
+                    pattern: HealthPattern(
+                        healthIssue: .fatigue,
+                        condition: .above,
+                        value: WeatherMeasurement(parameter: .humidity, value: 85.0),
+                        risk: .medium
+                    ),
+                    currentValue: WeatherMeasurement(parameter: .humidity, value: 85.0)
+                ),
+                HealthAlert(
+                    timePeriod: TimePeriod(date: Date(), timeOfDay: .morning),
+                    pattern: HealthPattern(
+                        healthIssue: .respiratory,
+                        condition: .above,
+                        value: WeatherMeasurement(parameter: .humidity, value: 85.0),
+                        risk: .medium
+                    ),
+                    currentValue: WeatherMeasurement(parameter: .humidity, value: 85.0)
+                ),
+            ]
+            
+            let sampleForecast = WeatherForecast(
+                weather: sampleWeather,
+                alerts: sampleAlerts
             )
+            
+            ForecastCardView(forecast: sampleForecast)
+                .containerRelativeFrame(.horizontal) { width, _ in
+                    width * 0.75
+                }
+            
+            let sampleWeather2 = Weather(
+                condition: .thunderstorm,
+                temperature: 22.0,
+                pressure: 1005.0,
+                humidity: 85.0,
+                windSpeed: 25.0,
+                windDirection: 180.0,
+                timePeriod: TimePeriod(date: Date(), timeOfDay: .afternoon)
+            )
+            
+            let sampleForecast2 = WeatherForecast(
+                weather: sampleWeather2,
+                alerts: []
+            )
+            
+            ForecastCardView(forecast: sampleForecast2)
+                .containerRelativeFrame(.horizontal) { width, _ in
+                    width * 0.75
+                }
         }
         .padding()
     }
-} 
+}

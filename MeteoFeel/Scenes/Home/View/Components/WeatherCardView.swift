@@ -31,13 +31,13 @@ struct WeatherCardView: View {
                 WeatherMeasurementView(
                     measurement: (forecast?.weather.humidity).map { WeatherMeasurement(parameter: .humidity, value: $0) }
                 )
-                
+
                 WeatherMeasurementView(
-                    measurement: (forecast?.weather.windSpeed).map { WeatherMeasurement(parameter: .windSpeed, value: $0) }
+                    measurement: (forecast?.weather.pressure).map { WeatherMeasurement(parameter: .pressure, value: $0) }
                 )
                 
                 WeatherMeasurementView(
-                    measurement: (forecast?.weather.pressure).map { WeatherMeasurement(parameter: .pressure, value: $0) }
+                    measurement: (forecast?.weather.windSpeed).map { WeatherMeasurement(parameter: .windSpeed, value: $0) }
                 )
             }
         }

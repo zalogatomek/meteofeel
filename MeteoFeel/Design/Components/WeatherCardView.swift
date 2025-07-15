@@ -5,7 +5,13 @@ struct WeatherCardView: View {
     
     // MARK: - Properties
     
-    let forecast: WeatherForecast?
+    private let forecast: WeatherForecast?
+
+    // MARK: - Lifecycle
+
+    init(forecast: WeatherForecast?) {
+        self.forecast = forecast
+    }
     
     // MARK: - View
     

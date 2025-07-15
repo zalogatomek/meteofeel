@@ -19,4 +19,20 @@ struct TimePeriodStringFactory {
             return "\(dateText), \(timePeriod.timeOfDay.displayName.lowercased())"
         }
     }
+    
+    // MARK: - Forecast Header
+    
+    static func createForecastHeader(_ timePeriod: TimePeriod) -> String {
+        let timeText = create(timePeriod)
+        
+        if timePeriod.date.isToday {
+            return "Today's \(timeText) Forecast"
+        } else if timePeriod.date.isTomorrow {
+            return "\(timeText) Forecast"
+        } else if timePeriod.date.isYesterday {
+            return "\(timeText) Forecast"
+        } else {
+            return "\(timeText) Forecast"
+        }
+    }
 }

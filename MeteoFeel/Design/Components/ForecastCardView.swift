@@ -1,11 +1,11 @@
-import MeteoFeelModel
 import SwiftUI
+import MeteoFeelModel
 
 struct ForecastCardView: View {
     
     // MARK: - Properties
     
-    let forecast: WeatherForecast
+    private let forecast: WeatherForecast
     
     // MARK: - Initialization
     

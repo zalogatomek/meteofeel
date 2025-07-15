@@ -6,6 +6,7 @@ struct HomeView: View {
     // MARK: - Properties
     
     @State private var viewModel: HomeViewModel
+    @State private var selectedForecast: WeatherForecast?
     
     // MARK: - Lifecycle
     
@@ -54,11 +55,14 @@ struct HomeView: View {
                                     .font(.headline)
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 16) {
+                                    HStack(alignment: .top, spacing: 16) {
                                         ForEach(viewModel.forecasts, id: \.weather.timePeriod) { forecast in
                                             ForecastCardView(forecast: forecast)
                                                 .containerRelativeFrame(.horizontal) { width, _ in
                                                     width * 0.75
+                                                }
+                                                .onTapGesture {
+                                                    selectedForecast = forecast
                                                 }
                                         }
                                     }
@@ -77,6 +81,14 @@ struct HomeView: View {
         }
         .refreshable {
             await viewModel.refresh()
+        }
+        .fullScreenCover(item: $selectedForecast) { forecast in
+            ForecastDetailsView(
+                forecast: forecast,
+                onDismiss: {
+                    selectedForecast = nil
+                }
+            )
         }
     }
 }

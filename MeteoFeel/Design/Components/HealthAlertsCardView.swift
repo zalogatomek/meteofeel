@@ -5,7 +5,7 @@ struct HealthAlertsCardView: View {
     
     // MARK: - Properties
     
-    let alerts: [HealthAlert]?
+    private let alerts: [HealthAlert]?
     
     // MARK: - Lifecycle
     

@@ -79,12 +79,8 @@ final class HomeViewModel {
     }
     
     private func updateWeatherData(from weatherForecasts: [WeatherForecast]) {
-        self.forecasts = weatherForecasts
-        
-        // Set current forecast to the most recent forecast
-        if let mostRecentForecast = weatherForecasts.max(by: { $0.weather.fetchedAt < $1.weather.fetchedAt }) {
-            self.currentForecast = mostRecentForecast
-        }
+        currentForecast = weatherForecasts.max(by: { $0.weather.fetchedAt < $1.weather.fetchedAt })
+        forecasts = weatherForecasts.filter { $0.weather.timePeriod != currentForecast?.weather.timePeriod }
     }
 }
 
@@ -94,22 +90,22 @@ extension HomeViewModel {
     
     var greeting: String {
         let hour = Calendar.current.component(.hour, from: Date())
-        switch hour {
-        case 0..<12: return "Good Morning"
-        case 12..<17: return "Good Afternoon"
-        default: return "Good Evening"
+        return switch hour {
+        case 0..<12: "Good Morning"
+        case 12..<17: "Good Afternoon"
+        default: "Good Evening"
         }
     }
     
     func forecastForTimePeriod(_ timePeriod: TimePeriod) -> WeatherForecast? {
-        return forecasts.first { $0.weather.timePeriod == timePeriod }
+        forecasts.first { $0.weather.timePeriod == timePeriod }
     }
     
     func timePeriodText(_ timePeriod: TimePeriod) -> String {
         switch timePeriod.timeOfDay {
-        case .morning: return "Morning"
-        case .afternoon: return "Afternoon"
-        case .evening: return "Evening"
+        case .morning: "Morning"
+        case .afternoon: "Afternoon"
+        case .evening: "Evening"
         }
     }
 } 

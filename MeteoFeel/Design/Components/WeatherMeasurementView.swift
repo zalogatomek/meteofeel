@@ -1,5 +1,5 @@
-import MeteoFeelModel
 import SwiftUI
+import MeteoFeelModel
 
 struct WeatherMeasurementView: View {
 
@@ -13,6 +13,13 @@ struct WeatherMeasurementView: View {
             switch self {
             case .regular: .title2
             case .small: .caption
+            }
+        }
+
+        var iconSize: CGFloat {
+            switch self {
+            case .regular: 28
+            case .small: 20
             }
         }
 
@@ -50,6 +57,7 @@ struct WeatherMeasurementView: View {
             Image(systemName: measurement?.systemIconName ?? "questionmark.circle")
                 .font(style.iconFont)
                 .foregroundColor(.primary)
+                .frame(width: style.iconSize, height: style.iconSize)
             
             Text(measurement?.formattedValue ?? String.placeholder(length: 5))
                 .font(style.valueFont)

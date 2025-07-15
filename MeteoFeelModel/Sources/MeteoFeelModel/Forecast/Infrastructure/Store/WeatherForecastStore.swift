@@ -21,7 +21,7 @@ actor WeatherForecastStore: WeatherForecastStoreProtocol {
 
     // MARK: - Keys
 
-    private enum Keys {
+    enum Keys {
         static let forecasts = "weather_forecasts"
     }
 

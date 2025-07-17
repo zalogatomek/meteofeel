@@ -1,0 +1,11 @@
+import Foundation
+
+public final class ProfileServiceFactory {
+
+    // MARK: - Create
+
+    public static func create() -> ProfileServiceProtocol {
+        let profileStore = ProfileStore()
+        return ProfileService(profileStore: profileStore)
+    }
+} 

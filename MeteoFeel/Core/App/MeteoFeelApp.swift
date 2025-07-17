@@ -4,7 +4,7 @@ import SwiftUI
 struct MeteoFeelApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            AppEntryView()
         }
     }
 }

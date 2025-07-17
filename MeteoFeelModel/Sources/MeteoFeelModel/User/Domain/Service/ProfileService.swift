@@ -6,7 +6,7 @@ public enum ProfileServiceError: Error {
     case invalidData
 }
 
-protocol ProfileServiceProtocol: Sendable {
+public protocol ProfileServiceProtocol: Sendable {
     func loadProfile() async -> UserProfile?
     func saveProfile(_ profile: UserProfile) async throws
     func updateUserName(_ name: String) async throws

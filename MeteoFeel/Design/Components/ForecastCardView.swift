@@ -7,7 +7,7 @@ struct ForecastCardView: View {
     
     private let forecast: WeatherForecast
     
-    // MARK: - Initialization
+    // MARK: - Lifecycle
     
     init(forecast: WeatherForecast) {
         self.forecast = forecast

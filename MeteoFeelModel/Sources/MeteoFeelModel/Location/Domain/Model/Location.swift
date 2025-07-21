@@ -4,17 +4,14 @@ public struct Location: Codable, Equatable, Sendable {
     public let id: UUID
     public let name: String
     public let coordinates: Coordinates
-    public let timeZone: TimeZone
     
     public init(
         id: UUID = UUID(),
         name: String,
-        coordinates: Coordinates,
-        timeZone: TimeZone
+        coordinates: Coordinates
     ) {
         self.id = id
         self.name = name
         self.coordinates = coordinates
-        self.timeZone = timeZone
     }
 }

@@ -8,7 +8,7 @@ import Foundation
     public var location: Location? = nil
     public var healthIssues: Set<HealthIssue> = Set(HealthIssue.allCases)
     
-    // MARK: - Initialization
+    // MARK: - Lifecycle
     
     public init(userProfile: UserProfile? = nil) {
         self.name = userProfile?.name
@@ -23,8 +23,7 @@ import Foundation
     }
 
     public var isLocationValid: Bool {
-        // TODO: uncomment when location is implemented
-        true // TODO: location != nil
+        location != nil
     }
 
     public var areHealthIssuesValid: Bool {

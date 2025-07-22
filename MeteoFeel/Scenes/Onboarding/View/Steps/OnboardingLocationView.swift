@@ -41,33 +41,19 @@ struct OnboardingLocationView: View {
             
             ScrollView {
                 VStack(spacing: 20) {
-                    LocationSearchCardView(
-                        onTap: {
-                            isShowingLocationSearch = true
-                        }
-                    )
-                    
-                    HStack {
-                        Rectangle()
-                            .frame(height: 1)
-                            .foregroundColor(.secondary)
-                        Text("or")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .padding(.horizontal, 8)
-                        Rectangle()
-                            .frame(height: 1)
-                            .foregroundColor(.secondary)
+                    LocationSearchCardView {
+                        isShowingLocationSearch = true
                     }
                     
-                    CurrentLocationCardView(
-                        isLoading: deviceLocationViewModel.isLoading,
-                        onGetCurrentLocation: {
-                            Task {
-                                await deviceLocationViewModel.getDeviceLocation()
-                            }
+                    TextSeparator("or")
+                    
+                    DeviceLocationCardView(
+                        isLoading: deviceLocationViewModel.isLoading
+                    ) {
+                        Task {
+                            await deviceLocationViewModel.getDeviceLocation()
                         }
-                    )
+                    }
                     
                     if let selectedLocation = form.location {
                         SelectedLocationCardView(location: selectedLocation)
@@ -134,93 +120,6 @@ fileprivate struct SelectedLocationCardView: View {
                     .foregroundColor(.primary)
                 Spacer()
             }
-        }
-        .cardStyle()
-    }
-}
-
-// MARK: - LocationSearchCardView
-
-fileprivate struct LocationSearchCardView: View {
-    
-    // MARK: - Properties
-    
-    let onTap: () -> Void
-    
-    // MARK: - View
-    
-    var body: some View {
-        VStack(spacing: 16) {
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.accentColor)
-                
-                Text("Search by city name")
-                    .font(.headline)
-                
-                Spacer()
-            }
-            
-            Button {
-                onTap()
-            } label: {
-                HStack {
-                    Text("Enter city name")
-                        .foregroundColor(.secondary)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.secondary)
-                        .font(.caption)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 12)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-            }
-            .buttonStyle(.plain)
-        }
-        .cardStyle()
-    }
-}
-
-// MARK: - CurrentLocationCardView
-
-fileprivate struct CurrentLocationCardView: View {
-    
-    // MARK: - Properties
-    
-    let isLoading: Bool
-    let onGetCurrentLocation: () -> Void
-    
-    // MARK: - View
-    
-    var body: some View {
-        VStack(spacing: 16) {
-            HStack {
-                Image(systemName: "location.fill")
-                    .foregroundColor(.accentColor)
-                
-                Text("Use current location")
-                    .font(.headline)
-                
-                Spacer()
-            }
-            
-            Text("We'll get your location once. You can change it later in the app settings.")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.leading)
-                .fixedSize(horizontal: false, vertical: true)
-            
-            Button("Get Current Location") {
-                onGetCurrentLocation()
-            }
-            .buttonStyle(.plain)
-            .foregroundColor(.accentColor)
-            .controlSize(.large)
-            .disabled(isLoading)
         }
         .cardStyle()
     }

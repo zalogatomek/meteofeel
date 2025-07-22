@@ -1,7 +1,8 @@
 import Foundation
 import MeteoFeelModel
 
-@MainActor @Observable final class DeviceLocationViewModel {
+@MainActor @Observable
+final class DeviceLocationViewModel {
     
     // MARK: - Properties
     

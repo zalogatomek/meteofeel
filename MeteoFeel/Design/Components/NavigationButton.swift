@@ -1,23 +1,23 @@
 import SwiftUI
 
-struct NavigationButton: View {
+struct NavigationButton<Destination: View>: View {
     
     // MARK: - Properties
     
     private let title: String
-    private let action: () -> Void
+    private let destination: Destination
     
     // MARK: - Lifecycle
     
-    init(title: String, action: @escaping () -> Void) {
+    init(title: String, @ViewBuilder destination: () -> Destination) {
         self.title = title
-        self.action = action
+        self.destination = destination()
     }
     
     // MARK: - View
     
     var body: some View {
-        Button(action: action) {
+        NavigationLink(destination: destination) {
             HStack {
                 Text(title)
                     .foregroundColor(.primary)
@@ -25,6 +25,7 @@ struct NavigationButton: View {
                 Image(systemName: "chevron.right")
                     .foregroundColor(.secondary)
             }
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .cardStyle()
@@ -32,14 +33,16 @@ struct NavigationButton: View {
 }
 
 #Preview {
-    VStack(spacing: 16) {
-        NavigationButton(title: "Set your location") {
-            // Preview action
+    NavigationStack {
+        VStack(spacing: 16) {
+            NavigationButton(title: "Set your location") {
+                Text("Location Settings")
+            }
+            
+            NavigationButton(title: "5 health issues selected") {
+                Text("Health Issues Settings")
+            }
         }
-        
-        NavigationButton(title: "5 health issues selected") {
-            // Preview action
-        }
+        .padding()
     }
-    .padding()
 } 

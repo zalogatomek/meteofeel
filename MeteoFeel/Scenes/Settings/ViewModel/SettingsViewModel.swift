@@ -1,7 +1,7 @@
 import Foundation
 import MeteoFeelModel
 
-@Observable @MainActor
+@MainActor @Observable
 final class SettingsViewModel {
     
     // MARK: - Properties
@@ -24,6 +24,8 @@ final class SettingsViewModel {
     // MARK: - Input
     
     func onAppear() {
+        guard form == nil else { return }
+        
         Task {
             await loadProfile()
         }

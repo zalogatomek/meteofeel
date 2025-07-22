@@ -40,10 +40,10 @@ struct SettingsView: View {
                             Text("Location")
                                 .font(.headline)
                             
-                            NavigationButton(
-                                title: form.location?.name ?? "Set your location"
-                            ) {
-                                // TODO: Navigate to location settings
+                            NavigationButton(title: form.location?.name ?? "Set your location") {
+                                SettingsLocationView { location in
+                                    form.location = location
+                                }
                             }
                         }
                         
@@ -51,10 +51,9 @@ struct SettingsView: View {
                             Text("Health Issues")
                                 .font(.headline)
                             
-                            NavigationButton(
-                                title: "\(form.healthIssues.count) health issues selected"
-                            ) {
-                                // TODO: Navigate to health issues settings
+                            NavigationButton(title: "\(form.healthIssues.count) health issues selected") {
+                                // TODO: Replace with actual HealthIssuesSettingsView
+                                Text("Health Issues Settings - Coming Soon")
                             }
                         }
                         

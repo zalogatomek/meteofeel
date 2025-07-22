@@ -1,7 +1,7 @@
 import Foundation
 import MeteoFeelModel
 
-@Observable @MainActor
+@MainActor @Observable
 final class OnboardingViewModel {
 
     enum Step: Int, CaseIterable {

@@ -1,7 +1,8 @@
 import Foundation
 import MeteoFeelModel
 
-@Observable final class AppEntryViewModel {
+@MainActor @Observable
+final class AppEntryViewModel {
     
     // MARK: - Properties
     

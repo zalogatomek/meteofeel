@@ -9,6 +9,7 @@ struct OnboardingLocationView: View {
     private let onNextStep: () -> Void
     private let onPreviousStep: () -> Void
     @State private var isShowingLocationSearch: Bool = false
+    @State private var deviceLocationViewModel: DeviceLocationViewModel
 
     // MARK: - Lifecycle
 
@@ -20,6 +21,12 @@ struct OnboardingLocationView: View {
         self.form = form
         self.onNextStep = onNextStep
         self.onPreviousStep = onPreviousStep
+        self._deviceLocationViewModel = State(initialValue: DeviceLocationViewModel(
+            deviceLocationService: DeviceLocationServiceFactory.create(),
+            onLocationSelected: { location in
+                form.location = location
+            }
+        ))
     }
     
     // MARK: - View
@@ -32,35 +39,42 @@ struct OnboardingLocationView: View {
                 .font(.body)
                 .multilineTextAlignment(.center)
             
-            VStack(spacing: 20) {
-                LocationSearchCardView(
-                    selectedLocation: form.location,
-                    onTap: {
-                        isShowingLocationSearch = true
+            ScrollView {
+                VStack(spacing: 20) {
+                    LocationSearchCardView(
+                        onTap: {
+                            isShowingLocationSearch = true
+                        }
+                    )
+                    
+                    HStack {
+                        Rectangle()
+                            .frame(height: 1)
+                            .foregroundColor(.secondary)
+                        Text("or")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal, 8)
+                        Rectangle()
+                            .frame(height: 1)
+                            .foregroundColor(.secondary)
                     }
-                )
-                
-                HStack {
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(.secondary)
-                    Text("or")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal, 8)
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(.secondary)
+                    
+                    CurrentLocationCardView(
+                        isLoading: deviceLocationViewModel.isLoading,
+                        onGetCurrentLocation: {
+                            Task {
+                                await deviceLocationViewModel.getDeviceLocation()
+                            }
+                        }
+                    )
+                    
+                    if let selectedLocation = form.location {
+                        SelectedLocationCardView(location: selectedLocation)
+                    }
                 }
-                
-                CurrentLocationCardView(
-                    onGetCurrentLocation: {
-                        getCurrentLocation()
-                    }
-                )
             }
-            
-            Spacer()
+            .scrollClipDisabledForShadow()
             
             HStack {
                 OnboardingSecondaryButton("Back") {
@@ -83,19 +97,45 @@ struct OnboardingLocationView: View {
                 }
             )
         }
-    }
-    
-    // MARK: - Actions
-    
-    private func getCurrentLocation() {
-        // TODO: Implement location services
-        // For now, just simulate a delay
-        Task {
-            try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 seconds
-            await MainActor.run {
-                // TODO: Set location from current location
+        .overlay {
+            if let errorMessage = deviceLocationViewModel.errorMessage {
+                ErrorOverlay(message: errorMessage) {
+                    deviceLocationViewModel.clearError()
+                }
             }
         }
+    }
+}
+
+// MARK: - SelectedLocationCardView
+
+fileprivate struct SelectedLocationCardView: View {
+    
+    // MARK: - Properties
+    
+    let location: Location
+    
+    // MARK: - View
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundColor(.green)
+                Text("Selected Location")
+                    .font(.headline)
+                Spacer()
+            }
+            
+            HStack {
+                Text(location.name)
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .foregroundColor(.primary)
+                Spacer()
+            }
+        }
+        .cardStyle()
     }
 }
 
@@ -105,7 +145,6 @@ fileprivate struct LocationSearchCardView: View {
     
     // MARK: - Properties
     
-    let selectedLocation: Location?
     let onTap: () -> Void
     
     // MARK: - View
@@ -115,8 +154,10 @@ fileprivate struct LocationSearchCardView: View {
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.accentColor)
+                
                 Text("Search by city name")
                     .font(.headline)
+                
                 Spacer()
             }
             
@@ -124,9 +165,11 @@ fileprivate struct LocationSearchCardView: View {
                 onTap()
             } label: {
                 HStack {
-                    Text(selectedLocation?.name ?? "Enter city name")
-                        .foregroundColor(selectedLocation != nil ? .primary : .secondary)
+                    Text("Enter city name")
+                        .foregroundColor(.secondary)
+                    
                     Spacer()
+                    
                     Image(systemName: "chevron.right")
                         .foregroundColor(.secondary)
                         .font(.caption)
@@ -148,6 +191,7 @@ fileprivate struct CurrentLocationCardView: View {
     
     // MARK: - Properties
     
+    let isLoading: Bool
     let onGetCurrentLocation: () -> Void
     
     // MARK: - View
@@ -157,8 +201,10 @@ fileprivate struct CurrentLocationCardView: View {
             HStack {
                 Image(systemName: "location.fill")
                     .foregroundColor(.accentColor)
+                
                 Text("Use current location")
                     .font(.headline)
+                
                 Spacer()
             }
             
@@ -174,6 +220,7 @@ fileprivate struct CurrentLocationCardView: View {
             .buttonStyle(.plain)
             .foregroundColor(.accentColor)
             .controlSize(.large)
+            .disabled(isLoading)
         }
         .cardStyle()
     }

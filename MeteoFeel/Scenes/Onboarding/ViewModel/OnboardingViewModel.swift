@@ -1,7 +1,8 @@
 import Foundation
 import MeteoFeelModel
 
-@Observable final class OnboardingViewModel {
+@Observable @MainActor
+final class OnboardingViewModel {
 
     enum Step: Int, CaseIterable {
         case welcome
@@ -27,7 +28,7 @@ import MeteoFeelModel
         self.profileService = profileService
     }
     
-    // MARK: - Step Navigation
+    // MARK: - Input
     
     func nextStep() {
         if let next = Step(rawValue: currentStep.rawValue + 1) {
@@ -42,13 +43,11 @@ import MeteoFeelModel
     }
     
     func finishOnboarding() {
-        // TODO: uncomment when location service is implemented
-        // guard let profile = form.createUserProfile() else { return }
+        guard let profile = form.createUserProfile() else { return }
         
         Task {
             isSaving = true
-            // TODO: uncomment when location service is implemented
-            // try? await profileService.saveProfile(profile)
+            try? await profileService.saveProfile(profile)
             isSaving = false
             onFinish?()
         }

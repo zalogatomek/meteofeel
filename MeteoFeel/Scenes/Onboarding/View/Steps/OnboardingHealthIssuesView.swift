@@ -41,10 +41,10 @@ struct OnboardingHealthIssuesView: View {
                             )
                         )
                         .toggleStyle(.switch)
-                        .padding(.trailing, 2)
                     }
                 }
             }
+            .scrollClipDisabledForShadow()
             
             Spacer()
             

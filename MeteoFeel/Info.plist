@@ -7,5 +7,7 @@
 		<key>UIColorName</key>
 		<string>BackgroundPrimary</string>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>MeteoFeel uses your location to provide accurate weather forecasts and personalized health recommendations based on your local weather conditions.</string>
 </dict>
 </plist>

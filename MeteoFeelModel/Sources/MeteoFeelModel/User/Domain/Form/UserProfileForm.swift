@@ -4,6 +4,7 @@ import Foundation
     
     // MARK: - Properties
     
+    private let userProfile: UserProfile?
     public var name: String? = nil
     public var location: Location? = nil
     public var healthIssues: Set<HealthIssue> = Set(HealthIssue.allCases)
@@ -11,6 +12,7 @@ import Foundation
     // MARK: - Lifecycle
     
     public init(userProfile: UserProfile? = nil) {
+        self.userProfile = userProfile
         self.name = userProfile?.name
         self.location = userProfile?.location
         self.healthIssues = userProfile?.healthIssues ?? Set(HealthIssue.allCases)
@@ -32,6 +34,15 @@ import Foundation
 
     public var isValid: Bool {
         isNameValid && isLocationValid && areHealthIssuesValid
+    }
+    
+    // MARK: - Change Tracking
+    
+    public var hasChanges: Bool {
+        guard let userProfile else { return true }
+        return name?.nilIfEmpty != userProfile.name?.nilIfEmpty ||
+            location != userProfile.location ||
+            healthIssues != userProfile.healthIssues
     }
     
     // MARK: - Form Actions

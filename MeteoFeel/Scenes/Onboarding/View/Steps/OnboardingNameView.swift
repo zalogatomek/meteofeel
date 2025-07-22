@@ -28,11 +28,10 @@ struct OnboardingNameView: View {
         VStack(spacing: 40) {
             OnboardingTitleText("What's your name?")
             
-            TextField("Enter your name (optional)", text: Binding(
+            CardTextField("Enter your name (optional)", text: Binding(
                 get: { form.name ?? "" },
                 set: { form.name = $0.nilIfEmpty }
             ))
-            .textFieldStyle(.plain)
             .focused($isFocused)
             
             Spacer()

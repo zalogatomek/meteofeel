@@ -6,7 +6,6 @@ struct HomeView: View {
     // MARK: - Properties
     
     @State private var viewModel: HomeViewModel
-    @State private var selectedForecast: WeatherForecast?
     
     // MARK: - Lifecycle
     
@@ -21,77 +20,81 @@ struct HomeView: View {
     // MARK: - View
     
     var body: some View {
-        ZStack {
-            BackgroundView()
-                .ignoresSafeArea()
+        NavigationStack {
+            ZStack {
+                BackgroundView()
+                    .ignoresSafeArea()
 
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 24) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(viewModel.greeting)
-                            .font(.title.bold())
-                            .foregroundColor(.primary)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                    
+                ScrollView(showsIndicators: false) {
                     VStack(spacing: 24) {
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Current Weather")
-                                .font(.headline)
-                            
-                            WeatherCardView(
-                                forecast: viewModel.currentForecast
-                            )
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(viewModel.greeting)
+                                .font(.title.bold())
+                                .foregroundColor(.primary)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
                         
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Health Alerts")
-                                .font(.headline)
-                            
-                            HealthAlertsCardView(alerts: viewModel.currentForecast?.alerts)
-                        }
-                        
-                        if !viewModel.forecasts.isEmpty {
+                        VStack(spacing: 24) {
                             VStack(alignment: .leading, spacing: 12) {
-                                Text("Upcoming Conditions")
+                                Text("Current Weather")
                                     .font(.headline)
                                 
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(alignment: .top, spacing: 16) {
-                                        ForEach(viewModel.forecasts, id: \.weather.timePeriod) { forecast in
-                                            ForecastCardView(forecast: forecast)
-                                                .containerRelativeFrame(.horizontal) { width, _ in
-                                                    width * 0.75
+                                WeatherCardView(
+                                    forecast: viewModel.currentForecast
+                                )
+                            }
+                            
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Health Alerts")
+                                    .font(.headline)
+                                
+                                HealthAlertsCardView(alerts: viewModel.currentForecast?.alerts)
+                            }
+                            
+                            if !viewModel.forecasts.isEmpty {
+                                VStack(alignment: .leading, spacing: 12) {
+                                    Text("Upcoming Conditions")
+                                        .font(.headline)
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(alignment: .top, spacing: 16) {
+                                            ForEach(viewModel.forecasts, id: \.weather.timePeriod) { forecast in
+                                                NavigationLink(destination: ForecastDetailsView(forecast: forecast)) {
+                                                    ForecastCardView(forecast: forecast)
+                                                        .containerRelativeFrame(.horizontal) { width, _ in
+                                                            width * 0.75
+                                                        }
                                                 }
-                                                .onTapGesture {
-                                                    selectedForecast = forecast
-                                                }
+                                                .buttonStyle(PlainButtonStyle())
+                                            }
                                         }
                                     }
+                                    .scrollClipDisabled()
                                 }
-                                .scrollClipDisabled()
                             }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
             }
-        }
-        .onAppear {
-            viewModel.onAppear()
-        }
-        .refreshable {
-            await viewModel.refresh()
-        }
-        .fullScreenCover(item: $selectedForecast) { forecast in
-            ForecastDetailsView(
-                forecast: forecast,
-                onDismiss: {
-                    selectedForecast = nil
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: SettingsView()) {
+                        Image(systemName: "gearshape")
+                            .font(.title2)
+                    }
                 }
-            )
+            }
+            .onAppear {
+                viewModel.onAppear()
+            }
+            .refreshable {
+                await viewModel.refresh()
+            }
         }
     }
 }

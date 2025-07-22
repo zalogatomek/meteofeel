@@ -22,33 +22,4 @@ public struct UserProfile: Codable, Equatable, Sendable {
         self.location = location
         self.healthIssues = healthIssues
     }
-
-    // MARK: - Mutation
-
-    public func bySettingName(_ name: String?) -> UserProfile {
-        UserProfile(
-            id: id,
-            name: name,
-            location: location,
-            healthIssues: healthIssues
-        )
-    }
-
-    public func bySettingLocation(_ location: Location) -> UserProfile {
-        UserProfile(
-            id: id,
-            name: name,
-            location: location,
-            healthIssues: healthIssues
-        )
-    }
-
-    public func bySettingHealthIssues(_ healthIssues: Set<HealthIssue>) -> UserProfile {
-        UserProfile(
-            id: id,
-            name: name,
-            location: location,
-            healthIssues: healthIssues
-        )
-    }
 } 

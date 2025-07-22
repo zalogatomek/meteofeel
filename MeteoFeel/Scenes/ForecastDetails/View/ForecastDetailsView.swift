@@ -6,13 +6,11 @@ struct ForecastDetailsView: View {
     // MARK: - Properties
     
     private let forecast: WeatherForecast
-    private let onDismiss: () -> Void
 
     // MARK: - Lifecycle
 
-    init(forecast: WeatherForecast, onDismiss: @escaping () -> Void) {
+    init(forecast: WeatherForecast) {
         self.forecast = forecast
-        self.onDismiss = onDismiss
     }
     
     // MARK: - View
@@ -55,16 +53,8 @@ struct ForecastDetailsView: View {
                 .padding(.vertical)
             }
         }
-        .overlay(alignment: .topTrailing) {
-            Button(action: onDismiss) {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.title2)
-                    .foregroundColor(.secondary)
-                    .background(.ultraThinMaterial, in: Circle())
-            }
-            .padding()
-            .padding(.top, 4)
-        }
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -108,7 +98,6 @@ struct ForecastDetailsView: View {
     )
     
     ForecastDetailsView(
-        forecast: sampleForecast,
-        onDismiss: {}
+        forecast: sampleForecast
     )
 } 

@@ -40,16 +40,19 @@ public actor WeatherForecastStateObservable {
     private let service: WeatherForecastServiceProtocol
     private let store: WeatherForecastStoreProtocol
     private let calendar: Calendar
+    private let getUserProfile: () async -> UserProfile?
 
     // MARK: - Lifecycle
     
     init(
         service: WeatherForecastServiceProtocol,
         store: WeatherForecastStoreProtocol,
+        getUserProfile: @escaping () async -> UserProfile?,
         calendar: Calendar = .current
     ) {
         self.service = service
         self.store = store
+        self.getUserProfile = getUserProfile
         self.calendar = calendar
         (self.state, self.stateStream, self.stateContinuation) = Self.createStateStream()
         Task { await setInitialState() }
@@ -103,10 +106,13 @@ public actor WeatherForecastStateObservable {
         let store = self.store
         
         do {
-            // TODO: Replace with proper location service implementation
-            // Current coordinates are for EPGL Airport - Gliwice, Poland
+            guard let userProfile = await getUserProfile() else {
+                handleError(WeatherForecastServiceError.noLocationAvailable)
+                return
+            }
+            
             let forecasts = try await service.getForecasts(
-                coordinates: .gliwiceAirport,
+                coordinates: userProfile.location.coordinates,
                 days: 3
             )
             
@@ -142,6 +148,8 @@ public actor WeatherForecastStateObservable {
     }
     
     private func getRelevantForecasts(store: WeatherForecastStoreProtocol) async throws -> [WeatherForecast] {
-        return try await store.getForecasts(for: Date(), nextPeriods: 3)
+        let healthIssues = await getUserProfile()?.healthIssues ?? Set(HealthIssue.allCases)
+        let forecasts = try await store.getForecasts(for: Date(), nextPeriods: 3)
+        return forecasts.map { $0.byFilteringHealthIssues(healthIssues) }
     }
 } 

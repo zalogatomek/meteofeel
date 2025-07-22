@@ -11,7 +11,10 @@ struct HomeView: View {
     // MARK: - Lifecycle
     
     init() {
-        let stateObservable = WeatherForecastStateObservableFactory.create(apiKey: WeatherApiConfiguration.apiKey)
+        let stateObservable = WeatherForecastStateObservableFactory.create(
+            apiKey: WeatherApiConfiguration.apiKey,
+            profileService: ProfileServiceFactory.create()
+        )
         self.viewModel = HomeViewModel(stateObservable: stateObservable)
     }
     

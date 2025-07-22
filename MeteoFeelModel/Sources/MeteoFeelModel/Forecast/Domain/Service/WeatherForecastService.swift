@@ -4,6 +4,7 @@ public enum WeatherForecastServiceError: Error {
     case weatherServiceError(WeatherServiceError)
     case healthPatternStoreError(Error)
     case mappingError
+    case noLocationAvailable
 }
 
 protocol WeatherForecastServiceProtocol: Sendable {

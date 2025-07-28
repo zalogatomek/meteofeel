@@ -24,8 +24,6 @@ final class SettingsViewModel {
     // MARK: - Input
     
     func onAppear() {
-        guard form == nil else { return }
-        
         Task {
             await loadProfile()
         }

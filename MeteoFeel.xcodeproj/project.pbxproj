@@ -18,6 +18,7 @@
 		9A3A21842E1AFB6900FD41AE /* Exceptions for "MeteoFeel" folder in "MeteoFeel" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Core/Configuration/WeatherApiConfigurationSetup.md,
 				Info.plist,
 			);
 			target = 9A3A216A2E1AF3DF00FD41AE /* MeteoFeel */;

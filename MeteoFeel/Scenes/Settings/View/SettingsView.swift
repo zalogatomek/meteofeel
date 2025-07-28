@@ -51,10 +51,19 @@ struct SettingsView: View {
                             Text("Health Issues")
                                 .font(.headline)
                             
-                            NavigationButton(title: "\(form.healthIssues.count) health issues selected") {
-                                // TODO: Replace with actual HealthIssuesSettingsView
-                                Text("Health Issues Settings - Coming Soon")
+                            VStack(spacing: 12) {
+                                ForEach(HealthIssue.allCases.sorted(), id: \.self) { issue in
+                                    Toggle(
+                                        issue.rawValue.capitalized,
+                                        isOn: Binding(
+                                            get: { form.healthIssues.contains(issue) },
+                                            set: { isSelected in form.setHealthIssue(issue, selected: isSelected) }
+                                        )
+                                    )
+                                    .toggleStyle(.switch)
+                                }
                             }
+                            .cardStyle()
                         }
                         
                         Spacer()
@@ -116,7 +125,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .onAppear {
+        .onAppearFirstTime {
             viewModel.onAppear()
         }
     }

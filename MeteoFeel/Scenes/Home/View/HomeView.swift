@@ -83,7 +83,7 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: SettingsView()) {
+                    NavigationLink(destination: SettingsView().id(UUID())) {
                         Image(systemName: "gearshape")
                             .font(.title2)
                     }

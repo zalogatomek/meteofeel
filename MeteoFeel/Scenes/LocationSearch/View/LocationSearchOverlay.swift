@@ -7,6 +7,7 @@ struct LocationSearchOverlay: View {
     
     @State private var viewModel: LocationSearchViewModel
     @FocusState private var isSearchFieldFocused: Bool
+    @Environment(\.dismiss) private var dismiss
     
     // MARK: - Lifecycle
     
@@ -88,6 +89,13 @@ struct LocationSearchOverlay: View {
             }
             .navigationTitle("Choose Location")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
         }
         .onAppear {
             isSearchFieldFocused = true

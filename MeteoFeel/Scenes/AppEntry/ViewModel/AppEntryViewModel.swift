@@ -6,11 +6,11 @@ final class AppEntryViewModel {
     
     // MARK: - Properties
     
-    private let profileService: ProfileServiceProtocol
+    private let profileService: any ProfileServiceProtocol
 
     // MARK: - Lifecycle
     
-    init(profileService: ProfileServiceProtocol) {
+    init(profileService: any ProfileServiceProtocol) {
         self.profileService = profileService
     }
 

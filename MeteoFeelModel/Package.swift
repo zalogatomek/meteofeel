@@ -21,6 +21,11 @@ let package = Package(
             path: "Sources/MeteoFeelModel",
             resources: [
                 .process("Forecast/Infrastructure/Model/health_patterns.json")
+            ],
+            swiftSettings: [
+                .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("MemberImportVisibility"),
+                .enableUpcomingFeature("InternalImportsByDefault")
             ]
         ),
         .testTarget(

@@ -12,25 +12,21 @@ final class LocationService: NSObject, LocationServiceProtocol, MKLocalSearchCom
     
     override init() {
         super.init()
-        setupSearchCompleter()
-    }
-
-    private func setupSearchCompleter() {
         searchCompleter.delegate = self
         searchCompleter.resultTypes = .address
     }
     
     // MARK: - LocationServiceProtocol
     
-    var suggestions: AsyncStream<[LocationSuggestion]> {
+    @MainActor var suggestions: AsyncStream<[LocationSuggestion]> {
         suggestionsSubject.stream
     }
     
-    func updateSearchQuery(_ query: String) {
+    @MainActor func updateSearchQuery(_ query: String) async {
         searchCompleter.queryFragment = query
     }
     
-    func location(for suggestion: LocationSuggestion) async -> Location? {
+    @MainActor func location(for suggestion: LocationSuggestion) async -> Location? {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = suggestion.title
         let search = MKLocalSearch(request: searchRequest)

@@ -1,4 +1,4 @@
-import Foundation
+public import Foundation
 
 public struct TimePeriod: Codable, Hashable, Comparable, Sendable {
     public let date: Date

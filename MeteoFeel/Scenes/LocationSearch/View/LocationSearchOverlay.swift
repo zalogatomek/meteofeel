@@ -92,5 +92,8 @@ struct LocationSearchOverlay: View {
         .onAppear {
             isSearchFieldFocused = true
         }
+        .isVisible {
+            viewModel.setIsVisible($0)
+        }
     }
 } 

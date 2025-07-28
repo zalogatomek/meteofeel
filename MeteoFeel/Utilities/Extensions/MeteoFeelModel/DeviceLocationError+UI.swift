@@ -1,9 +1,8 @@
-import Foundation
+public import Foundation
 import MeteoFeelModel
 
 extension DeviceLocationError: @retroactive LocalizedError {
-    
-    public var errorDescription: String? {
+    var errorDescription: String? {
         switch self {
         case .permissionDenied:
             return "Location permission was denied. Please enable location access in Settings."

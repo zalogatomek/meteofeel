@@ -13,7 +13,7 @@ final class OnboardingViewModel {
     
     // MARK: - Properties
 
-    private let profileService: ProfileServiceProtocol
+    private let profileService: any ProfileServiceProtocol
     let form = UserProfileForm()
     var onFinish: (() -> Void)?
     
@@ -24,7 +24,7 @@ final class OnboardingViewModel {
     
     // MARK: - Lifecycle
 
-    init(profileService: ProfileServiceProtocol) {
+    init(profileService: any ProfileServiceProtocol) {
         self.profileService = profileService
     }
     

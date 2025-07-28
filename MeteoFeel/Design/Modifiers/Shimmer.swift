@@ -1,4 +1,4 @@
-import SwiftUI
+public import SwiftUI
 
 // Source: https://github.com/markiv/SwiftUI-Shimmer
 

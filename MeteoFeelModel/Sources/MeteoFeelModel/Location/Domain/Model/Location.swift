@@ -1,4 +1,4 @@
-import Foundation
+public import Foundation
 
 public struct Location: Codable, Equatable, Sendable {
     public let id: UUID

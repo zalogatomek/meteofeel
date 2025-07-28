@@ -1,4 +1,4 @@
-import Foundation
+public import Foundation
 
 public struct Weather: Equatable, Codable, Sendable {
     public let condition: WeatherCondition

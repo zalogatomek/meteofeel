@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol LocationServiceProtocol: Sendable {
-    var suggestions: AsyncStream<[LocationSuggestion]> { get }
-    func updateSearchQuery(_ query: String)
-    func location(for suggestion: LocationSuggestion) async -> Location?
+    @MainActor var suggestions: AsyncStream<[LocationSuggestion]> { get async }
+    @MainActor func updateSearchQuery(_ query: String) async
+    @MainActor func location(for suggestion: LocationSuggestion) async -> Location?
 }

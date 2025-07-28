@@ -1,4 +1,4 @@
-import Foundation
+public import Foundation
 
 public struct HealthAlert: Codable, Equatable, Comparable, Sendable {
     public let id: UUID

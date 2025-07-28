@@ -2,7 +2,7 @@ import SwiftUI
 import Observation
 import MeteoFeelModel
 
-@Observable
+@MainActor @Observable
 final class HomeViewModel {
     
     // MARK: - Properties
@@ -15,10 +15,6 @@ final class HomeViewModel {
     init(stateObservable: WeatherForecastStateObservable) {
         self.stateObservable = stateObservable
         observeState()
-    }
-    
-    deinit {
-        stateTask?.cancel()
     }
     
     private func observeState() {
@@ -52,7 +48,6 @@ final class HomeViewModel {
     
     // MARK: - Private Methods
     
-    @MainActor
     private func handle(state: WeatherForecastStateObservable.State) {
         isLoading = state.isFetching
         

@@ -1,4 +1,4 @@
-import Foundation
+public import Foundation
 
 public struct HealthStatus: Equatable, Codable, Sendable {
     public let date: Date

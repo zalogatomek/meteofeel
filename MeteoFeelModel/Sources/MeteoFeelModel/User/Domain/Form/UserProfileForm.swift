@@ -1,4 +1,4 @@
-import Foundation
+public import Foundation
 
 @Observable public final class UserProfileForm {
     

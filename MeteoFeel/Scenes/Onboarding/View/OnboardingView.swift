@@ -10,7 +10,7 @@ struct OnboardingView: View {
     // MARK: - Lifecycle
 
     init(
-        profileService: ProfileServiceProtocol = ProfileServiceFactory.create(),
+        profileService: any ProfileServiceProtocol = ProfileServiceFactory.create(),
         onFinish: @escaping () -> Void
     ) {
         self._viewModel = State(initialValue: OnboardingViewModel(profileService: profileService))

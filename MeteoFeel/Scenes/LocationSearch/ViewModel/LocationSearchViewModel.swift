@@ -1,52 +1,49 @@
 import Foundation
 import MeteoFeelModel
 
-@Observable final class LocationSearchViewModel {
+@MainActor @Observable
+final class LocationSearchViewModel {
     
     // MARK: - Properties
     
-    private let locationService: LocationServiceProtocol
+    private let locationService: any LocationServiceProtocol
     private let onLocationSelected: (Location) -> Void
     private var suggestionsTask: Task<Void, Never>?
     
     // MARK: - Lifecycle
     
     init(
-        locationService: LocationServiceProtocol,
+        locationService: any LocationServiceProtocol,
         onLocationSelected: @escaping (Location) -> Void
     ) {
         self.locationService = locationService
         self.onLocationSelected = onLocationSelected
-        setupSuggestionsStream()
-    }
-    
-    deinit {
-        suggestionsTask?.cancel()
-    }
-
-    private func setupSuggestionsStream() {
-        suggestionsTask = Task { @MainActor in
-            for await suggestions in locationService.suggestions {
-                self.suggestions = suggestions
-            }
-        }
     }
 
     // MARK: - Output
 
-    @MainActor var suggestions: [LocationSuggestion] = []
-    @MainActor var isLoading: Bool = false
-    @MainActor var errorMessage: String?
+    var suggestions: [LocationSuggestion] = []
+    var isLoading: Bool = false
+    var errorMessage: String?
     
     // MARK: - Input
+    
+    func setIsVisible(_ isVisible: Bool) {
+        if isVisible {
+            startObservingSuggestions()
+        } else {
+            suggestionsTask?.cancel()
+        }
+    }
 
-    @MainActor var searchQuery: String = "" {
+    var searchQuery: String = "" {
         didSet {
-            locationService.updateSearchQuery(searchQuery)
+            Task {
+                await locationService.updateSearchQuery(searchQuery)
+            }
         }
     }
     
-    @MainActor
     func selectSuggestion(_ suggestion: LocationSuggestion) async {
         isLoading = true
         errorMessage = nil
@@ -60,7 +57,6 @@ import MeteoFeelModel
         isLoading = false
     }
     
-    @MainActor
     func clearSearch() {
         searchQuery = ""
         suggestions = []
@@ -68,8 +64,21 @@ import MeteoFeelModel
         isLoading = false
     }
     
-    @MainActor
     func clearError() {
         errorMessage = nil
     }
-} 
+    
+    // MARK: - Helpers
+    
+    private func startObservingSuggestions() {
+        suggestionsTask = Task { @MainActor in
+            for await suggestions in await locationService.suggestions {
+                self.suggestions = suggestions
+            }
+        }
+    }
+    
+    private func stopObservingSuggestions() {
+        suggestionsTask?.cancel()
+    }
+}

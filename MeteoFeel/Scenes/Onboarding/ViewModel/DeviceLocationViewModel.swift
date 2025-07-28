@@ -6,7 +6,7 @@ final class DeviceLocationViewModel {
     
     // MARK: - Properties
     
-    private let deviceLocationService: DeviceLocationServiceProtocol
+    private let deviceLocationService: any DeviceLocationServiceProtocol
     private let onLocationSelected: (Location) -> Void
     
     // MARK: - Output
@@ -17,7 +17,7 @@ final class DeviceLocationViewModel {
     // MARK: - Lifecycle
     
     init(
-        deviceLocationService: DeviceLocationServiceProtocol,
+        deviceLocationService: any DeviceLocationServiceProtocol,
         onLocationSelected: @escaping (Location) -> Void
     ) {
         self.deviceLocationService = deviceLocationService

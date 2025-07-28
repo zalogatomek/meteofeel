@@ -1,13 +1,12 @@
 import Foundation
 import CoreLocation
-@preconcurrency import MapKit
+import MapKit
 
-final class DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLocationManagerDelegate, @unchecked Sendable {
+actor DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLocationManagerDelegate {
     
     // MARK: - Properties
     
     private let locationManager = CLLocationManager()
-    private let geocoder = CLGeocoder()
     private var permissionContinuation: CheckedContinuation<Void, Error>?
     private var locationContinuation: CheckedContinuation<CLLocation, Error>?
     
@@ -15,10 +14,6 @@ final class DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLo
     
     override init() {
         super.init()
-        setupLocationManager()
-    }
-    
-    private func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
@@ -67,30 +62,21 @@ final class DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLo
     }
     
     private func geocodeLocation(_ clLocation: CLLocation) async throws -> Location {
-        return try await withCheckedThrowingContinuation { continuation in
-            geocoder.reverseGeocodeLocation(clLocation) { placemarks, error in
-                if let error {
-                    continuation.resume(throwing: DeviceLocationError.geocodingFailed)
-                    return
-                }
-                
-                guard let placemark = placemarks?.first,
-                      let name = self.formatLocationName(from: placemark)
-                else {
-                    continuation.resume(throwing: DeviceLocationError.geocodingFailed)
-                    return
-                }
-                
-                let location = Location(
-                    name: name,
-                    coordinates: Coordinates(
-                        latitude: clLocation.coordinate.latitude,
-                        longitude: clLocation.coordinate.longitude
-                    )
+        do {
+            let geocoder = CLGeocoder()
+            guard let placemark = try await geocoder.reverseGeocodeLocation(clLocation).first,
+                  let name = formatLocationName(from: placemark)
+            else { throw DeviceLocationError.geocodingFailed }
+            
+            return Location(
+                name: name,
+                coordinates: Coordinates(
+                    latitude: clLocation.coordinate.latitude,
+                    longitude: clLocation.coordinate.longitude
                 )
-                
-                continuation.resume(returning: location)
-            }
+            )
+        } catch {
+            throw DeviceLocationError.geocodingFailed
         }
     }
     
@@ -102,7 +88,7 @@ final class DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLo
 
     // MARK: - CLLocationManagerDelegate
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) async {
         guard let continuation = permissionContinuation else { return }
         
         permissionContinuation = nil
@@ -120,7 +106,7 @@ final class DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLo
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) async {
         guard let location = locations.last,
               let continuation = locationContinuation
         else { return }
@@ -129,7 +115,7 @@ final class DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLo
         continuation.resume(returning: location)
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) async {
         guard let continuation = locationContinuation else { return }
         
         locationContinuation = nil

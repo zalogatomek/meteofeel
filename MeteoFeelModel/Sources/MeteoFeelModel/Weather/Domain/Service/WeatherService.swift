@@ -10,9 +10,9 @@ protocol WeatherServiceProtocol: Sendable {
 }
 
 final class WeatherService: WeatherServiceProtocol {
-    private let apiClient: WeatherAPIClientProtocol
+    private let apiClient: any WeatherAPIClientProtocol
     
-    init(apiClient: WeatherAPIClientProtocol) {
+    init(apiClient: any WeatherAPIClientProtocol) {
         self.apiClient = apiClient
     }
     

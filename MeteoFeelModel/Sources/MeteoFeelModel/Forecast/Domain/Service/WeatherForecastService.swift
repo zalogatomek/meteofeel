@@ -2,7 +2,7 @@ import Foundation
 
 public enum WeatherForecastServiceError: Error {
     case weatherServiceError(WeatherServiceError)
-    case healthPatternStoreError(Error)
+    case healthPatternStoreError(any Error)
     case mappingError
     case noLocationAvailable
 }
@@ -15,14 +15,14 @@ final class WeatherForecastService: WeatherForecastServiceProtocol {
 
     // MARK: - Properties
 
-    private let weatherService: WeatherServiceProtocol
-    private let healthPatternStore: HealthPatternStoreProtocol
+    private let weatherService: any WeatherServiceProtocol
+    private let healthPatternStore: any HealthPatternStoreProtocol
     
     // MARK: - Lifecycle
     
     init(
-        weatherService: WeatherServiceProtocol,
-        healthPatternStore: HealthPatternStoreProtocol
+        weatherService: any WeatherServiceProtocol,
+        healthPatternStore: any HealthPatternStoreProtocol
     ) {
         self.weatherService = weatherService
         self.healthPatternStore = healthPatternStore

@@ -58,7 +58,7 @@ struct ForecastCardView: View {
             
             VStack(alignment: .leading, spacing: 8) {
                 if !forecast.alerts.isEmpty {
-                    ForEach(Array(forecast.alerts.prefix(2).enumerated()), id: \.element.id) { index, alert in
+                    ForEach(Array(forecast.alerts.prefix(2).enumerated()), id: \.offset) { index, alert in
                         HealthAlertView(
                             alert: alert,
                             style: .small

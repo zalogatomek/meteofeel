@@ -35,3 +35,30 @@ public struct Weather: Equatable, Codable, Sendable {
         self.fetchedAt = fetchedAt
     }
 }
+
+extension Weather {
+    
+    // MARK: - Stubs
+    
+    public static func createStub(
+        condition: WeatherCondition = .sunny,
+        temperature: Double = 25.0,
+        pressure: Double = 1013.0,
+        humidity: Double = 60.0,
+        windSpeed: Double = 10.0,
+        windDirection: Double = 180.0,
+        timePeriod: TimePeriod = TimePeriod.createStub(),
+        fetchedAt: Date = Date()
+    ) -> Weather {
+        Weather(
+            condition: condition,
+            temperature: temperature,
+            pressure: pressure,
+            humidity: humidity,
+            windSpeed: windSpeed,
+            windDirection: windDirection,
+            timePeriod: timePeriod,
+            fetchedAt: fetchedAt
+        )
+    }
+}

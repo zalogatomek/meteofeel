@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "3DC72135-88BB-4578-A5E5-6F239A2B7998",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MeteoFeel.xcodeproj",
+      "identifier" : "9A3A216A2E1AF3DF00FD41AE",
+      "name" : "MeteoFeel"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MeteoFeel.xcodeproj",
+        "identifier" : "9AEC76A82E38E47D00137A3A",
+        "name" : "MeteoFeelTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MeteoFeelModel",
+        "identifier" : "MeteoFeelModelTests",
+        "name" : "MeteoFeelModelTests"
+      }
+    }
+  ],
+  "version" : 1
+}

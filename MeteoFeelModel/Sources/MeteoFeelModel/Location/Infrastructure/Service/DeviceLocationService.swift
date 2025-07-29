@@ -7,8 +7,8 @@ actor DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLocation
     // MARK: - Properties
     
     private let locationManager = CLLocationManager()
-    private var permissionContinuation: CheckedContinuation<Void, Error>?
-    private var locationContinuation: CheckedContinuation<CLLocation, Error>?
+    private var permissionContinuation: CheckedContinuation<Void, any Error>?
+    private var locationContinuation: CheckedContinuation<CLLocation, any Error>?
     
     // MARK: - Lifecycle
     
@@ -88,11 +88,17 @@ actor DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLocation
 
     // MARK: - CLLocationManagerDelegate
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) async {
+    nonisolated func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        Task {
+            await handleLocationManagerDidChangeAuthorization(status)
+        }
+    }
+    
+    private func handleLocationManagerDidChangeAuthorization(_ status: CLAuthorizationStatus) async {
         guard let continuation = permissionContinuation else { return }
         
         permissionContinuation = nil
-        
+
         switch status {
         case .authorizedWhenInUse, .authorizedAlways:
             continuation.resume()
@@ -106,16 +112,29 @@ actor DeviceLocationService: NSObject, DeviceLocationServiceProtocol, CLLocation
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) async {
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        Task {
+            await handleLocationManagerDidUpdateLocations(locations)
+        }
+    }
+
+    private func handleLocationManagerDidUpdateLocations(_ locations: [CLLocation]) async {
         guard let location = locations.last,
               let continuation = locationContinuation
         else { return }
         
         locationContinuation = nil
+
         continuation.resume(returning: location)
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) async {
+    nonisolated func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        Task {
+            await handleLocationManagerDidFailWithError(error)
+        }
+    }
+
+    private func handleLocationManagerDidFailWithError(_ error: any Error) async {
         guard let continuation = locationContinuation else { return }
         
         locationContinuation = nil

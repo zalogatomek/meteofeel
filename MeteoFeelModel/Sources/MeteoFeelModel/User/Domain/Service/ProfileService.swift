@@ -15,11 +15,11 @@ final class ProfileService: ProfileServiceProtocol {
 
     // MARK: - Properties
 
-    private let profileStore: ProfileStoreProtocol
+    private let profileStore: any ProfileStoreProtocol
 
     // MARK: - Lifecycle
     
-    init(profileStore: ProfileStoreProtocol) {
+    init(profileStore: any ProfileStoreProtocol) {
         self.profileStore = profileStore
     }
 

@@ -1,9 +1,14 @@
 public import Foundation
 
 public struct TimePeriod: Codable, Hashable, Comparable, Sendable {
+
+    // MARK: - Properties
+    
     public let date: Date
     public let timeOfDay: TimeOfDay
     
+    // MARK: - Lifecycle
+
     public init(date: Date, timeOfDay: TimeOfDay) {
         self.date = date.startOfDay()
         self.timeOfDay = timeOfDay
@@ -18,6 +23,8 @@ public struct TimePeriod: Codable, Hashable, Comparable, Sendable {
         default: return nil
         }
     }
+
+    // MARK: - Helpers
     
     public func next(calendar: Calendar = .current) -> TimePeriod {
         switch timeOfDay {
@@ -30,6 +37,8 @@ public struct TimePeriod: Codable, Hashable, Comparable, Sendable {
             return TimePeriod(date: nextDay, timeOfDay: .morning)
         }
     }
+
+    // MARK: - Comparable
     
     public static func < (lhs: TimePeriod, rhs: TimePeriod) -> Bool {
         if lhs.date == rhs.date {
@@ -37,5 +46,17 @@ public struct TimePeriod: Codable, Hashable, Comparable, Sendable {
         } else {
             return lhs.date < rhs.date
         }
+    }
+}
+
+extension TimePeriod {
+    
+    // MARK: - Stubs
+    
+    public static func createStub(
+        date: Date = Date(),
+        timeOfDay: TimeOfDay = .morning
+    ) -> TimePeriod {
+        TimePeriod(date: date, timeOfDay: timeOfDay)
     }
 } 

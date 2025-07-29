@@ -7,11 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A3A217B2E1AF4AA00FD41AE /* MeteoFeelModel in Frameworks */ = {isa = PBXBuildFile; productRef = 9A3A217A2E1AF4AA00FD41AE /* MeteoFeelModel */; };
+		9A20AE922E38FB9F0038FB10 /* MeteoFeelModel in Frameworks */ = {isa = PBXBuildFile; productRef = 9A20AE912E38FB9F0038FB10 /* MeteoFeelModel */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9AEC76AD2E38E47D00137A3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A3A21632E1AF3DF00FD41AE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A3A216A2E1AF3DF00FD41AE;
+			remoteInfo = MeteoFeel;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9A3A216B2E1AF3DF00FD41AE /* MeteoFeel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeteoFeel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AEC76A92E38E47D00137A3A /* MeteoFeelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeteoFeelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -34,6 +45,11 @@
 			path = MeteoFeel;
 			sourceTree = "<group>";
 		};
+		9AEC76AA2E38E47D00137A3A /* MeteoFeelTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MeteoFeelTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,17 +57,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A3A217B2E1AF4AA00FD41AE /* MeteoFeelModel in Frameworks */,
+				9A20AE922E38FB9F0038FB10 /* MeteoFeelModel in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AEC76A62E38E47D00137A3A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A20AE902E38FB9F0038FB10 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9A3A21622E1AF3DF00FD41AE = {
 			isa = PBXGroup;
 			children = (
 				9A3A216D2E1AF3DF00FD41AE /* MeteoFeel */,
+				9AEC76AA2E38E47D00137A3A /* MeteoFeelTests */,
+				9A20AE902E38FB9F0038FB10 /* Frameworks */,
 				9A3A216C2E1AF3DF00FD41AE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				9A3A216B2E1AF3DF00FD41AE /* MeteoFeel.app */,
+				9AEC76A92E38E47D00137A3A /* MeteoFeelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,11 +117,34 @@
 			);
 			name = MeteoFeel;
 			packageProductDependencies = (
-				9A3A217A2E1AF4AA00FD41AE /* MeteoFeelModel */,
+				9A20AE912E38FB9F0038FB10 /* MeteoFeelModel */,
 			);
 			productName = MeteoFeel;
 			productReference = 9A3A216B2E1AF3DF00FD41AE /* MeteoFeel.app */;
 			productType = "com.apple.product-type.application";
+		};
+		9AEC76A82E38E47D00137A3A /* MeteoFeelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AEC76AF2E38E47D00137A3A /* Build configuration list for PBXNativeTarget "MeteoFeelTests" */;
+			buildPhases = (
+				9AEC76A52E38E47D00137A3A /* Sources */,
+				9AEC76A62E38E47D00137A3A /* Frameworks */,
+				9AEC76A72E38E47D00137A3A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9AEC76AE2E38E47D00137A3A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9AEC76AA2E38E47D00137A3A /* MeteoFeelTests */,
+			);
+			name = MeteoFeelTests;
+			packageProductDependencies = (
+			);
+			productName = MeteoFeelTests;
+			productReference = 9AEC76A92E38E47D00137A3A /* MeteoFeelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -103,6 +159,10 @@
 					9A3A216A2E1AF3DF00FD41AE = {
 						CreatedOnToolsVersion = 16.4;
 					};
+					9AEC76A82E38E47D00137A3A = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 9A3A216A2E1AF3DF00FD41AE;
+					};
 				};
 			};
 			buildConfigurationList = 9A3A21662E1AF3DF00FD41AE /* Build configuration list for PBXProject "MeteoFeel" */;
@@ -115,7 +175,6 @@
 			mainGroup = 9A3A21622E1AF3DF00FD41AE;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				9A3A21792E1AF4AA00FD41AE /* XCLocalSwiftPackageReference "MeteoFeelModel" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9A3A216C2E1AF3DF00FD41AE /* Products */;
@@ -123,12 +182,20 @@
 			projectRoot = "";
 			targets = (
 				9A3A216A2E1AF3DF00FD41AE /* MeteoFeel */,
+				9AEC76A82E38E47D00137A3A /* MeteoFeelTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9A3A21692E1AF3DF00FD41AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AEC76A72E38E47D00137A3A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -145,7 +212,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9AEC76A52E38E47D00137A3A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9AEC76AE2E38E47D00137A3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A3A216A2E1AF3DF00FD41AE /* MeteoFeel */;
+			targetProxy = 9AEC76AD2E38E47D00137A3A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9A3A21742E1AF3E100FD41AE /* Debug */ = {
@@ -337,6 +419,44 @@
 			};
 			name = Release;
 		};
+		9AEC76B02E38E47D00137A3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5692ZYJZGS;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zalogatomek.MeteoFeelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MeteoFeel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MeteoFeel";
+			};
+			name = Debug;
+		};
+		9AEC76B12E38E47D00137A3A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5692ZYJZGS;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zalogatomek.MeteoFeelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MeteoFeel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MeteoFeel";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -358,17 +478,19 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		9AEC76AF2E38E47D00137A3A /* Build configuration list for PBXNativeTarget "MeteoFeelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AEC76B02E38E47D00137A3A /* Debug */,
+				9AEC76B12E38E47D00137A3A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		9A3A21792E1AF4AA00FD41AE /* XCLocalSwiftPackageReference "MeteoFeelModel" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = MeteoFeelModel;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		9A3A217A2E1AF4AA00FD41AE /* MeteoFeelModel */ = {
+		9A20AE912E38FB9F0038FB10 /* MeteoFeelModel */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MeteoFeelModel;
 		};

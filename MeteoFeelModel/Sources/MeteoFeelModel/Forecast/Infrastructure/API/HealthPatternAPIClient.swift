@@ -3,7 +3,7 @@ import Foundation
 enum HealthPatternAPIError: Error {
     case fileNotFound
     case invalidData
-    case decodingError(Error)
+    case decodingError(any Error)
 }
 
 protocol HealthPatternAPIClientProtocol: Sendable {

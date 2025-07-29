@@ -1,18 +1,20 @@
 public import Foundation
 
 public struct HealthAlert: Codable, Equatable, Comparable, Sendable {
-    public let id: UUID
+
+    // MARK: - Properties
+
     public let timePeriod: TimePeriod
     public let pattern: HealthPattern
     public let currentValue: WeatherMeasurement
-    
+
+    // MARK: - Lifecycle
+
     public init(
-        id: UUID = UUID(),
         timePeriod: TimePeriod,
         pattern: HealthPattern,
         currentValue: WeatherMeasurement
     ) {
-        self.id = id
         self.timePeriod = timePeriod
         self.pattern = pattern
         self.currentValue = currentValue
@@ -30,3 +32,33 @@ public struct HealthAlert: Codable, Equatable, Comparable, Sendable {
         }
     }
 } 
+
+extension HealthAlert {
+
+    // MARK: - Stubs
+
+    public static func createStub(
+        timePeriod: TimePeriod = TimePeriod(date: Date(), timeOfDay: .morning),
+        healthIssue: HealthIssue = .headache,
+        condition: HealthPatternCondition = .above,
+        parameter: WeatherParameter = .temperature,
+        value: Double = 25.0,
+        risk: HealthRisk = .medium,
+        currentValue: WeatherMeasurement? = nil
+    ) -> HealthAlert {
+        let pattern = HealthPattern(
+            healthIssue: healthIssue,
+            condition: condition,
+            value: WeatherMeasurement(parameter: parameter, value: value),
+            risk: risk
+        )
+        
+        let measurement = currentValue ?? WeatherMeasurement(parameter: parameter, value: value)
+        
+        return HealthAlert(
+            timePeriod: timePeriod,
+            pattern: pattern,
+            currentValue: measurement
+        )
+    }
+}

@@ -6,7 +6,7 @@ public struct WeatherForecastStateObservableFactory {
     
     public static func create(
         apiKey: String,
-        profileService: ProfileServiceProtocol,
+        profileService: any ProfileServiceProtocol,
         calendar: Calendar = .current
     ) -> WeatherForecastStateObservable {
         let weatherApiClient = WeatherAPIClient(apiKey: apiKey)

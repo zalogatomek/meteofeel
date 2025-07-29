@@ -37,16 +37,16 @@ public actor WeatherForecastStateObservable {
 
     // MARK: - Properties
     
-    private let service: WeatherForecastServiceProtocol
-    private let store: WeatherForecastStoreProtocol
+    private let service: any WeatherForecastServiceProtocol
+    private let store: any WeatherForecastStoreProtocol
     private let calendar: Calendar
     private let getUserProfile: () async -> UserProfile?
 
     // MARK: - Lifecycle
     
     init(
-        service: WeatherForecastServiceProtocol,
-        store: WeatherForecastStoreProtocol,
+        service: any WeatherForecastServiceProtocol,
+        store: any WeatherForecastStoreProtocol,
         getUserProfile: @escaping () async -> UserProfile?,
         calendar: Calendar = .current
     ) {
@@ -132,14 +132,14 @@ public actor WeatherForecastStateObservable {
 
     // MARK: - Data handling
     
-    private func handleNewForecasts(_ forecasts: [WeatherForecast], store: WeatherForecastStoreProtocol) async throws {
+    private func handleNewForecasts(_ forecasts: [WeatherForecast], store: any WeatherForecastStoreProtocol) async throws {
         try await store.saveForecasts(forecasts)
         
         let relevantForecasts = try await getRelevantForecasts(store: store)
         state = .loaded(relevantForecasts)
     }
 
-    private func handleError(_ error: Error) {
+    private func handleError(_ error: any Error) {
         if let forecastError = error as? WeatherForecastServiceError {
             state = .error(forecastError)
         } else {
@@ -147,7 +147,7 @@ public actor WeatherForecastStateObservable {
         }
     }
     
-    private func getRelevantForecasts(store: WeatherForecastStoreProtocol) async throws -> [WeatherForecast] {
+    private func getRelevantForecasts(store: any WeatherForecastStoreProtocol) async throws -> [WeatherForecast] {
         let healthIssues = await getUserProfile()?.healthIssues ?? Set(HealthIssue.allCases)
         let forecasts = try await store.getForecasts(for: Date(), nextPeriods: 3)
         return forecasts.map { $0.byFilteringHealthIssues(healthIssues) }

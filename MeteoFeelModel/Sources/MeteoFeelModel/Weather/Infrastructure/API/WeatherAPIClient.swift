@@ -2,9 +2,9 @@ import Foundation
 
 public enum WeatherAPIError: Error {
     case invalidURL
-    case networkError(Error)
+    case networkError(any Error)
     case invalidResponse
-    case decodingError(Error)
+    case decodingError(any Error)
     case rateLimitExceeded
     case serverError(Int)
 }

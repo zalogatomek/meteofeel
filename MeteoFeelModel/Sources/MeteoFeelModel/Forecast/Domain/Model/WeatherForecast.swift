@@ -27,4 +27,16 @@ public struct WeatherForecast: Codable, Equatable, Sendable, Identifiable {
         
         return WeatherForecast(weather: weather, alerts: filteredAlerts)
     }
+}
+
+extension WeatherForecast {
+    
+    // MARK: - Stubs
+    
+    public static func createStub(
+        weather: Weather = Weather.createStub(),
+        alerts: [HealthAlert] = []
+    ) -> WeatherForecast {
+        WeatherForecast(weather: weather, alerts: alerts)
+    }
 } 

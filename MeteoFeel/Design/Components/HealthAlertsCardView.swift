@@ -18,7 +18,7 @@ struct HealthAlertsCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             if let alerts, !alerts.isEmpty {
-                ForEach(Array(alerts.enumerated()), id: \.element.id) { index, alert in
+                ForEach(Array(alerts.enumerated()), id: \.offset) { index, alert in
                     VStack(spacing: 0) {
                         HealthAlertView(alert: alert)
                         

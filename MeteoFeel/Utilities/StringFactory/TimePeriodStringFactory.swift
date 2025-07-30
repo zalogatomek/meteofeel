@@ -1,5 +1,6 @@
 import Foundation
 import MeteoFeelModel
+import MeteoFeelUtilities
 
 struct TimePeriodStringFactory {
     

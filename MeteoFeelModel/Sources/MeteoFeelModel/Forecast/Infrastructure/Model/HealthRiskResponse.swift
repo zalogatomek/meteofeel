@@ -1,4 +1,5 @@
 import Foundation
+import MeteoFeelUtilities
 
 enum HealthRiskResponse: String, EnumerationResponse {
     case medium

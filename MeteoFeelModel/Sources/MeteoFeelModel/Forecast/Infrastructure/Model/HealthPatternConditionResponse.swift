@@ -1,4 +1,5 @@
 import Foundation
+import MeteoFeelUtilities
 
 enum HealthPatternConditionResponse: String, EnumerationResponse {
     case above

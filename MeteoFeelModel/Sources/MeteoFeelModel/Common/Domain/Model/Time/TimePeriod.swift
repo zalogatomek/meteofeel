@@ -1,4 +1,5 @@
 public import Foundation
+import MeteoFeelUtilities
 
 public struct TimePeriod: Codable, Hashable, Comparable, Sendable {
 

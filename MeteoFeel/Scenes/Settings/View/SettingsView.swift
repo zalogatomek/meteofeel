@@ -1,5 +1,6 @@
 import SwiftUI
 import MeteoFeelModel
+import MeteoFeelUtilities
 
 struct SettingsView: View {
     

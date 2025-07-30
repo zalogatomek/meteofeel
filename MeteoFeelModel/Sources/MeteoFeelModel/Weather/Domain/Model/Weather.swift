@@ -1,6 +1,9 @@
 public import Foundation
 
 public struct Weather: Equatable, Codable, Sendable {
+
+    // MARK: - Properties
+
     public let condition: WeatherCondition
     public let temperature: Double
     public let pressure: Double
@@ -14,6 +17,8 @@ public struct Weather: Equatable, Codable, Sendable {
     // - pollenCount: Int?
     // - airQualityIndex: Int?
     // - sunlightHours: Double?
+
+    // MARK: - Lifecycle
     
     public init(
         condition: WeatherCondition,

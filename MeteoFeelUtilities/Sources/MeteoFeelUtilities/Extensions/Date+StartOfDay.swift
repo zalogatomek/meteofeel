@@ -1,7 +1,7 @@
-import Foundation
+public import Foundation
 
-extension Date {
+public extension Date {
     func startOfDay(calendar: Calendar = .current) -> Date {
         calendar.startOfDay(for: self)
     }
-}
+} 

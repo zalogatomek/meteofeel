@@ -13,6 +13,10 @@ public enum WeatherCondition: Int, Codable, Equatable, Sendable {
     case unknown = -1
 
     init(value: Double) {
+        guard value >= Double(Int.min) && value <= Double(Int.max) else {
+            self = .unknown
+            return
+        }
         self = WeatherCondition(rawValue: Int(value)) ?? .unknown
     }
 } 

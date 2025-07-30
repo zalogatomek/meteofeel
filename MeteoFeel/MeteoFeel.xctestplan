@@ -26,6 +26,13 @@
     },
     {
       "target" : {
+        "containerPath" : "container:MeteoFeelUtilities",
+        "identifier" : "MeteoFeelUtilitiesTests",
+        "name" : "MeteoFeelUtilitiesTests"
+      }
+    },
+    {
+      "target" : {
         "containerPath" : "container:MeteoFeelModel",
         "identifier" : "MeteoFeelModelTests",
         "name" : "MeteoFeelModelTests"

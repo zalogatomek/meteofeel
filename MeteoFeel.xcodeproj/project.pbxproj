@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A20AE922E38FB9F0038FB10 /* MeteoFeelModel in Frameworks */ = {isa = PBXBuildFile; productRef = 9A20AE912E38FB9F0038FB10 /* MeteoFeelModel */; };
+		9A84AD4D2E3A2ADE00294EAD /* MeteoFeelUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9A84AD4C2E3A2ADE00294EAD /* MeteoFeelUtilities */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A84AD4D2E3A2ADE00294EAD /* MeteoFeelUtilities in Frameworks */,
 				9A20AE922E38FB9F0038FB10 /* MeteoFeelModel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +120,7 @@
 			name = MeteoFeel;
 			packageProductDependencies = (
 				9A20AE912E38FB9F0038FB10 /* MeteoFeelModel */,
+				9A84AD4C2E3A2ADE00294EAD /* MeteoFeelUtilities */,
 			);
 			productName = MeteoFeel;
 			productReference = 9A3A216B2E1AF3DF00FD41AE /* MeteoFeel.app */;
@@ -493,6 +496,10 @@
 		9A20AE912E38FB9F0038FB10 /* MeteoFeelModel */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MeteoFeelModel;
+		};
+		9A84AD4C2E3A2ADE00294EAD /* MeteoFeelUtilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MeteoFeelUtilities;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

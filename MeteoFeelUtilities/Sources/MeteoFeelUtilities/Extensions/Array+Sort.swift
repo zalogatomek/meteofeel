@@ -6,4 +6,4 @@ public extension Array where Element: CustomStringConvertible {
             lhs.description.localizedCompare(rhs.description) == .orderedAscending
         })
     }
-}
+} 

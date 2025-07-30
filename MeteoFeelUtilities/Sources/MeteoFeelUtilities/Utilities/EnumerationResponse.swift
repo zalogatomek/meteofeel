@@ -1,10 +1,10 @@
 import Foundation
 
-protocol EnumerationResponse: RawRepresentable & CaseIterable & Codable where RawValue: Equatable {
+public protocol EnumerationResponse: RawRepresentable & CaseIterable & Codable where RawValue: Equatable {
     static var defaultCase: Self { get }
 }
 
-extension EnumerationResponse {
+public extension EnumerationResponse {
     init(rawValue: RawValue) {
         self = Self.caseFor(rawValue) ?? Self.defaultCase
     }
@@ -16,4 +16,4 @@ extension EnumerationResponse {
             return allCases.first(where: { $0.rawValue == rawValue })
         }
     }
-}
+} 

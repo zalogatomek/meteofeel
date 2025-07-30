@@ -6,4 +6,4 @@ public extension Date {
     var isYesterday: Bool { Calendar.current.isDateInYesterday(self) }
     var isTomorrow: Bool { Calendar.current.isDateInTomorrow(self) }
     var isInFuture: Bool { self > now }
-}
+} 

@@ -1,4 +1,5 @@
 import Foundation
+import MeteoFeelUtilities
 @preconcurrency import MapKit
 
 final class LocationService: NSObject, LocationServiceProtocol, MKLocalSearchCompleterDelegate {

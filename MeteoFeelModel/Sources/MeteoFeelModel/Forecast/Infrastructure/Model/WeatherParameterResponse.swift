@@ -1,4 +1,5 @@
 import Foundation
+import MeteoFeelUtilities
 
 enum WeatherParameterResponse: String, EnumerationResponse {
     case temperature

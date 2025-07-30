@@ -4,27 +4,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "MeteoFeelModel",
+    name: "MeteoFeelUtilities",
     platforms: [
         .iOS(.v18),
         .macOS(.v15)
     ],
     products: [
         .library(
-            name: "MeteoFeelModel",
-            targets: ["MeteoFeelModel"]
+            name: "MeteoFeelUtilities",
+            targets: ["MeteoFeelUtilities"]
         ),
-    ],
-    dependencies: [
-        .package(path: "../MeteoFeelUtilities")
     ],
     targets: [
         .target(
-            name: "MeteoFeelModel",
-            dependencies: ["MeteoFeelUtilities"],
-            resources: [
-                .process("Forecast/Infrastructure/Model/health_patterns.json")
-            ],
+            name: "MeteoFeelUtilities",
             swiftSettings: [
                 .enableUpcomingFeature("ExistentialAny"),
                 .enableUpcomingFeature("MemberImportVisibility"),
@@ -32,8 +25,8 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "MeteoFeelModelTests",
-            dependencies: ["MeteoFeelModel"]
+            name: "MeteoFeelUtilitiesTests",
+            dependencies: ["MeteoFeelUtilities"]
         ),
     ]
 )

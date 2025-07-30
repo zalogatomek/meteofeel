@@ -1,4 +1,5 @@
 import Foundation
+import MeteoFeelUtilities
 
 enum HealthIssueResponse: String, EnumerationResponse {
     case headache

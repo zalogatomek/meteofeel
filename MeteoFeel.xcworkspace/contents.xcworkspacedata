@@ -5,6 +5,9 @@
       location = "container:MeteoFeel.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:MeteoFeelUtilities">
+   </FileRef>
+   <FileRef
       location = "group:MeteoFeelModel">
    </FileRef>
 </Workspace>

@@ -1,4 +1,5 @@
 public import Foundation
+import MeteoFeelUtilities
 
 @Observable public final class UserProfileForm {
     

@@ -22,4 +22,23 @@ public struct HealthPattern: Codable, Equatable, Sendable {
         self.value = value
         self.risk = risk
     }
+}
+
+extension HealthPattern {
+    
+    // MARK: - Stubs
+    
+    public static func createStub(
+        healthIssue: HealthIssue = .headache,
+        condition: HealthPatternCondition = .above,
+        value: WeatherMeasurement = WeatherMeasurement.createStub(),
+        risk: HealthRisk = .medium
+    ) -> HealthPattern {
+        HealthPattern(
+            healthIssue: healthIssue,
+            condition: condition,
+            value: value,
+            risk: risk
+        )
+    }
 } 

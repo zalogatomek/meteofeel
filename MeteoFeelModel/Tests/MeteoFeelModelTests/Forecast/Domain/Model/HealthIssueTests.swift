@@ -6,7 +6,8 @@ struct HealthIssueTests {
 
     // MARK: - Tests
     
-    @Test func comparesByAllCasesOrder() throws {
+    @Test 
+    func comparesByAllCasesOrder() throws {
         let allCases = HealthIssue.allCases
         
         for i in 0..<(allCases.count - 1) {

@@ -26,7 +26,7 @@ struct WeatherMeasurementFormatterTests {
         (25.7, Locale(identifier: "en_US"), "78°"),  // Rounds up, US converts
         (25.7, Locale(identifier: "en_GB"), "26°C"), // Rounds up, British keeps Celsius with unit
         (25.7, Locale(identifier: "pl_PL"), "26°"),  // Rounds up, Polish keeps Celsius
-        (25.7, Locale(identifier: "nl_NL"), "26°")  // Rounds up, Dutch keeps Celsius
+        (25.7, Locale(identifier: "nl_NL"), "26°")   // Rounds up, Dutch keeps Celsius
     ])
     func formatTemperature(_ value: Double, _ locale: Locale, _ expected: String) throws {
         let result = WeatherMeasurementFormatter.formatTemperature(value, locale: locale)
@@ -37,26 +37,26 @@ struct WeatherMeasurementFormatterTests {
     // MARK: - Tests - Pressure Formatting
     
     @Test(arguments: [
-        (950.0, Locale(identifier: "en_US"), "28″ Hg"),    // US uses inches of mercury
-        (950.0, Locale(identifier: "en_GB"), "950mb"),   // British uses millibars without comma separator
-        (950.0, Locale(identifier: "pl_PL"), "950 hPa"),   // Polish keeps metric
-        (950.0, Locale(identifier: "nl_NL"), "950 hPa"),   // Dutch keeps metric without decimal
-        (1000.0, Locale(identifier: "en_US"), "30″ Hg"),   // US uses inches of mercury
-        (1000.0, Locale(identifier: "en_GB"), "1,000mb"),  // British uses millibars with comma separator
+        (950.0, Locale(identifier: "en_US"), "28″ Hg"),     // US uses inches of mercury
+        (950.0, Locale(identifier: "en_GB"), "950mb"),      // British uses millibars without comma separator
+        (950.0, Locale(identifier: "pl_PL"), "950 hPa"),    // Polish keeps metric
+        (950.0, Locale(identifier: "nl_NL"), "950 hPa"),    // Dutch keeps metric without decimal
+        (1000.0, Locale(identifier: "en_US"), "30″ Hg"),    // US uses inches of mercury
+        (1000.0, Locale(identifier: "en_GB"), "1,000mb"),   // British uses millibars with comma separator
         (1000.0, Locale(identifier: "pl_PL"), "1000 hPa"),  // Polish keeps metric
         (1000.0, Locale(identifier: "nl_NL"), "1.000 hPa"), // Dutch uses decimal separator
-        (1013.0, Locale(identifier: "en_US"), "30″ Hg"),  // US uses inches of mercury
-        (1013.0, Locale(identifier: "en_GB"), "1,013mb"), // British uses millibars with comma separator
-        (1013.0, Locale(identifier: "pl_PL"), "1013 hPa"), // Polish keeps metric
+        (1013.0, Locale(identifier: "en_US"), "30″ Hg"),    // US uses inches of mercury
+        (1013.0, Locale(identifier: "en_GB"), "1,013mb"),   // British uses millibars with comma separator
+        (1013.0, Locale(identifier: "pl_PL"), "1013 hPa"),  // Polish keeps metric
         (1013.0, Locale(identifier: "nl_NL"), "1.013 hPa"), // Dutch uses decimal separator
-        (1013.4, Locale(identifier: "en_US"), "30″ Hg"),   // Rounds down, US uses inches
-        (1013.4, Locale(identifier: "en_GB"), "1,013mb"),  // Rounds down, British uses millibars with comma separator
+        (1013.4, Locale(identifier: "en_US"), "30″ Hg"),    // Rounds down, US uses inches
+        (1013.4, Locale(identifier: "en_GB"), "1,013mb"),   // Rounds down, British uses millibars with comma separator
         (1013.4, Locale(identifier: "pl_PL"), "1013 hPa"),  // Rounds down, Polish keeps metric
         (1013.4, Locale(identifier: "nl_NL"), "1.013 hPa"), // Rounds down, Dutch uses decimal separator
-        (1013.7, Locale(identifier: "en_US"), "30″ Hg"),   // Rounds up, US uses inches
-        (1013.7, Locale(identifier: "en_GB"), "1,014mb"),  // Rounds up, British uses millibars with comma separator
+        (1013.7, Locale(identifier: "en_US"), "30″ Hg"),    // Rounds up, US uses inches
+        (1013.7, Locale(identifier: "en_GB"), "1,014mb"),   // Rounds up, British uses millibars with comma separator
         (1013.7, Locale(identifier: "pl_PL"), "1014 hPa"),  // Rounds up, Polish keeps metric
-        (1013.7, Locale(identifier: "nl_NL"), "1.014 hPa") // Rounds up, Dutch uses decimal separator
+        (1013.7, Locale(identifier: "nl_NL"), "1.014 hPa"), // Rounds up, Dutch uses decimal separator
     ])
     func formatPressure(_ value: Double, _ locale: Locale, _ expected: String) throws {
         let result = WeatherMeasurementFormatter.formatPressure(value, locale: locale)

@@ -6,7 +6,8 @@ struct HealthRiskTests {
 
     // MARK: - Tests
     
-    @Test func comparesCorrectly() throws {
+    @Test 
+    func comparesCorrectly() throws {
         #expect(HealthRisk.medium < HealthRisk.high)
         #expect(HealthRisk.high > HealthRisk.medium)
         #expect(HealthRisk.medium == HealthRisk.medium)

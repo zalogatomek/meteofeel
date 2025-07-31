@@ -6,7 +6,8 @@ struct HealthAlertTests {
 
     // MARK: - Tests
     
-    @Test func comparesByHealthIssueFirst() throws {
+    @Test 
+    func comparesByHealthIssueFirst() throws {
         let headacheAlert = HealthAlert.createStub(
             healthIssue: .headache,
             risk: .high
@@ -21,7 +22,8 @@ struct HealthAlertTests {
         #expect(jointPainAlert > headacheAlert)
     }
     
-    @Test func comparesByRiskWhenHealthIssueSame() throws {
+    @Test 
+    func comparesByRiskWhenHealthIssueSame() throws {
         let mediumRiskAlert = HealthAlert.createStub(
             healthIssue: .headache,
             risk: .medium
@@ -36,7 +38,8 @@ struct HealthAlertTests {
         #expect(mediumRiskAlert > highRiskAlert)
     }
     
-    @Test func comparesByParameterWhenHealthIssueAndRiskSame() throws {
+    @Test 
+    func comparesByParameterWhenHealthIssueAndRiskSame() throws {
         let temperatureAlert = HealthAlert.createStub(
             healthIssue: .headache,
             parameter: .temperature,
@@ -55,7 +58,8 @@ struct HealthAlertTests {
         #expect(humidityAlert > temperatureAlert)
     }
     
-    @Test func comparesEqualWhenAllPropertiesSame() throws {
+    @Test 
+    func comparesEqualWhenAllPropertiesSame() throws {
         let alert1 = HealthAlert.createStub()
         let alert2 = HealthAlert.createStub()
         

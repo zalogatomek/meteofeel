@@ -21,21 +21,24 @@ struct ArrayUniqueTests {
 
     // MARK: - Tests - unique()
     
-    @Test func unique() throws {
+    @Test 
+    func unique() throws {
         let array = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
         let uniqueArray = array.unique()
         
         #expect(uniqueArray == [1, 2, 3, 4])
     }
     
-    @Test func uniqueWithNoDuplicates() throws {
+    @Test 
+    func uniqueWithNoDuplicates() throws {
         let array = [1, 2, 3, 4, 5]
         let uniqueArray = array.unique()
         
         #expect(uniqueArray == array)
     }
     
-    @Test func uniqueWithAllDuplicates() throws {
+    @Test 
+    func uniqueWithAllDuplicates() throws {
         let array = [1, 1, 1, 1, 1]
         let uniqueArray = array.unique()
         
@@ -44,7 +47,8 @@ struct ArrayUniqueTests {
     
     // MARK: - Tests - unique(by:)
     
-    @Test func uniqueByKeyPath() throws {
+    @Test 
+    func uniqueByKeyPath() throws {
         let uniqueByName = people.unique(by: \.name)
         
         #expect(uniqueByName.map(\.name) == ["Alice", "Bob", "Charlie"])
@@ -52,7 +56,8 @@ struct ArrayUniqueTests {
     
     // MARK: - Tests - uniqueByDescription()
     
-    @Test func uniqueByDescription() throws {
+    @Test 
+    func uniqueByDescription() throws {
         let uniqueArray = people.uniqueByDescription()
 
         #expect(uniqueArray.map(\.name) == ["Alice", "Bob", "Charlie"])

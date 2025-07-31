@@ -6,7 +6,8 @@ struct WeatherConditionTests {
 
     // MARK: - Tests
     
-    @Test func initWithValidRawValues() throws {
+    @Test
+    func initWithValidRawValues() throws {
         let sunny = WeatherCondition(value: 0)
         let partlyCloudy = WeatherCondition(value: 1)
         let cloudy = WeatherCondition(value: 2)
@@ -28,7 +29,8 @@ struct WeatherConditionTests {
         #expect(thunderstorm == .thunderstorm)
     }
     
-    @Test func initWithInvalidRawValuesReturnsUnknown() throws {
+    @Test 
+    func initWithInvalidRawValuesReturnsUnknown() throws {
         let negativeOne = WeatherCondition(value: -1)
         let invalidPositive = WeatherCondition(value: 999)
         let invalidNegative = WeatherCondition(value: -999)
@@ -48,7 +50,8 @@ struct WeatherConditionTests {
         #expect(nan == .unknown)
     }
     
-    @Test func initWithDecimalValuesRoundsToInteger() throws {
+    @Test 
+    func initWithDecimalValuesRoundsToInteger() throws {
         let sunnyDecimal = WeatherCondition(value: 0.5)
         let partlyCloudyDecimal = WeatherCondition(value: 1.7)
         let invalidDecimal = WeatherCondition(value: 999.9)

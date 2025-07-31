@@ -6,7 +6,8 @@ struct TimeOfDayTests {
 
     // MARK: - Tests
     
-    @Test func comparesCorrectly() throws {
+    @Test 
+    func comparesCorrectly() throws {
         #expect(TimeOfDay.morning == TimeOfDay.morning)
         #expect(TimeOfDay.morning < TimeOfDay.afternoon)
         #expect(TimeOfDay.morning < TimeOfDay.evening)

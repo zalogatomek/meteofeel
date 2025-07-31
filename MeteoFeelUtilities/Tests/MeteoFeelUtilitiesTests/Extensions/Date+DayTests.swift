@@ -88,7 +88,8 @@ struct DateDayTests {
     
     // MARK: - Tests - boundary conditions
     
-    @Test func boundaryConditionsWithStartOfDay() throws {
+    @Test 
+    func boundaryConditionsWithStartOfDay() throws {
         let today = Date()
         let startOfDay = Calendar.current.startOfDay(for: today)
         
@@ -97,7 +98,8 @@ struct DateDayTests {
         #expect(!startOfDay.isTomorrow)
     }
     
-    @Test func boundaryConditionsWithEndOfDay() throws {
+    @Test 
+    func boundaryConditionsWithEndOfDay() throws {
         let today = Date()
         let endOfDay = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: today)!
         

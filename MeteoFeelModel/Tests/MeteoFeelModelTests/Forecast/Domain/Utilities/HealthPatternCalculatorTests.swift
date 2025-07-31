@@ -119,7 +119,8 @@ struct HealthPatternCalculatorTests {
         #expect(result == expected)
     }
 
-    @Test func rapidIncreaseWithoutPreviousValue() throws {
+    @Test 
+    func rapidIncreaseWithoutPreviousValue() throws {
         let pattern = HealthPattern.createStub(
             condition: .rapidIncrease,
             value: WeatherMeasurement.createStub(parameter: .temperature, value: 5.0)
@@ -131,7 +132,8 @@ struct HealthPatternCalculatorTests {
         #expect(result == false)
     }
 
-    @Test func rapidIncreaseWithDifferentParameterType() throws {
+    @Test 
+    func rapidIncreaseWithDifferentParameterType() throws {
         let pattern = HealthPattern.createStub(
             condition: .rapidIncrease,
             value: WeatherMeasurement.createStub(parameter: .temperature, value: 5.0)
@@ -172,7 +174,8 @@ struct HealthPatternCalculatorTests {
         #expect(result == expected)
     }
 
-    @Test func rapidDecreaseWithoutPreviousValue() throws {
+    @Test 
+    func rapidDecreaseWithoutPreviousValue() throws {
         let pattern = HealthPattern.createStub(
             condition: .rapidDecrease,
             value: WeatherMeasurement.createStub(parameter: .temperature, value: 5.0)
@@ -184,7 +187,8 @@ struct HealthPatternCalculatorTests {
         #expect(result == false)
     }
 
-    @Test func rapidDecreaseWithDifferentParameterType() throws {
+    @Test 
+    func rapidDecreaseWithDifferentParameterType() throws {
         let pattern = HealthPattern.createStub(
             condition: .rapidDecrease,
             value: WeatherMeasurement.createStub(parameter: .temperature, value: 5.0)

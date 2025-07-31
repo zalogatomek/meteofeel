@@ -12,7 +12,7 @@
   - Example: `WeatherForecastTests`, `HealthPatternCalculatorTests`
 - Test methods: Short, descriptive names indicating what is being tested (no "test" prefix)
   - Example: `calculateHealthRisk()`, `mapWeatherResponse()`
-- Test annotations: Use `@Test func methodName()` format (no descriptions)
+- Test annotations: Use `@Test func methodName()` format without descriptions
 
 ## Test Organization
 - Keep test files close to the code they test
@@ -22,10 +22,10 @@
 ## Parameterized Tests
 - **First Choice**: Use parameterized tests when testing multiple similar scenarios or edge cases
 - Use `@Test(arguments: [value1, value2, value3])` format for simple cases
-- Use `@Test(arguments: zip([arg1, arg2], [expected1, expected2]))` format when testing input-output pairs
+- Use `@Test(arguments: ([arg1, expected1), [arg2, expected2]))` format when testing input-output pairs or multiple parameters
 - Combine related test cases into single parameterized test functions to reduce boilerplate
 - Only create individual tests when the scenario is unique or complex enough to warrant separate explanation
-- Example: `@Test(arguments: zip([8, 14, 20], [TimeOfDay.morning, .afternoon, .evening]))`
+- Example: `@Test(arguments: (8, TimeOfDay.morning), (14, TimeOfDay.afternoon), (20, TimeOfDay.evening))`
 - Example: `@Test(arguments: ["valid1", "valid2", "valid3"]) func testValidInputs(_ input: String) throws`
 
 ## Test Macros

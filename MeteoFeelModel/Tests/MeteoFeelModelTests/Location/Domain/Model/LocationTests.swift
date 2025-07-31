@@ -6,7 +6,8 @@ struct LocationTests {
 
     // MARK: - Tests
     
-    @Test func initWithValidLocation() throws {
+    @Test 
+    func initWithValidLocation() throws {
         let coordinates = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let location = Location(name: "New York", coordinates: coordinates)
         
@@ -27,7 +28,8 @@ struct LocationTests {
         #expect(location1 == location2)
     }
     
-    @Test func notEqualLocationsWithDifferentNames() throws {
+    @Test 
+    func notEqualLocationsWithDifferentNames() throws {
         let coordinates = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let location1 = Location(name: "New York", coordinates: coordinates)
         let location2 = Location(name: "Los Angeles", coordinates: coordinates)
@@ -35,7 +37,8 @@ struct LocationTests {
         #expect(location1 != location2)
     }
     
-    @Test func notEqualLocationsWithSameNameButFarCoordinates() throws {
+    @Test 
+    func notEqualLocationsWithSameNameButFarCoordinates() throws {
         let coordinates1 = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let coordinates2 = Coordinates(latitude: 40.7128 + 0.0001, longitude: -74.0060) // ~11 meters north
         
@@ -45,7 +48,8 @@ struct LocationTests {
         #expect(location1 != location2)
     }
     
-    @Test func notEqualLocationsWithDifferentNamesAndFarCoordinates() throws {
+    @Test 
+    func notEqualLocationsWithDifferentNamesAndFarCoordinates() throws {
         let coordinates1 = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let coordinates2 = Coordinates(latitude: 40.7128 + 0.0001, longitude: -74.0060) // ~11 meters north
         

@@ -6,7 +6,8 @@ struct WeatherForecastTests {
 
     // MARK: - Tests
     
-    @Test func initializesWithWeatherAndAlerts() throws {
+    @Test 
+    func initializesWithWeatherAndAlerts() throws {
         let weather = Weather.createStub()
         let alerts = [HealthAlert.createStub()]
         
@@ -17,7 +18,8 @@ struct WeatherForecastTests {
         #expect(forecast.id != UUID())
     }
     
-    @Test func byFilteringHealthIssuesReturnsSameWhenEmptySet() throws {
+    @Test 
+    func byFilteringHealthIssuesReturnsSameWhenEmptySet() throws {
         let weather = Weather.createStub()
         let alerts = [HealthAlert.createStub()]
         
@@ -28,7 +30,8 @@ struct WeatherForecastTests {
         #expect(filtered.alerts == alerts)
     }
     
-    @Test func byFilteringHealthIssuesFiltersMatchingIssues() throws {
+    @Test 
+    func byFilteringHealthIssuesFiltersMatchingIssues() throws {
         let weather = Weather.createStub()
         
         let headacheAlert = HealthAlert.createStub(
@@ -56,7 +59,8 @@ struct WeatherForecastTests {
         #expect(filtered.alerts.first?.pattern.healthIssue == .headache)
     }
     
-    @Test func byFilteringHealthIssuesFiltersMultipleIssues() throws {
+    @Test 
+    func byFilteringHealthIssuesFiltersMultipleIssues() throws {
         let weather = Weather.createStub()
         
         let headacheAlert = HealthAlert.createStub(

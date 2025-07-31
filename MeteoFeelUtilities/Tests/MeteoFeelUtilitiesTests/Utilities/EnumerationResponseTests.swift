@@ -45,11 +45,16 @@ struct EnumerationResponseTests {
     
     // MARK: - Tests - caseFor
     
-    @Test(arguments: zip(
-        ["first", "second", "third", "FIRST", "Second", "THIRD", "unknown"],
-        [TestEnum.first, .second, .third, .first, .second, .third, .unknown]
-    ))
-    func caseForWithValidStringRawValue(_ value: String, _ expected: TestEnum) throws {
+    @Test(arguments: [
+        ("first", TestEnum.first),
+        ("second", .second),
+        ("third", .third),
+        ("FIRST", .first),
+        ("Second", .second),
+        ("THIRD", .third),
+        ("unknown", .unknown)
+    ])
+    func caseForWithValidStringRawValue(value: String, expected: TestEnum) throws {
         let caseValue = TestEnum.caseFor(value)
         
         #expect(caseValue == expected)
@@ -64,7 +69,8 @@ struct EnumerationResponseTests {
     
     // MARK: - Tests - defaultCase
     
-    @Test func defaultCaseReturnsUnknown() throws {
+    @Test 
+    func defaultCaseReturnsUnknown() throws {
         #expect(TestEnum.defaultCase == .unknown)
     }
 } 

@@ -6,7 +6,8 @@ struct TimePeriodTests {
 
     // MARK: - Tests
     
-    @Test func initWithDateAndTimeOfDay() throws {
+    @Test 
+    func initWithDateAndTimeOfDay() throws {
         let date = Date()
         let timeOfDay = TimeOfDay.morning
         
@@ -16,8 +17,12 @@ struct TimePeriodTests {
         #expect(timePeriod.timeOfDay == timeOfDay)
     }
     
-    @Test(arguments: zip([8, 14, 20], [TimeOfDay.morning, .afternoon, .evening]))
-    func initWithDateAndCalendar(_ hour: Int, expectedTimeOfDay: TimeOfDay) throws {
+    @Test(arguments: [
+        (8, TimeOfDay.morning),
+        (14, TimeOfDay.afternoon),
+        (20, TimeOfDay.evening)
+    ])
+    func initWithDateAndCalendar(hour: Int, expectedTimeOfDay: TimeOfDay) throws {
         let calendar = Calendar.current
         let date = calendar.date(from: DateComponents(year: 2024, month: 1, day: 15, hour: hour))!
         
@@ -27,7 +32,8 @@ struct TimePeriodTests {
         #expect(timePeriod.date == date.startOfDay(calendar: calendar))
     }
     
-    @Test func initWithDateAndCalendarInvalidHours() throws {
+    @Test
+    func initWithDateAndCalendarInvalidHours() throws {
         let calendar = Calendar.current
         let invalidDate = calendar.date(from: DateComponents(year: 2024, month: 1, day: 15, hour: 2))!
         
@@ -36,8 +42,12 @@ struct TimePeriodTests {
         #expect(timePeriod == nil)
     }
     
-    @Test(arguments: zip([TimeOfDay.morning, .afternoon, .evening], [TimeOfDay.afternoon, .evening, .morning]))
-    func next(_ fromTimeOfDay: TimeOfDay, expectedNextTimeOfDay: TimeOfDay) throws {
+    @Test(arguments: [
+        (TimeOfDay.morning, TimeOfDay.afternoon),
+        (TimeOfDay.afternoon, TimeOfDay.evening),
+        (TimeOfDay.evening, TimeOfDay.morning)
+    ])
+    func next(fromTimeOfDay: TimeOfDay, expectedNextTimeOfDay: TimeOfDay) throws {
         let calendar = Calendar.current
         let date = Date().startOfDay()
         let period = TimePeriod.createStub(date: date, timeOfDay: fromTimeOfDay)
@@ -53,7 +63,8 @@ struct TimePeriodTests {
         #expect(nextPeriod.timeOfDay == expectedNextTimeOfDay)
     }
     
-    @Test func compareDifferentDates() throws {
+    @Test 
+    func compareDifferentDates() throws {
         let calendar = Calendar.current
         let earlierDate = calendar.date(from: DateComponents(year: 2024, month: 1, day: 15))!
         let laterDate = calendar.date(from: DateComponents(year: 2024, month: 1, day: 16))!
@@ -65,7 +76,8 @@ struct TimePeriodTests {
         #expect(laterPeriod > earlierPeriod)
     }
     
-    @Test func compareSameDateDifferentTimeOfDay() throws {
+    @Test 
+    func compareSameDateDifferentTimeOfDay() throws {
         let morningPeriod = TimePeriod.createStub(timeOfDay: .morning)
         let afternoonPeriod = TimePeriod.createStub(timeOfDay: .afternoon)
         let eveningPeriod = TimePeriod.createStub(timeOfDay: .evening)

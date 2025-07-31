@@ -6,13 +6,15 @@ struct CoordinatesTests {
 
     // MARK: - Tests
 
-    @Test func distanceFromSameCoordinates() throws {
+    @Test 
+    func distanceFromSameCoordinates() throws {
         let coordinates = Coordinates(latitude: 40.7128, longitude: -74.0060)
         
         #expect(coordinates.distance(from: coordinates) == 0.0)
     }
     
-    @Test func distanceFromCloseCoordinates() throws {
+    @Test 
+    func distanceFromCloseCoordinates() throws {
         let base = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let close = Coordinates(latitude: 40.7128 + 0.000009, longitude: -74.0060) // ~1 meter north
         
@@ -20,7 +22,8 @@ struct CoordinatesTests {
         #expect(distance > 0.9 && distance < 1.1) // Approximately 1 meter
     }
     
-    @Test func distanceFromDiagonalCoordinates() throws {
+    @Test 
+    func distanceFromDiagonalCoordinates() throws {
         let base = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let diagonal = Coordinates(
             latitude: 40.7128 + 0.000009, // ~1 meter north
@@ -32,7 +35,8 @@ struct CoordinatesTests {
         #expect(distance > 1.3 && distance < 1.5)
     }
     
-    @Test func distanceFromFarCoordinates() throws {
+    @Test 
+    func distanceFromFarCoordinates() throws {
         let base = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let far = Coordinates(latitude: 40.7128 + 0.0001, longitude: -74.0060) // ~11 meters north
         
@@ -40,7 +44,8 @@ struct CoordinatesTests {
         #expect(distance > 10.0 && distance < 12.0) // Approximately 11 meters
     }
     
-    @Test func isWithinSameCoordinates() throws {
+    @Test 
+    func isWithinSameCoordinates() throws {
         let coordinates = Coordinates(latitude: 40.7128, longitude: -74.0060)
         
         #expect(coordinates.isWithin(meters: 0, from: coordinates))
@@ -48,7 +53,8 @@ struct CoordinatesTests {
         #expect(coordinates.isWithin(meters: 10, from: coordinates))
     }
     
-    @Test func isWithinCloseCoordinates() throws {
+    @Test 
+    func isWithinCloseCoordinates() throws {
         let base = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let close = Coordinates(latitude: 40.7128 + 0.000009, longitude: -74.0060) // ~1 meter north
         
@@ -57,7 +63,8 @@ struct CoordinatesTests {
         #expect(base.isWithin(meters: 2, from: close))
     }
     
-    @Test func isWithinFarCoordinates() throws {
+    @Test
+    func isWithinFarCoordinates() throws {
         let base = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let far = Coordinates(latitude: 40.7128 + 0.0001, longitude: -74.0060) // ~11 meters north
         
@@ -66,7 +73,8 @@ struct CoordinatesTests {
         #expect(base.isWithin(meters: 15, from: far))
     }
     
-    @Test func isWithinDiagonalDistance() throws {
+    @Test
+    func isWithinDiagonalDistance() throws {
         let base = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let diagonal = Coordinates(
             latitude: 40.7128 + 0.000009, // ~1 meter north
@@ -78,14 +86,16 @@ struct CoordinatesTests {
         #expect(base.isWithin(meters: 2, from: diagonal))
     }
     
-    @Test func isWithinNegativeCoordinates() throws {
+    @Test 
+    func isWithinNegativeCoordinates() throws {
         let base = Coordinates(latitude: -40.7128, longitude: -74.0060)
         let close = Coordinates(latitude: -40.7128 + 0.000009, longitude: -74.0060)
         
         #expect(base.isWithin(meters: 1, from: close))
     }
     
-    @Test func isWithinLargeDistance() throws {
+    @Test 
+    func isWithinLargeDistance() throws {
         let base = Coordinates(latitude: 40.7128, longitude: -74.0060)
         let far = Coordinates(latitude: 40.7128 + 0.001, longitude: -74.0060) // ~111 meters
         

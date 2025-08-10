@@ -16,4 +16,18 @@ extension HealthIssue {
         case .skin: "Skin Issues"
         }
     }
+    
+    var systemIconName: String {
+        switch self {
+        case .headache: "brain.head.profile"
+        case .jointPain: "figure.walk"
+        case .respiratory: "lungs"
+        case .fatigue: "bed.double"
+        case .allergy: "leaf"
+        case .asthma: "lungs"
+        case .mood: "face.dashed"
+        case .cardiovascular: "heart"
+        case .skin: "hand.raised"
+        }
+    }
 } 

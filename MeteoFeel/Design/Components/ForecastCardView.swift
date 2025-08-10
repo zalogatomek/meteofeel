@@ -57,22 +57,28 @@ struct ForecastCardView: View {
             }
             
             VStack(alignment: .leading, spacing: 8) {
-                if !forecast.alerts.isEmpty {
-                    ForEach(Array(forecast.alerts.prefix(2).enumerated()), id: \.offset) { index, alert in
-                        HealthAlertView(
-                            alert: alert,
-                            style: .small
-                        )
+                let sortedAlertsGroups = forecast.alerts
+                    .groupByHealthIssue()
+                    .sorted { $0.key < $1.key }
+
+                if !sortedAlertsGroups.isEmpty {
+                    ForEach(Array(sortedAlertsGroups.prefix(2).enumerated()), id: \.offset) { index, group in
+                        if let alert = group.value.first {
+                            HealthAlertView(
+                                alert: alert,
+                                style: .small
+                            )
+                        }
                         
-                        if index < min(forecast.alerts.count, 2) - 1 {
+                        if index < min(sortedAlertsGroups.count, 2) - 1 {
                             Divider()
                                 .padding(.vertical, 2)
                         }
                     }
                     
-                    if forecast.alerts.count > 2 {
+                    if sortedAlertsGroups.count > 2 {
                         HStack {
-                            Text("+\(forecast.alerts.count - 2) more alerts")
+                            Text("+\(sortedAlertsGroups.count - 2) more alerts")
                                 .font(.caption2)
                                 .foregroundColor(.secondary)
                             
@@ -95,8 +101,6 @@ struct ForecastCardView: View {
         }
         .cardStyle()
     }
-    
-
 }
 
 #Preview {

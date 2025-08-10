@@ -31,7 +31,13 @@ public struct HealthAlert: Codable, Equatable, Comparable, Sendable {
             return lhs.pattern.value.parameter < rhs.pattern.value.parameter
         }
     }
-} 
+}
+
+extension Array where Element == HealthAlert {
+    public func groupByHealthIssue() -> [HealthIssue: [HealthAlert]] {
+        Dictionary(grouping: self, by: { $0.pattern.healthIssue })
+    }
+}
 
 extension HealthAlert {
 

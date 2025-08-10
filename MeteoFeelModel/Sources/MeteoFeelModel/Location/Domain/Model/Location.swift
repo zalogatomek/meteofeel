@@ -23,3 +23,18 @@ public struct Location: Codable, Equatable, Sendable {
         return lhs.name == rhs.name && lhs.coordinates.isWithin(meters: 10, from: rhs.coordinates)
     }
 }
+
+extension Location {
+    
+    // MARK: - Stubs
+    
+    public static func createStub(
+        name: String = "City",
+        coordinates: Coordinates = Coordinates.createStub()
+    ) -> Location {
+        return Location(
+            name: name,
+            coordinates: coordinates
+        )
+    }
+}

@@ -44,3 +44,18 @@ public struct Coordinates: Codable, Equatable, Sendable {
         return distance(from: other) <= Double(meters)
     }
 }
+
+extension Coordinates {
+    
+    // MARK: - Stubs
+    
+    public static func createStub(
+        latitude: Double = 40.7128,
+        longitude: Double = -74.0060
+    ) -> Coordinates {
+        return Coordinates(
+            latitude: latitude,
+            longitude: longitude
+        )
+    }
+}

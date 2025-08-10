@@ -22,4 +22,23 @@ public struct UserProfile: Codable, Equatable, Sendable {
         self.location = location
         self.healthIssues = healthIssues
     }
-} 
+}
+
+extension UserProfile {
+    
+    // MARK: - Stubs
+    
+    public static func createStub(
+        id: UUID = UUID(),
+        name: String? = "Test User",
+        location: Location = Location.createStub(),
+        healthIssues: Set<HealthIssue> = [.headache, .fatigue]
+    ) -> UserProfile {
+        return UserProfile(
+            id: id,
+            name: name,
+            location: location,
+            healthIssues: healthIssues
+        )
+    }
+}

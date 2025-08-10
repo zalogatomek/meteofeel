@@ -11,21 +11,27 @@
 - Test structs: `[TestedName]Tests`
   - Example: `WeatherForecastTests`, `HealthPatternCalculatorTests`
 - Test methods: Short, descriptive names indicating what is being tested (no "test" prefix)
-  - Example: `calculateHealthRisk()`, `mapWeatherResponse()`
+  - Example: `calculateHealthRisk()`, `mapWeatherResponse()`, `initWithDateAndCalendar()`
 - Test annotations: Use `@Test func methodName()` format without descriptions
 
 ## Test Organization
 - Keep test files close to the code they test
 - Create 1 test file per 1 source file
 - Use clear, concise test method names that describe the specific behavior being tested
+- Group related tests with `// MARK: - Tests - [Group Name]` comments
 
 ## Parameterized Tests
 - **First Choice**: Use parameterized tests when testing multiple similar scenarios or edge cases
 - Use `@Test(arguments: [value1, value2, value3])` format for simple cases
-- Use `@Test(arguments: ([arg1, expected1), [arg2, expected2]))` format when testing input-output pairs or multiple parameters
+- Use `@Test(arguments: [(arg1, expected1), (arg2, expected2)])` format when testing input-output pairs or multiple parameters
+- **Parameter Naming**: Use descriptive parameter names in function signatures for clarity
+  - Example: `func initWithDateAndCalendar(hour: Int, expectedTimeOfDay: TimeOfDay)`
+  - Example: `func aboveCondition(_ parameter: WeatherParameter, _ threshold: Double, _ currentValue: Double, _ expected: Bool)`
 - Combine related test cases into single parameterized test functions to reduce boilerplate
 - Only create individual tests when the scenario is unique or complex enough to warrant separate explanation
-- Example: `@Test(arguments: (8, TimeOfDay.morning), (14, TimeOfDay.afternoon), (20, TimeOfDay.evening))`
+- **Inline Comments**: Use inline comments to explain edge cases and specific scenarios
+  - Example: `(WeatherParameter.temperature, 25.0, 25.05, true),      // Within tolerance (0.1)`
+- Example: `@Test(arguments: [(8, TimeOfDay.morning), (14, TimeOfDay.afternoon), (20, TimeOfDay.evening)])`
 - Example: `@Test(arguments: ["valid1", "valid2", "valid3"]) func testValidInputs(_ input: String) throws`
 
 ## Test Macros

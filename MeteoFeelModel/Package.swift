@@ -33,7 +33,7 @@ let package = Package(
         ),
         .testTarget(
             name: "MeteoFeelModelTests",
-            dependencies: ["MeteoFeelModel"]
+            dependencies: ["MeteoFeelModel", .product(name: "MeteoFeelTestUtilities", package: "MeteoFeelUtilities")]
         ),
     ]
 )

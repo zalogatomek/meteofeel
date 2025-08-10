@@ -14,10 +14,23 @@ let package = Package(
             name: "MeteoFeelUtilities",
             targets: ["MeteoFeelUtilities"]
         ),
+        .library(
+            name: "MeteoFeelTestUtilities",
+            targets: ["MeteoFeelTestUtilities"]
+        ),
     ],
     targets: [
         .target(
             name: "MeteoFeelUtilities",
+            swiftSettings: [
+                .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("MemberImportVisibility"),
+                .enableUpcomingFeature("InternalImportsByDefault")
+            ]
+        ),
+        .target(
+            name: "MeteoFeelTestUtilities",
+            dependencies: ["MeteoFeelUtilities"],
             swiftSettings: [
                 .enableUpcomingFeature("ExistentialAny"),
                 .enableUpcomingFeature("MemberImportVisibility"),

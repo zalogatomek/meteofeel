@@ -38,6 +38,25 @@ public struct TimePeriod: Codable, Hashable, Comparable, Sendable {
             return TimePeriod(date: nextDay, timeOfDay: .morning)
         }
     }
+    
+    public func hasGap(to other: TimePeriod) -> Bool {
+        if self.date == other.date {
+            return !areConsecutiveTimePeriods(self.timeOfDay, other.timeOfDay)
+        } else {
+            return true
+        }
+    }
+    
+    // MARK: - Private Helpers
+    
+    private func areConsecutiveTimePeriods(_ first: TimeOfDay, _ second: TimeOfDay) -> Bool {
+        switch (first, second) {
+        case (.morning, .afternoon), (.afternoon, .evening):
+            return true
+        default:
+            return false
+        }
+    }
 
     // MARK: - Comparable
     

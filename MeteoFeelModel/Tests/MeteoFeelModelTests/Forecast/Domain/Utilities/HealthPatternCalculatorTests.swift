@@ -25,8 +25,13 @@ struct HealthPatternCalculatorTests {
             value: WeatherMeasurement.createStub(parameter: parameter, value: threshold)
         )
         let measurement = WeatherMeasurement.createStub(parameter: parameter, value: currentValue)
+        let timePeriod = TimePeriod.createStub()
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: measurement)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: measurement,
+            currentTimePeriod: timePeriod
+        )
         
         #expect(result == expected)
     }
@@ -52,8 +57,13 @@ struct HealthPatternCalculatorTests {
             value: WeatherMeasurement.createStub(parameter: parameter, value: threshold)
         )
         let measurement = WeatherMeasurement.createStub(parameter: parameter, value: currentValue)
+        let timePeriod = TimePeriod.createStub()
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: measurement)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: measurement,
+            currentTimePeriod: timePeriod
+        )
         
         #expect(result == expected)
     }
@@ -85,8 +95,13 @@ struct HealthPatternCalculatorTests {
             value: WeatherMeasurement.createStub(parameter: parameter, value: threshold)
         )
         let measurement = WeatherMeasurement.createStub(parameter: parameter, value: currentValue)
+        let timePeriod = TimePeriod.createStub()
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: measurement)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: measurement,
+            currentTimePeriod: timePeriod
+        )
         
         #expect(result == expected)
     }
@@ -113,8 +128,16 @@ struct HealthPatternCalculatorTests {
         )
         let currentMeasurement = WeatherMeasurement.createStub(parameter: parameter, value: currentValue)
         let previousMeasurement = WeatherMeasurement.createStub(parameter: parameter, value: previousValue)
+        let currentTimePeriod = TimePeriod.createStub(timeOfDay: .afternoon)
+        let previousTimePeriod = TimePeriod.createStub(timeOfDay: .morning)
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: currentMeasurement, previousValue: previousMeasurement)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: currentMeasurement,
+            previousValue: previousMeasurement,
+            currentTimePeriod: currentTimePeriod,
+            previousTimePeriod: previousTimePeriod
+        )
         
         #expect(result == expected)
     }
@@ -126,8 +149,13 @@ struct HealthPatternCalculatorTests {
             value: WeatherMeasurement.createStub(parameter: .temperature, value: 5.0)
         )
         let measurement = WeatherMeasurement.createStub(parameter: .temperature, value: 25.0)
+        let timePeriod = TimePeriod.createStub()
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: measurement, previousValue: nil)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: measurement,
+            currentTimePeriod: timePeriod
+        )
         
         #expect(result == false)
     }
@@ -140,8 +168,16 @@ struct HealthPatternCalculatorTests {
         )
         let currentMeasurement = WeatherMeasurement.createStub(parameter: .temperature, value: 25.0)
         let previousMeasurement = WeatherMeasurement.createStub(parameter: .pressure, value: 1010.0) // Different parameter
+        let currentTimePeriod = TimePeriod.createStub(timeOfDay: .afternoon)
+        let previousTimePeriod = TimePeriod.createStub(timeOfDay: .morning)
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: currentMeasurement, previousValue: previousMeasurement)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: currentMeasurement,
+            previousValue: previousMeasurement,
+            currentTimePeriod: currentTimePeriod,
+            previousTimePeriod: previousTimePeriod
+        )
         
         #expect(result == false)
     }
@@ -168,8 +204,16 @@ struct HealthPatternCalculatorTests {
         )
         let currentMeasurement = WeatherMeasurement.createStub(parameter: parameter, value: currentValue)
         let previousMeasurement = WeatherMeasurement.createStub(parameter: parameter, value: previousValue)
+        let currentTimePeriod = TimePeriod.createStub(timeOfDay: .afternoon)
+        let previousTimePeriod = TimePeriod.createStub(timeOfDay: .morning)
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: currentMeasurement, previousValue: previousMeasurement)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: currentMeasurement,
+            previousValue: previousMeasurement,
+            currentTimePeriod: currentTimePeriod,
+            previousTimePeriod: previousTimePeriod
+        )
         
         #expect(result == expected)
     }
@@ -181,8 +225,13 @@ struct HealthPatternCalculatorTests {
             value: WeatherMeasurement.createStub(parameter: .temperature, value: 5.0)
         )
         let measurement = WeatherMeasurement.createStub(parameter: .temperature, value: 20.0)
+        let timePeriod = TimePeriod.createStub()
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: measurement, previousValue: nil)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: measurement,
+            currentTimePeriod: timePeriod
+        )
         
         #expect(result == false)
     }
@@ -195,8 +244,16 @@ struct HealthPatternCalculatorTests {
         )
         let currentMeasurement = WeatherMeasurement.createStub(parameter: .temperature, value: 20.0)
         let previousMeasurement = WeatherMeasurement.createStub(parameter: .pressure, value: 1010.0) // Different parameter
+        let currentTimePeriod = TimePeriod.createStub(timeOfDay: .afternoon)
+        let previousTimePeriod = TimePeriod.createStub(timeOfDay: .morning)
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: currentMeasurement, previousValue: previousMeasurement)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: currentMeasurement,
+            previousValue: previousMeasurement,
+            currentTimePeriod: currentTimePeriod,
+            previousTimePeriod: previousTimePeriod
+        )
         
         #expect(result == false)
     }
@@ -216,9 +273,38 @@ struct HealthPatternCalculatorTests {
             value: WeatherMeasurement.createStub(parameter: .weatherCondition, value: Double(patternCondition.rawValue))
         )
         let measurement = WeatherMeasurement.createStub(parameter: .weatherCondition, value: Double(currentCondition.rawValue))
+        let timePeriod = TimePeriod.createStub()
         
-        let result = HealthPatternCalculator.calculate(pattern: pattern, currentValue: measurement)
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: measurement,
+            currentTimePeriod: timePeriod
+        )
         
         #expect(result == expected)
+    }
+    
+    // MARK: - Tests - Gap Detection
+    
+    @Test
+    func rapidIncreaseWithGapBetweenPeriods() throws {
+        let pattern = HealthPattern.createStub(
+            condition: .rapidIncrease,
+            value: WeatherMeasurement.createStub(parameter: .temperature, value: 5.0)
+        )
+        let currentMeasurement = WeatherMeasurement.createStub(parameter: .temperature, value: 25.0)
+        let previousMeasurement = WeatherMeasurement.createStub(parameter: .temperature, value: 20.0)
+        let currentTimePeriod = TimePeriod.createStub(timeOfDay: .evening)
+        let previousTimePeriod = TimePeriod.createStub(timeOfDay: .morning)
+        
+        let result = HealthPatternCalculator.calculate(
+            pattern: pattern,
+            currentValue: currentMeasurement,
+            previousValue: previousMeasurement,
+            currentTimePeriod: currentTimePeriod,
+            previousTimePeriod: previousTimePeriod
+        )
+        
+        #expect(result == false)
     }
 } 

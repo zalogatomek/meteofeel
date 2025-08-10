@@ -81,7 +81,9 @@ final class WeatherForecastService: WeatherForecastServiceProtocol {
             guard HealthPatternCalculator.calculate(
                 pattern: pattern,
                 currentValue: currentValue,
-                previousValue: previousValue
+                previousValue: previousValue,
+                currentTimePeriod: weather.timePeriod,
+                previousTimePeriod: previousWeather?.timePeriod
             ) else { continue }
             
             let alert = HealthAlert(

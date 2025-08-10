@@ -89,4 +89,22 @@ struct TimePeriodTests {
         #expect(eveningPeriod > afternoonPeriod)
         #expect(afternoonPeriod > morningPeriod)
     }
+    
+    @Test(arguments: [
+        (TimePeriod.createStub(timeOfDay: .morning), TimePeriod.createStub(timeOfDay: .afternoon), false),
+        (TimePeriod.createStub(timeOfDay: .afternoon), TimePeriod.createStub(timeOfDay: .evening), false),
+        (TimePeriod.createStub(timeOfDay: .evening), TimePeriod.createStub(date: .tomorrow, timeOfDay: .morning), true),
+        (TimePeriod.createStub(timeOfDay: .morning), TimePeriod.createStub(timeOfDay: .evening), true),
+        (TimePeriod.createStub(timeOfDay: .morning), TimePeriod.createStub(date: .tomorrow, timeOfDay: .afternoon), true),
+        (TimePeriod.createStub(timeOfDay: .afternoon), TimePeriod.createStub(timeOfDay: .morning), true)
+    ])
+    func hasGap(fromPeriod: TimePeriod, toPeriod: TimePeriod, expectedResult: Bool) throws {
+        #expect(fromPeriod.hasGap(to: toPeriod) == expectedResult)
+    }
 } 
+
+fileprivate extension Date {
+    static var tomorrow: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+    }
+}

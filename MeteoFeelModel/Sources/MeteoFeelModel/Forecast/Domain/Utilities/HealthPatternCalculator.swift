@@ -15,8 +15,14 @@ struct HealthPatternCalculator {
     static func calculate(
         pattern: HealthPattern,
         currentValue: WeatherMeasurement,
-        previousValue: WeatherMeasurement? = nil
+        previousValue: WeatherMeasurement? = nil,
+        currentTimePeriod: TimePeriod,
+        previousTimePeriod: TimePeriod? = nil
     ) -> Bool {
+        if shouldSkipRapidChange(pattern: pattern, currentTimePeriod: currentTimePeriod, previousTimePeriod: previousTimePeriod) {
+            return false
+        }
+        
         switch (pattern.condition, pattern.value.parameter, currentValue, previousValue) {
         case (.above, .temperature, let current, _):
             return current.value > pattern.value.value
@@ -89,5 +95,17 @@ struct HealthPatternCalculator {
         default:
             return false
         }
+    }
+
+    // MARK: - Private Helpers
+
+    private static func shouldSkipRapidChange(
+        pattern: HealthPattern,
+        currentTimePeriod: TimePeriod,
+        previousTimePeriod: TimePeriod?
+    ) -> Bool {
+        guard let previousTimePeriod else { return false }
+        return previousTimePeriod.hasGap(to: currentTimePeriod)
+            && (pattern.condition == .rapidIncrease || pattern.condition == .rapidDecrease)
     }
 } 

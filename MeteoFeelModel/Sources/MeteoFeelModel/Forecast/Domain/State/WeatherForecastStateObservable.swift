@@ -37,23 +37,20 @@ public actor WeatherForecastStateObservable {
 
     // MARK: - Properties
     
-    private let service: any WeatherForecastServiceProtocol
+    private let refreshService: any WeatherForecastRefreshServiceProtocol
     private let store: any WeatherForecastStoreProtocol
-    private let calendar: Calendar
     private let getUserProfile: () async -> UserProfile?
 
     // MARK: - Lifecycle
     
     init(
-        service: any WeatherForecastServiceProtocol,
+        refreshService: any WeatherForecastRefreshServiceProtocol,
         store: any WeatherForecastStoreProtocol,
-        getUserProfile: @escaping () async -> UserProfile?,
-        calendar: Calendar = .current
+        getUserProfile: @escaping () async -> UserProfile?
     ) {
-        self.service = service
+        self.refreshService = refreshService
         self.store = store
         self.getUserProfile = getUserProfile
-        self.calendar = calendar
         (self.state, self.stateStream, self.stateContinuation) = Self.createStateStream()
         Task { await setInitialState() }
     }
@@ -93,30 +90,17 @@ public actor WeatherForecastStateObservable {
     // MARK: - Data fetching
     
     private func checkAndRefreshIfNeeded() async {
-        guard let forecasts = state.forecasts,
-              let mostRecentForecast = forecasts.max(by: { $0.weather.fetchedAt < $1.weather.fetchedAt }),
-              !calendar.isDateInToday(mostRecentForecast.weather.fetchedAt)
-        else { return await refresh() }
+        guard await refreshService.shouldRefreshForecasts() else { return }
+        await refresh()
     }
     
     private func fetch() async {
         handleFetchingStarted()
         
-        let service = self.service
-        let store = self.store
-        
         do {
-            guard let userProfile = await getUserProfile() else {
-                handleError(WeatherForecastServiceError.noLocationAvailable)
-                return
-            }
-            
-            let forecasts = try await service.getForecasts(
-                coordinates: userProfile.location.coordinates,
-                days: 3
-            )
-            
-            try await handleNewForecasts(forecasts, store: store)
+            try await refreshService.refreshForecasts()
+            let relevantForecasts = try await getRelevantForecasts(store: store)
+            state = .loaded(relevantForecasts)
         } catch {
             handleError(error)
         }
@@ -128,15 +112,6 @@ public actor WeatherForecastStateObservable {
         } else {
             state = .fetching
         }
-    }
-
-    // MARK: - Data handling
-    
-    private func handleNewForecasts(_ forecasts: [WeatherForecast], store: any WeatherForecastStoreProtocol) async throws {
-        try await store.saveForecasts(forecasts)
-        
-        let relevantForecasts = try await getRelevantForecasts(store: store)
-        state = .loaded(relevantForecasts)
     }
 
     private func handleError(_ error: any Error) {

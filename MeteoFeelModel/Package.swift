@@ -14,6 +14,10 @@ let package = Package(
             name: "MeteoFeelModel",
             targets: ["MeteoFeelModel"]
         ),
+        .library(
+            name: "MeteoFeelModelTestUtilities",
+            targets: ["MeteoFeelModelTestUtilities"]
+        ),
     ],
     dependencies: [
         .package(path: "../MeteoFeelUtilities")
@@ -31,9 +35,22 @@ let package = Package(
                 .enableUpcomingFeature("InternalImportsByDefault")
             ]
         ),
+        .target(
+            name: "MeteoFeelModelTestUtilities",
+            dependencies: ["MeteoFeelModel"],
+            swiftSettings: [
+                .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("MemberImportVisibility"),
+                .enableUpcomingFeature("InternalImportsByDefault")
+            ]
+        ),
         .testTarget(
             name: "MeteoFeelModelTests",
-            dependencies: ["MeteoFeelModel", .product(name: "MeteoFeelTestUtilities", package: "MeteoFeelUtilities")]
+            dependencies: [
+                "MeteoFeelModel",
+                "MeteoFeelModelTestUtilities",
+                .product(name: "MeteoFeelTestUtilities", package: "MeteoFeelUtilities")
+            ]
         ),
     ]
 )

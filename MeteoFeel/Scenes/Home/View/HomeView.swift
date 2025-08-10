@@ -11,8 +11,7 @@ struct HomeView: View {
     
     init() {
         let stateObservable = WeatherForecastStateObservableFactory.create(
-            apiKey: WeatherApiConfiguration.apiKey,
-            profileService: ProfileServiceFactory.create()
+            apiKey: WeatherApiConfiguration.apiKey
         )
         self.viewModel = HomeViewModel(stateObservable: stateObservable)
     }
